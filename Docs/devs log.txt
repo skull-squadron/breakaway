@@ -1,0 +1,108 @@
+Developer's Log
+Balthamos | April 2008
+
+0.1: Proof of concept through Apple's HALLab
+     Programming commences
+     Program complete but with lag in callback Applescript object
+     Bug in callback severely hamstrings functionality
+
+0.2: Lag solved by kicking callback on start
+     Bug in callback resolved. Functionality restored
+
+0.3: Added preferences  - Mute Key Functionality
+            - Resume play on reinsert
+            - Force open iTunes
+     Made application run smoother
+
+0.4: Added preferences  - Allow initial compile
+            - Use Type B
+     Application is fully functional now
+
+0.5: Optimized iTunesActive code
+     First public release
+
+0.6: Fixed potentially fatal Type B declaration (IntelMac problem only)
+     Added menu extra disable functionality
+     Preference window to front on app icon click
+     Added splash
+     New icon
+     Halved menu extra icon size
+     Added quit button to preferences
+     
+0.7: Added Growl support
+     Fixed mute functionality on G5/Intel iMacs
+     Fixed minor mute key functionality to headphones mode
+     Added SmartPlay feature to normal mode
+     Made splash disappear quicker
+     Splash now displays correct version
+     Miscellaneous memory management enhancements
+     Fixed potential "Force iTunes Open" problem
+     Added about button to preferences
+     Preferences now come to active front when called for 
+
+0.8: "Resume on Reinsert" option now extends to Mute functionality
+     Removed "Initial Compile" option (no more need for it)
+     "Force-Open iTunes" now functions properly
+     Memory Management
+     Much faster response times
+
+0.9: Added more to SmartPlay (will not resume iTunes if there is another audio source playing)
+     Breakaway will now only start playing music if it stopped it (changeable via hidden preference)
+     Breakaway will now only start playing music if there is no other other audio source playing (disabled by default | see readme)
+     Enable/Disable bug fixed
+     Preferences improved
+     Mute functionality improved
+     Mute property listener fixed
+
+0.95: Added catch should mute/headphones be pressed/pulled in quick succession
+      Should correctly function with MacBooks (still not MacBook Pro)
+
+1.0: Now works with Macbook Pros and Mac Pros
+     Fixed error when enabling/disabling
+
+1.1: Preference window can now be closed with expected hotkeys (Command+W)
+     New preference attempts to guess what mode you want to be in
+
+1.2: New preference window
+     New preferences: Show in Dock
+                      Proc throwout time
+     New icons
+     New Triggers functionality
+     New auto updating with Sparkle
+     AppleScripts accepted for triggers 
+     ApplesScripts are now thread safe
+     Mute key functionality now defaults to on
+     Fixed potential problem with the Disable system
+     Fixed problem where Disable system would not fully disable itself
+	 
+1.3: Fixed error in auto update where it would not follow the user preference
+     Triggers now are more useful (activate regardless of what iTunes is doing)
+		Pseudo-VLC support (somewhat slow in comparison to iTunes)
+		Pseudo-Anything-that-will-take-AppleScript support
+	 Triggers are optimized to a higher degree
+
+1.4: Preference to turn off splash image
+
+1.5: Bug where Breakaway would not proc from 0 to +
+
+1.6: Chinese (Simplified) Localization
+     Dutch Localization
+     Fixed error on first start where auto update window is behind splash
+     Fixed error where Breakaway would get utterly confused if you ran it when iTunes was playing
+     Major bug where debug settings were included in release version, resulting in very very poor memory management
+     "Resume on reinsert" now defaults to on
+     Added fade-in options
+     Added "Expand Breakaway" system support feedback option
+
+1.7: Fixed minor UI errors where auto updater and info panel appeared beneath active window
+     Fixed bug where Breakaway would incorrectly read mute status when plugging/unplugging headphones
+     Fixed many logic errors concerning triggers
+     Modified trigger interface
+     Updated Chinese (Simplified) localization
+     Updated French localization
+     Minor UI adjustments
+
+1.8: Now open source on SourceForge.net
+     Now under GPL license
+
+===========================================================================

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Copyright 2008 Kevin Nygaard
+# Under GPL
+#
+# This script will create and package the latest version of Breakaway, as well
+# as generate an appcast file to use
+
+# Vars (self explanitory)
+VERSION=`grep -A1 -E "CFBundleVersion" /Programs/Breakaway/Info.plist | sed -n -E "2s/[^0-9]*([0-9]*.[0-9]*).*/\1/p"`
+DEVDIR=`echo /Programs/Breakaway`
+BAF=`echo ~/Desktop/Breakaway\(${VERSION}\)`
+APPCASTUPDATE=`echo ~/Desktop/appcastUpdate.xml`
+
+# Make a dir on the desktop with the latest app all bundled up
+# also, make a tar of it so we don't have to
+mkdir $BAF
+cp $DEVDIR/Docs/Readme.rtf $BAF/
+cp $DEVDIR/Docs/Readme\ \(Chinese\).rtf $BAF/
+cp $DEVDIR/Docs/devs\ log.txt $BAF/
+cp -R $DEVDIR/build/Release/Breakaway.app $BAF/
+cp -R $DEVDIR/Premade\ Scripts $BAF/
+
+# We have this crazy line with the cd so we don't get /Some/Crazy/User/Path/When/We/Decompress/Breakaway/
+cd ~/Desktop/; zip -r Breakaway\(${VERSION}\).zip Breakaway\(${VERSION}\)
+
+# Auto generate the appcast file
+SIZE=`du ${BAF}.zip | awk '{ print $1 }'`
+echo "<item>" >> $APPCASTUPDATE
+echo "<title>Breakaway $VERSION</title>" >> $APPCASTUPDATE
+echo "<enclosure url=\"http://balthamos.110mb.com/files/Breakaway(${VERSION}).zip\" sparkle:version=\"${VERSION}\"  type=\"application/octet-stream\" length=\"${SIZE}\" />" >> $APPCASTUPDATE
+echo "<description>" >> $APPCASTUPDATE
+echo "&lt;ul&gt;" >> $APPCASTUPDATE
+
+# Pulling the changes from the changelog.txt
+X=`grep -n "${VERSION}:" $BAF/devs\ log.txt | awk -F':' '{ print $1 }'`
+Y=`grep -n "^=" $BAF/devs\ log.txt | awk -F':' '{ print $1 }'`
+sed -n -E "$X,${Y}s/[^A-Za-z]*$//g;$X,${Y}s/([^:]*:|[^A-Za-z]*[^A-Za-z])(.*$)/\&lt;li\&gt;\2/p" $BAF/devs\ log.txt >> $APPCASTUPDATE
+echo "&lt;/ul&gt;" >> $APPCASTUPDATE
+echo "</description>" >> $APPCASTUPDATE
+echo "</item>" >> $APPCASTUPDATE
+
+exit 0

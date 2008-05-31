@@ -1,0 +1,61 @@
+TODO
+
+does not work with macbook air?
+    no test results
+
+does not work with mac pro xeon?
+    Mac Pro (Quad Xeon) | OS 10.5.2
+
+    Successfully retrieved main output device
+    ======================================================
+    Error getting property kAudioDevicePropertyJackIsConnected ('who?')
+    Successfully retrieved property kAudioDevicePropertyDataSources ('line')
+    Successfully retrieved property kAudioDevicePropertyDataSource ('line')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 2) ('who?')
+
+
+    Please connect headphones now and click on the button again
+    Successfully retrieved main output device
+    ======================================================
+    Error getting property kAudioDevicePropertyJackIsConnected ('who?')
+    Successfully retrieved property kAudioDevicePropertyDataSources ('line')
+    Successfully retrieved property kAudioDevicePropertyDataSource ('line')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 2) ('who?')
+
+
+    You are done! Click the sumbit results button. Thank you for making Breakaway better.
+    Successfully retrieved main output device
+    ======================================================
+    Error getting property kAudioDevicePropertyJackIsConnected ('who?')
+    Successfully retrieved property kAudioDevicePropertyDataSources ('line')
+    Successfully retrieved property kAudioDevicePropertyDataSource ('line')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 2) ('who?')
+
+
+    Please connect headphones now and click on the button again
+    Successfully retrieved main output device
+    ======================================================
+    Error getting property kAudioDevicePropertyJackIsConnected ('who?')
+    Successfully retrieved property kAudioDevicePropertyDataSources ('line')
+    Successfully retrieved property kAudioDevicePropertyDataSource ('line')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 1) ('who?')
+    Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSources(chan 2) ('who?')
+    Error getting property kAudioDevicePropertyDataSource(chan 2) ('who?')
