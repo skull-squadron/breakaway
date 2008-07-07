@@ -3,6 +3,7 @@
  * Breakaway
  * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
+ * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -22,7 +23,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreAudio/CoreAudio.h>
-// our proc method
+#import "AIPluginInterface.h"
+
+// our proc method; this is the main workhorse of the app
 inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 									   UInt32                  inChannel,
 									   Boolean                 isInput,
@@ -66,6 +69,9 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 	NSDate *now;
 	NSArray* triggerArray;
 	
+	// Plugin stuff
+	NSMutableArray* pluginClasses;			//	an array of all plug-in classes
+	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 }
 - (id)sparkle;
 - (void)awakeFromNib;
@@ -128,4 +134,9 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 #pragma mark Delegate Fns
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
 - (void)songChanged:(NSNotification *)aNotification;
+
+#pragma mark 
+#pragma mark Plugin Stuff
+- (void)activatePlugin:(NSString*)path;
+- (void)instantiatePlugins:(Class)pluginClass;
 @end

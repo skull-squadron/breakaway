@@ -46,6 +46,14 @@
 		0A94467D0C74053400171875 /* AITrigger.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A94467B0C74053400171875 /* AITrigger.h */; };
 		0A94467E0C74053400171875 /* AITrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A94467C0C74053400171875 /* AITrigger.m */; };
 		0A97DD490C7CB53C0022AE4A /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A97DD480C7CB53C0022AE4A /* Preferences.nib */; };
+		0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		0A9C81CB0E21CAC4001B29F6 /* AIPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */; };
+		0A9C81CD0E21CB14001B29F6 /* AIPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A9C81F10E21CD77001B29F6 /* AIPluginInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */; };
+		0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.bundle */; };
+		0A9C82220E21D250001B29F6 /* AppleScript Plugin-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */; };
+		0A9C82260E21D2DF001B29F6 /* AIPluginInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */; };
+		0A9C82860E21D9CA001B29F6 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4573210AFFD6E3007EBF43 /* AppController.h */; };
 		0AAB56010B196B18005B1E69 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB56610B19712E005B1E69 /* GrowlNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */; };
@@ -68,6 +76,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0A9C82200E21D1F7001B29F6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AAB560A0B196B9C005B1E69 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,6 +139,11 @@
 		0A94467C0C74053400171875 /* AITrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AITrigger.m; sourceTree = "<group>"; };
 		0A97DD4A0C7CB5460022AE4A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A97DD550C7CB5580022AE4A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPlugin.h; sourceTree = "<group>"; };
+		0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIPlugin.m; sourceTree = "<group>"; };
+		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppleScript Plugin-Info.plist"; sourceTree = "<group>"; };
+		0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginInterface.h; sourceTree = "<group>"; };
 		0AAB56000B196B18005B1E69 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		0AAB565E0B19712E005B1E69 /* GrowlNotifier.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GrowlNotifier.h; sourceTree = "<group>"; };
 		0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GrowlNotifier.m; sourceTree = "<group>"; };
@@ -149,6 +172,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A9C81BE0E21CA62001B29F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,6 +238,17 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		0A9C81B70E21C87D001B29F6 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
+				0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */,
+				0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */,
+				0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
 		0AD0B2910B183C790021CC15 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Breakaway.app */,
+				0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -254,6 +297,7 @@
 				0A47EBFB0C74C74D00B1DB62 /* defines.h */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				0A9C81B70E21C87D001B29F6 /* Plugin */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				0AD0B2910B183C790021CC15 /* Docs */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -297,16 +341,57 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		0A9C81CF0E21CB35001B29F6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9C81CD0E21CB14001B29F6 /* AIPlugin.h in Headers */,
+				0A9C81F10E21CD77001B29F6 /* AIPluginInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A9C82270E21D2FD001B29F6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9C82260E21D2DF001B29F6 /* AIPluginInterface.h in Headers */,
+				0A9C82860E21D9CA001B29F6 /* AppController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A9C81C60E21CA62001B29F6 /* Build configuration list for PBXNativeTarget "AppleScript Plugin" */;
+			buildPhases = (
+				0A9C81CF0E21CB35001B29F6 /* Headers */,
+				0A9C81BC0E21CA62001B29F6 /* Resources */,
+				0A9C81BD0E21CA62001B29F6 /* Sources */,
+				0A9C81BE0E21CA62001B29F6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AppleScript Plugin";
+			productName = "AppleScript Plugin";
+			productReference = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* Breakaway */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Breakaway" */;
 			buildPhases = (
+				0A9C82270E21D2FD001B29F6 /* Headers */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				0AAB560A0B196B9C005B1E69 /* CopyFiles */,
 				0AA06CDA0D9E1935003EE2A0 /* AppleScript */,
+				0A9C82200E21D1F7001B29F6 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -342,11 +427,20 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* Breakaway */,
+				0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A9C81BC0E21CA62001B29F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9C82220E21D250001B29F6 /* AppleScript Plugin-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,6 +477,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A9C81BD0E21CA62001B29F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A9C81CB0E21CAC4001B29F6 /* AIPlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,6 +543,99 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0A9C81C20E21CA62001B29F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "AppleScript Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "AppleScript Plugin";
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		0A9C81C30E21CA62001B29F6 /* Debug (no Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "AppleScript Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "AppleScript Plugin";
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = YES;
+			};
+			name = "Debug (no Logs)";
+		};
+		0A9C81C40E21CA62001B29F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "AppleScript Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "AppleScript Plugin";
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0A9C81C50E21CA62001B29F6 /* Release (Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "AppleScript Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "AppleScript Plugin";
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = YES;
+			};
+			name = "Release (Logs)";
+		};
 		0A9CA8C70B0D5FD900D358FA /* Debug (no Logs) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -597,6 +792,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A9C81C60E21CA62001B29F6 /* Build configuration list for PBXNativeTarget "AppleScript Plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A9C81C20E21CA62001B29F6 /* Debug */,
+				0A9C81C30E21CA62001B29F6 /* Debug (no Logs) */,
+				0A9C81C40E21CA62001B29F6 /* Release */,
+				0A9C81C50E21CA62001B29F6 /* Release (Logs) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Breakaway" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
