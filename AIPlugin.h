@@ -29,5 +29,4 @@
 	NSString* theViewName;
 	id theObject;	
 }
-+ (NSString*)message;
 @end

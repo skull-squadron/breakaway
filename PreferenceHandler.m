@@ -3,6 +3,7 @@
  * Breakaway
  * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
+ * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -32,7 +33,11 @@
 
 // [[[NSApplication sharedApplication]delegate] = AppController
 -(void)awakeFromNib
-{
+{	
+	// Setting up these for plugin stuff
+	pluginClasses = [[NSMutableArray alloc] init];
+	pluginInstances = [[NSMutableArray alloc] init];
+	
 	// create our instance array. this is essientially the table
 	triggersArray = [NSMutableArray array];
 	
@@ -54,10 +59,43 @@
 	
 	NSLog(@"preference handler loaded");
 	
+	// this is used for testing the system (startTest:)
 	done=0;
-	
 }
 
+#pragma mark 
+#pragma mark Plugin Stuff
+
+//	This is called to activate each plug-in, meaning that each candidate bundle is checked,
+//	loaded if it seems to contain a valid plug-in, and the plug-in's class' initiateClass
+//	method is called. If this returns YES, it means that the plug-in agrees to run and the
+//	class is added to the pluginClass array. Some plug-ins might refuse to be activated
+//	depending on some external condition.
+
+- (void)activatePlugin:(NSString*)path {
+	NSBundle* pluginBundle = [NSBundle bundleWithPath:path];
+	if (pluginBundle) {
+		NSDictionary* pluginDict = [pluginBundle infoDictionary];
+		NSString* pluginName = [pluginDict objectForKey:@"NSPrincipalClass"];
+		if (pluginName) {
+			Class pluginClass = NSClassFromString(pluginName);
+			if (!pluginClass) {
+				pluginClass = [pluginBundle principalClass];
+				if ([pluginClass conformsToProtocol:@protocol(AITriggerPluginProtocol)] &&
+					[pluginClass isKindOfClass:[NSObject class]] &&
+					[pluginClass initializeClass:pluginBundle]) {
+					[pluginClasses addObject:pluginClass];
+				}
+			}
+		}
+	}
+}
+
+- (void)instantiatePlugins:(Class)pluginClass {
+	NSObject<AITriggerPluginProtocol>* plugin = [[pluginClass alloc]init];
+	[pluginInstances addObject:plugin];
+	NSLog(@"%@",[plugin pluginUniqueName]);
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	[self exportToArray];
@@ -89,6 +127,23 @@
 
 - (void)loadTriggers
 {
+	// loading in our plugins
+	NSString* folderPath = [[NSBundle mainBundle] builtInPlugInsPath]; // path= ./Breakaway.app/Contents/PlugIns
+	if (folderPath) {
+		NSEnumerator* enumerator = [[NSBundle pathsForResourcesOfType:@"plugin" inDirectory:folderPath] objectEnumerator];
+		NSString* pluginPath;
+		while ((pluginPath = [enumerator nextObject])) {
+			[self activatePlugin:pluginPath];
+		}
+	}
+	
+	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
+	Class pluginClass;
+	while ((pluginClass = [enumerator nextObject])) {
+		[self instantiatePlugins:pluginClass];
+	}
+
+	/*
 	int i;
 	NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"triggers"];
 	for (i=0;[tmpArray count]>i;i++)
@@ -97,10 +152,17 @@
 			[triggersArray addObject:[[AITrigger alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
 		else NSLog(@"Not enough attributes to make an AITrigger (%i). Not adding to triggersArray.",[[tmpArray objectAtIndex:i]count]);
 	}
+	 */
 }
 
 - (void)executeTriggers:(int)prototype
 {	
+	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
+	Class pluginClass;
+	while ((pluginClass = [enumerator nextObject])) {
+		//NSLog([NSString stringWithFormat:@"%@",[pluginClass ]]);
+	}
+	
 	int i;
 	id tmpTrigger;
 	for (i=0;i<[triggersArray count];i++)

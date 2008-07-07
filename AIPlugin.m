@@ -35,6 +35,16 @@ static NSBundle* pluginBundle = nil;
 	return YES;
 }
 
+- (NSString*)pluginTypeName
+{
+	return @"AppleScript Trigger";
+}
+
+- (NSString*)pluginUniqueName
+{
+	return @"tmpTrigger";
+}
+
 + (void)terminateClass {
 	if (pluginBundle) {
 		[pluginBundle release];
@@ -48,17 +58,19 @@ static NSBundle* pluginBundle = nil;
 	[super dealloc];
 }
 
-+ (NSString*)message {
-	return @"This is a message from the bundle.";
-}
 
-- (NSView*)theView {
+- (NSView*)preferenceView {
 	return nil;
 }
 
 
-- (NSString*)theViewName {
+- (int)familyCode {
 	return theViewName;
+}
+
+- (void)activate:(int)prototype
+{
+	
 }
 
 @end

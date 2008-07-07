@@ -3,7 +3,6 @@
  * Breakaway
  * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
- * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -72,11 +71,7 @@
 }
 
 -(void) awakeFromNib
-{	
-	// Setting up these for plugin stuff
-	pluginClasses = [[NSMutableArray alloc] init];
-	pluginInstances = [[NSMutableArray alloc] init];
-	
+{		
 	// sets up our user defaults for preference fetching
 	userDefaults = [NSUserDefaults standardUserDefaults];
 	
@@ -126,16 +121,7 @@
     // sets up our timer. needs to be called at least once so we have a time point to refrence from (on first call)
     [self updateThen];
 }
-- (void)applicationWillFinishLaunching:(NSNotification*)notification {
-	NSString* folderPath = [[NSBundle mainBundle] builtInPlugInsPath]; // path= ./Breakaway.app/Contents/PlugIns
-	if (folderPath) {
-		NSEnumerator* enumerator = [[NSBundle pathsForResourcesOfType:@"bundle" inDirectory:folderPath] objectEnumerator];
-		NSString* pluginPath;
-		while ((pluginPath = [enumerator nextObject])) {
-			[self activatePlugin:pluginPath];
-		}
-	}
-}
+
 - (void)disable
 {	
     if ([[disableMI title] isEqual: NSLocalizedString(@"Disable",nil)])
@@ -272,30 +258,6 @@
     
     // release the window we alloced because we dont have a use for it anymore
     [splashWind release];
-}
-#pragma mark 
-#pragma mark Plugin Stuff
-//	This is called to activate each plug-in, meaning that each candidate bundle is checked,
-//	loaded if it seems to contain a valid plug-in, and the plug-in's class' initiateClass
-//	method is called. If this returns YES, it means that the plug-in agrees to run and the
-//	class is added to the pluginClass array. Some plug-ins might refuse to be activated
-//	depending on some external condition.
-
-- (void)activatePlugin:(NSString*)path {
-	NSBundle* pluginBundle = [NSBundle bundleWithPath:path];
-	if (pluginBundle) {
-		NSDictionary* pluginDict = [pluginBundle infoDictionary];
-		NSString* pluginName = [pluginDict objectForKey:@"NSPrincipalClass"];
-		if (pluginName) {
-			Class pluginClass = NSClassFromString(pluginName);
-			if (!pluginClass) {
-				pluginClass = [pluginBundle principalClass];
-				if ([pluginClass conformsToProtocol:@protocol(AITriggerPluginProtocol)] && [pluginClass isKindOfClass:[NSObject class]] && [pluginClass initializeClass:pluginBundle]) {
-					[pluginClasses addObject:pluginClass];
-				}
-			}
-		}
-	}
 }
 
 
@@ -703,12 +665,6 @@ PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithIn
 
 - (BOOL)jackConnected
 {
-	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
-	Class pluginClass;
-	while ((pluginClass = [enumerator nextObject])) {
-		//[self instantiatePlugins:pluginClass];
-		NSLog([NSString stringWithFormat:@"we just checked the status of the jack, but our bundle has an important message for us:%@",[pluginClass message]]);
-	}
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
     // get a device up
     AudioDeviceID device;

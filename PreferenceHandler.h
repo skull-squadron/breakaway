@@ -21,6 +21,8 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "AIPluginInterface.h"
+
 NSString* osTypeToFourCharCode(OSType inType);
 @interface PreferenceHandler : NSObject
 {
@@ -36,6 +38,10 @@ NSString* osTypeToFourCharCode(OSType inType);
 	IBOutlet id log;
 
 	NSMutableArray* triggersArray;
+	
+	// Plugin stuff
+	NSMutableArray* pluginClasses;			//	an array of all plug-in classes
+	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 }
 - (id)scriptField;
 - (id)triggerArrayController;
@@ -62,4 +68,9 @@ NSString* osTypeToFourCharCode(OSType inType);
 - (IBAction)locateScript:(id)sender;
 - (IBAction)revealScript:(id)sender;
 - (IBAction)openScript:(id)sender;
+
+#pragma mark 
+#pragma mark Plugin Stuff
+- (void)activatePlugin:(NSString*)path;
+- (void)instantiatePlugins:(Class)pluginClass;
 @end
