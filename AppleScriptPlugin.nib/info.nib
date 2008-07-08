@@ -5,13 +5,11 @@
 	<key>IBFramework Version</key>
 	<string>629</string>
 	<key>IBLastKnownRelativeProjectPath</key>
-	<string>../../Breakaway.xcodeproj</string>
+	<string>../Breakaway.xcodeproj</string>
 	<key>IBOldestOS</key>
 	<integer>5</integer>
 	<key>IBOpenObjects</key>
-	<array>
-		<integer>177</integer>
-	</array>
+	<array/>
 	<key>IBSystem Version</key>
 	<string>9E17</string>
 	<key>targetFramework</key>

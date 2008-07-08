@@ -25,12 +25,6 @@
 
 #define WINDOW_TITLE_HEIGHT 78
 
-/*GeneralToolbarItemIdentifier				= NSLocalizedString(@"General",@"");
-AdvancedToolbarItemIdentifier				= NSLocalizedString(@"Advanced",@"");
-TriggersToolbarItemIdentifier				= NSLocalizedString(@"Triggers",@"");
-AboutToolbarItemIdentifier  				= NSLocalizedString(@"About",@"");
-QuitToolbarItemIdentifier     				= NSLocalizedString(@"Quit",@"");*/
-
 static PreferencesController *sharedPreferencesController = nil;
 
 @implementation PreferencesController

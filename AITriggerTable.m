@@ -29,46 +29,23 @@
 -(void)awakeFromNib
 {
 	[self setDelegate:self];
+	
 }
 
 #pragma mark Delegate
 
 - (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
 {
-	//NSLog(@"Item %i: Valid? %i",rowIndex,[[[parentController triggersArray]objectAtIndex:rowIndex]valid]);
-	if ([[[parentController triggersArray]objectAtIndex:rowIndex]valid] &&
-		[[aTableColumn identifier] isEqualToString: @"1"])
-	{
-		//[[parentController scriptField] setTextColor:[NSColor blackColor]];
-		[aCell setTextColor:[NSColor blackColor]];
-		[parentController modeCheck:nil];
-		//[aCell setBackgroundColor:[NSColor greenColor]];
-	}
-	else if ([[aTableColumn identifier] isEqualToString: @"1"])
-	{
-		//[[parentController scriptField] setTextColor:[NSColor redColor]];
-		[aCell setTextColor:[NSColor redColor]];
-		[parentController modeCheck:nil];
-	}
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	// if the user deselects stuff, it will give us -1, so, try to validate our trigger only when we got an item
-	// to update our valid statement, we pass nil to our script
 	if ([self selectedRow] != -1)
 	{
-		if ([[[parentController triggersArray]objectAtIndex:[self selectedRow]]valid])
-		{
-			[[parentController scriptField] setTextColor:[NSColor blackColor]];
-			[parentController modeCheck:nil];
-		}
-		else
-		{
-			[[parentController scriptField] setTextColor:[NSColor redColor]];
-			[parentController modeCheck:nil];
-		}
+		id plugin = [[parentController pluginInstances]objectAtIndex:[self selectedRow]];
+		[[parentController drawer] setContentView:[plugin preferenceView]];
 	}
+	else [[parentController drawer] setContentView:optionsDrawerView];
 }
 
 #pragma mark Dragging

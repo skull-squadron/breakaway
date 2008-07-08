@@ -60,7 +60,8 @@ static NSBundle* pluginBundle = nil;
 
 
 - (NSView*)preferenceView {
-	return nil;
+	[NSBundle loadNibNamed:@"AppleScriptPlugin" owner:self];
+	return preferences;
 }
 
 
@@ -71,6 +72,30 @@ static NSBundle* pluginBundle = nil;
 - (void)activate:(int)prototype
 {
 	
+}
+
+#pragma mark Script Manipulators
+- (IBAction)locateScript:(id)sender
+{
+	NSOpenPanel* panel = [NSOpenPanel openPanel];
+	[panel setCanChooseFiles:YES];
+	[panel setCanChooseDirectories:NO];
+	[panel setAllowsMultipleSelection:NO];
+	if([panel runModalForDirectory:nil file:nil types:nil] == NSOKButton)
+		[[[triggerArrayController selectedObjects]objectAtIndex:0] setScript:[[panel filenames]objectAtIndex:0]];
+	
+	[triggerTable tableViewSelectionDidChange:nil];
+	[triggerTable reloadData];
+	
+}
+- (IBAction)revealScript:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] selectFile: [[[triggerArrayController selectedObjects]objectAtIndex:0]script] inFileViewerRootedAtPath:nil];
+}
+
+- (IBAction)openScript:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openFile:[[[triggerArrayController selectedObjects]objectAtIndex:0]script]];
 }
 
 @end

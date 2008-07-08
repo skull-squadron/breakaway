@@ -6,25 +6,14 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
-			<string>AIDropLink</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>parentController</key>
-				<string>id</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSTextField</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
 			<string>AITriggerTable</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
 				<key>arrayController</key>
+				<string>id</string>
+				<key>optionsDrawerView</key>
 				<string>id</string>
 				<key>parentController</key>
 				<string>id</string>
@@ -124,6 +113,8 @@
 				<key>log</key>
 				<string>id</string>
 				<key>mute</key>
+				<string>id</string>
+				<key>optionsDrawerView</key>
 				<string>id</string>
 				<key>scriptField</key>
 				<string>id</string>

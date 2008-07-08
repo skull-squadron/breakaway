@@ -26,5 +26,6 @@
 {
     IBOutlet id arrayController;
     IBOutlet id parentController;
+	IBOutlet id optionsDrawerView;
 }
 @end

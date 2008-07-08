@@ -26,7 +26,11 @@
 
 
 @interface AIPlugin : NSObject<AITriggerPluginProtocol> {
+    IBOutlet id preferences;
 	NSString* theViewName;
 	id theObject;	
 }
+- (IBAction)locateScript:(id)sender;
+- (IBAction)revealScript:(id)sender;
+- (IBAction)openScript:(id)sender;
 @end

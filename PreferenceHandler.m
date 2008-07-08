@@ -35,27 +35,11 @@
 -(void)awakeFromNib
 {	
 	// Setting up these for plugin stuff
-	pluginClasses = [[NSMutableArray alloc] init];
 	pluginInstances = [[NSMutableArray alloc] init];
 	
-	// create our instance array. this is essientially the table
-	triggersArray = [NSMutableArray array];
+	[self loadAllBundles];
 	
-	[self loadTriggers];
-	
-	[triggerArrayController setContent:triggersArray];
-	
-	// Watch these keypaths on our array controller. if its modified, it will save our triggers to our nsdefauts (via -observeValueForKeyPath:...)
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
-	[triggerArrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
+	[triggerArrayController setContent:pluginInstances];
 	
 	NSLog(@"preference handler loaded");
 	
@@ -64,106 +48,94 @@
 }
 
 #pragma mark 
-#pragma mark Plugin Stuff
+#pragma mark Plugin
 
-//	This is called to activate each plug-in, meaning that each candidate bundle is checked,
-//	loaded if it seems to contain a valid plug-in, and the plug-in's class' initiateClass
-//	method is called. If this returns YES, it means that the plug-in agrees to run and the
-//	class is added to the pluginClass array. Some plug-ins might refuse to be activated
-//	depending on some external condition.
-
-- (void)activatePlugin:(NSString*)path {
-	NSBundle* pluginBundle = [NSBundle bundleWithPath:path];
-	if (pluginBundle) {
-		NSDictionary* pluginDict = [pluginBundle infoDictionary];
-		NSString* pluginName = [pluginDict objectForKey:@"NSPrincipalClass"];
-		if (pluginName) {
-			Class pluginClass = NSClassFromString(pluginName);
-			if (!pluginClass) {
-				pluginClass = [pluginBundle principalClass];
-				if ([pluginClass conformsToProtocol:@protocol(AITriggerPluginProtocol)] &&
-					[pluginClass isKindOfClass:[NSObject class]] &&
-					[pluginClass initializeClass:pluginBundle]) {
-					[pluginClasses addObject:pluginClass];
-				}
-			}
-		}
-	}
-}
-
-- (void)instantiatePlugins:(Class)pluginClass {
-	NSObject<AITriggerPluginProtocol>* plugin = [[pluginClass alloc]init];
-	[pluginInstances addObject:plugin];
-	NSLog(@"%@",[plugin pluginUniqueName]);
-}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	[self exportToArray];
-}
-
-- (IBAction)forceSave:(id)sender
-{
-	[self exportToArray];
-}
-
-#pragma mark Trigger Functions
-- (void)exportToArray
-{
-	int i;
-	id trigger;
-	NSMutableArray* returnArray = [NSMutableArray array];
+- (void)loadAllBundles
+{                                        
+    NSMutableArray *bundlePaths;
+    NSEnumerator *pathEnum;
+    NSString *currPath;
+    NSBundle *currBundle;
+    Class currPrincipalClass;
+    id currInstance;
 	
-	for (i=0;[triggersArray count]>i;i++)
-	{
-		trigger = [triggersArray objectAtIndex:i];
-		[returnArray addObject:[trigger export]];
-	}
+    bundlePaths = [NSMutableArray array];
 	
-	NSArray* trueArray = [NSArray arrayWithArray:returnArray];
+    [bundlePaths addObjectsFromArray:[self allBundles]];               
 	
-	[[NSUserDefaults standardUserDefaults]setObject:trueArray forKey:@"triggers"];
-	[[NSUserDefaults standardUserDefaults]synchronize];
+    pathEnum = [bundlePaths objectEnumerator];
+    while(currPath = [pathEnum nextObject])
+    {
+        currBundle = [NSBundle bundleWithPath:currPath];               
+        if(currBundle)
+        {
+            currPrincipalClass = [currBundle principalClass];          
+            if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AITriggerPluginProtocol)])
+            {
+                currInstance = [[currPrincipalClass alloc] init];      
+                if(currInstance)
+                {
+					[NSBundle loadNibNamed:@"AppleScriptPlugin" owner:currInstance];
+                    [pluginInstances addObject:[currInstance autorelease]];
+                }
+            }
+        }
+    }
 }
 
-- (void)loadTriggers
+- (NSMutableArray *)allBundles
 {
-	// loading in our plugins
-	NSString* folderPath = [[NSBundle mainBundle] builtInPlugInsPath]; // path= ./Breakaway.app/Contents/PlugIns
-	if (folderPath) {
-		NSEnumerator* enumerator = [[NSBundle pathsForResourcesOfType:@"plugin" inDirectory:folderPath] objectEnumerator];
-		NSString* pluginPath;
-		while ((pluginPath = [enumerator nextObject])) {
-			[self activatePlugin:pluginPath];
-		}
-	}
+    NSArray *librarySearchPaths;
+    NSEnumerator *searchPathEnum;
+    NSString *currPath;
+    NSMutableArray *bundleSearchPaths = [NSMutableArray array];
+    NSMutableArray *allBundles = [NSMutableArray array];
 	
-	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
-	Class pluginClass;
-	while ((pluginClass = [enumerator nextObject])) {
-		[self instantiatePlugins:pluginClass];
-	}
-
-	/*
-	int i;
-	NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"triggers"];
-	for (i=0;[tmpArray count]>i;i++)
-	{
-		if ([[tmpArray objectAtIndex:i]count] > 9)
-			[triggersArray addObject:[[AITrigger alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
-		else NSLog(@"Not enough attributes to make an AITrigger (%i). Not adding to triggersArray.",[[tmpArray objectAtIndex:i]count]);
-	}
-	 */
+    librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
+	
+    searchPathEnum = [librarySearchPaths objectEnumerator];
+	while(currPath = [searchPathEnum nextObject])
+    {
+        [bundleSearchPaths addObject:
+		 [currPath stringByAppendingPathComponent:@"Application Support/Breakaway/PlugIn"]];
+    }
+    [bundleSearchPaths addObject:
+	 [[NSBundle mainBundle] builtInPlugInsPath]];
+	
+    searchPathEnum = [bundleSearchPaths objectEnumerator];
+    while(currPath = [searchPathEnum nextObject])
+    {
+        NSDirectoryEnumerator *bundleEnum;
+        NSString *currBundlePath;
+        bundleEnum = [[NSFileManager defaultManager]
+					  enumeratorAtPath:currPath];
+        if(bundleEnum)
+        {
+            while(currBundlePath = [bundleEnum nextObject])
+            {
+                if([[currBundlePath pathExtension] isEqualToString:@"plugin"])
+                {
+					[allBundles addObject:[currPath
+										   stringByAppendingPathComponent:currBundlePath]];
+                }
+            }
+        }
+    }
+	
+    return allBundles;
 }
 
 - (void)executeTriggers:(int)prototype
 {	
+	/*
 	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
 	Class pluginClass;
 	while ((pluginClass = [enumerator nextObject])) {
 		//NSLog([NSString stringWithFormat:@"%@",[pluginClass ]]);
 	}
+	 */
 	
-	int i;
+	/*int i;
 	id tmpTrigger;
 	for (i=0;i<[triggersArray count];i++)
 	{
@@ -171,30 +143,7 @@
 		if (([tmpTrigger familyCode] & prototype) == prototype) [tmpTrigger execute];
 	}
 	//[[NSUserDefaults standardUserDefaults]setObject:triggersArray forKey:@"triggers"];
-}
-
-#pragma mark Script Manipulators
-- (IBAction)locateScript:(id)sender
-{
-	NSOpenPanel* panel = [NSOpenPanel openPanel];
-	[panel setCanChooseFiles:YES];
-	[panel setCanChooseDirectories:NO];
-	[panel setAllowsMultipleSelection:NO];
-	if([panel runModalForDirectory:nil file:nil types:nil] == NSOKButton)
-		[[[triggerArrayController selectedObjects]objectAtIndex:0] setScript:[[panel filenames]objectAtIndex:0]];
-	
-	[triggerTable tableViewSelectionDidChange:nil];
-	[triggerTable reloadData];
-	
-}
-- (IBAction)revealScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] selectFile: [[[triggerArrayController selectedObjects]objectAtIndex:0]script] inFileViewerRootedAtPath:nil];
-}
-
-- (IBAction)openScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openFile:[[[triggerArrayController selectedObjects]objectAtIndex:0]script]];
+	 */
 }
 
 #pragma mark IBActions
@@ -506,19 +455,15 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 }
 
 #pragma mark Accessors (external)
-
+- (id)drawer
+{
+	return drawer;
+}
 /* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
 AITriggerTable.m - For displaying the validity of triggers (colering rows, etc) (-objectAtIndex:)*/
-- (NSMutableArray*)triggersArray
+- (NSMutableArray*)pluginInstances
 {
-	return triggersArray;
-}
-
-/* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
-AITriggerTable.m - For displaying the validity of triggers in the trigger option window (-setBackgroundColor:)*/
-- (id)scriptField
-{
-	return scriptField;
+	return pluginInstances;
 }
 
 /* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
@@ -531,7 +476,7 @@ AIDropLink.m - For getting current selection of table (-selectedObjects:) */
 #pragma mark Delegates
 - (BOOL)windowShouldClose:(id)sender
 {
-	[self exportToArray];
+	//[self exportToArray];
 	[drawer close:nil];
 	[[[NSApplication sharedApplication]delegate]recompileFadeIn];
 	return YES;

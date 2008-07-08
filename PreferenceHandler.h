@@ -36,20 +36,20 @@ NSString* osTypeToFourCharCode(OSType inType);
 	IBOutlet id fadeInSlider;
 	
 	IBOutlet id log;
-
-	NSMutableArray* triggersArray;
 	
-	// Plugin stuff
-	NSMutableArray* pluginClasses;			//	an array of all plug-in classes
+	// Plugins
 	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 }
-- (id)scriptField;
+
+// Plugin
+- (void)loadAllBundles;
+- (NSMutableArray *)allBundles;
+- (NSMutableArray*)pluginInstances;
+
 - (id)triggerArrayController;
-- (NSMutableArray*)triggersArray;
+- (id)drawer;
 
 - (void)executeTriggers:(int)prototype;
-- (void)loadTriggers;
-- (void)exportToArray;
 
 - (IBAction)donate:(id)sender;
 - (IBAction)showInMenuBar:(id)sender;
@@ -63,14 +63,4 @@ NSString* osTypeToFourCharCode(OSType inType);
 - (IBAction)sendResults:(id)sender;
 - (IBAction)startTest:(id)sender;
 
-- (IBAction)forceSave:(id)sender;
-
-- (IBAction)locateScript:(id)sender;
-- (IBAction)revealScript:(id)sender;
-- (IBAction)openScript:(id)sender;
-
-#pragma mark 
-#pragma mark Plugin Stuff
-- (void)activatePlugin:(NSString*)path;
-- (void)instantiatePlugins:(Class)pluginClass;
 @end
