@@ -1,5 +1,31 @@
 TODO
 
+trigger options
+    complete core management
+        breakaway handles all preferences, reinstantating on runs, loading refs
+        pros
+            everything merged in one table
+            easy for user to create new instances
+        cons
+            everything mixed together
+            centralized preferences makes it hard to load and manage plugins
+            hard to make new instances on the fly
+            hard to manage prefreneces for plugins that no longer have executable code
+
+    plugin-based management
+        plugins manage their own preferences/instantiations
+        pros
+            plugins manage everything
+            breakaway only calls one init call
+            plugins manage their own preferences off of single init
+            plugins manage their own instances
+        cons
+            deformalized interface
+
+    plugin-based management w/ links to formal interface of main table
+
+
+
 does not work with macbook air?
     no test results
 
@@ -45,6 +71,7 @@ does not work with mac pro xeon?
     Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('who?')
     Error getting property kAudioDevicePropertyDataSources(chan 2) ('who?')
     Error getting property kAudioDevicePropertyDataSource(chan 2) ('who?')
+
 
 
     Please connect headphones now and click on the button again

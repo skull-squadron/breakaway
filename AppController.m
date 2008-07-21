@@ -20,12 +20,12 @@
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <CoreAudio/CoreAudio.h>
 #import "AppController.h"
+
+#import <CoreAudio/CoreAudio.h>
 #import "GrowlNotifier.h"
 #import "PreferencesController.h"
 #import "PreferenceHandler.h"
-#import "AITrigger.h"
 #import "DebugUtils.h"
 #import "defines.h"
 

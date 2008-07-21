@@ -3,7 +3,6 @@
  * Breakaway
  * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
- * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *

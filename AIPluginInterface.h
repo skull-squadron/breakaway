@@ -4,7 +4,6 @@
  *
  * Created by Kevin Nygaard on 7/6/08.
  * Copyright 2008 Kevin Nygaard.
- * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -26,15 +25,13 @@
 
 @protocol AITriggerPluginProtocol
 
-// Required: Initializes the plugin class
-+ (BOOL)initializeClass:(NSBundle*)theBundle;
-
-// Required: Terminates the plugin class (even though Cocoa does not support unloading bundles, it is required
-// for future implementation
-+ (void)terminateClass;
+- (id)initMain;
+- (NSMutableArray*)instancesArray;
+- (void)addInstance;
+- (void)removeInstance;
 
 // Required: name of the plugin type (ie. AppleScript trigger, VLC manager)
-+ (NSString*)pluginTypeName;
+- (NSString*)pluginTypeName;
 
 // Required: Unique name of the plugin (ie. Sleep on mute). Do not confuse this with pluginTypeName.
 // For example, a plugin may have a pluginTypeName of "AppleScriptTrigger" and a pluginUniqueName of "Sleep on mute".

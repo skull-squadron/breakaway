@@ -39,12 +39,16 @@ NSString* osTypeToFourCharCode(OSType inType);
 	
 	// Plugins
 	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
+	NSMutableArray* masterList;
+
 }
 
 // Plugin
 - (void)loadAllBundles;
 - (NSMutableArray *)allBundles;
 - (NSMutableArray*)pluginInstances;
+- (IBAction)addInstance:(id)sender;
+- (IBAction)removeInstance:(id)sender;
 
 - (id)triggerArrayController;
 - (id)drawer;

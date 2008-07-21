@@ -69,6 +69,8 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>addInstance</key>
+				<string>id</string>
 				<key>donate</key>
 				<string>id</string>
 				<key>fadeInModified</key>
@@ -82,6 +84,8 @@
 				<key>muteKeyEnable</key>
 				<string>id</string>
 				<key>openScript</key>
+				<string>id</string>
+				<key>removeInstance</key>
 				<string>id</string>
 				<key>revealScript</key>
 				<string>id</string>

@@ -3,7 +3,6 @@
  * Breakaway
  * Created by Kevin Nygaard on 7/6/08.
  * Copyright 2008 Kevin Nygaard.
- * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -25,12 +24,60 @@
 #import "AIPluginInterface.h"
 
 
-@interface AIPlugin : NSObject<AITriggerPluginProtocol> {
+@interface AIAppleScriptPlugin : NSObject<AITriggerPluginProtocol> {
     IBOutlet id preferences;
-	NSString* theViewName;
-	id theObject;	
+	
+	int isCompiled;
+    NSAppleScript* applescript;
+	
+    NSString* name;
+    bool nmode;
+	bool hpmode;
+	bool mute;
+	bool unmute;
+	bool hin;
+	bool hout;
+    int lod;
+	int familyCode;
+    NSString* script;
+	bool enabled;
+	bool valid;
+	bool modeSelected;
 }
 - (IBAction)locateScript:(id)sender;
 - (IBAction)revealScript:(id)sender;
 - (IBAction)openScript:(id)sender;
+
+-(NSDictionary*)export;
+
+-(void)compile;
+-(void)execute;
+
+-(NSString*)name;
+-(BOOL)nmode;
+-(BOOL)hpmode;
+-(BOOL)mute;
+-(BOOL)unmute;
+-(BOOL)hin;
+-(BOOL)hout;
+-(int)familyCode;
+-(int)lod;
+-(NSString*)script;
+-(BOOL)enabled;
+-(BOOL)valid;
+-(BOOL)modeSelected;
+
+-(void)setName:(NSString*)var;
+-(void)setnMode:(bool)var;
+-(void)sethpMode:(bool)var;
+-(void)setMute:(bool)var;
+-(void)setUnmute:(bool)var;
+-(void)setHin:(bool)var;
+-(void)setHout:(bool)var;
+-(void)setFamilyCode;
+-(void)setLod:(int)var;
+-(void)setScript:(NSString*)var;
+-(void)setEnabled:(BOOL)var;
+-(void)setValid:(BOOL)var;
+-(void)setModeSelected:(BOOL)var;
 @end

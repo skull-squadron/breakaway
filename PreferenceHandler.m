@@ -3,7 +3,6 @@
  * Breakaway
  * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
- * Plugin template sample code from Rainer Brockerhoff, MacHack 2002.
  *
  * This file is part of Breakaway.
  *
@@ -22,9 +21,9 @@
  */
 
 #import "PreferenceHandler.h"
+
 #import "AppController.h"
 #import "Sparkle/SUUpdater.h"
-#import "AITrigger.h"
 #import "defines.h"
 #import <sys/sysctl.h>
 
@@ -34,12 +33,21 @@
 // [[[NSApplication sharedApplication]delegate] = AppController
 -(void)awakeFromNib
 {	
+	NSEnumerator *pluginEnum;
+	
 	// Setting up these for plugin stuff
 	pluginInstances = [[NSMutableArray alloc] init];
 	
 	[self loadAllBundles];
 	
-	[triggerArrayController setContent:pluginInstances];
+	masterList = [[NSMutableArray alloc] init];
+	pluginEnum = [pluginInstances objectEnumerator];
+	NSMutableArray* tmpArray;
+	
+	while (tmpArray = [[pluginEnum nextObject]instancesArray])
+		[masterList addObjectsFromArray:tmpArray];
+	
+	[triggerArrayController setContent:masterList];
 	
 	NSLog(@"preference handler loaded");
 	
@@ -48,11 +56,12 @@
 }
 
 #pragma mark 
-#pragma mark Plugin
+#pragma mark Plugin Loading
 
 - (void)loadAllBundles
 {                                        
     NSMutableArray *bundlePaths;
+	NSDictionary *infoDictionary;
     NSEnumerator *pathEnum;
     NSString *currPath;
     NSBundle *currBundle;
@@ -69,13 +78,14 @@
         currBundle = [NSBundle bundleWithPath:currPath];               
         if(currBundle)
         {
-            currPrincipalClass = [currBundle principalClass];          
+            currPrincipalClass = [currBundle principalClass];
+			infoDictionary = [currBundle infoDictionary];
             if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AITriggerPluginProtocol)])
             {
-                currInstance = [[currPrincipalClass alloc] init];      
+                currInstance = [[currPrincipalClass alloc] init]; 
                 if(currInstance)
                 {
-					[NSBundle loadNibNamed:@"AppleScriptPlugin" owner:currInstance];
+					[NSBundle loadNibNamed:[infoDictionary valueForKey:@"NSMainNibFile"] owner:currInstance];
                     [pluginInstances addObject:[currInstance autorelease]];
                 }
             }
@@ -115,8 +125,7 @@
             {
                 if([[currBundlePath pathExtension] isEqualToString:@"plugin"])
                 {
-					[allBundles addObject:[currPath
-										   stringByAppendingPathComponent:currBundlePath]];
+					[allBundles addObject:[currPath stringByAppendingPathComponent:currBundlePath]];
                 }
             }
         }
@@ -125,25 +134,15 @@
     return allBundles;
 }
 
+#pragma mark 
+#pragma mark Plugin Management
 - (void)executeTriggers:(int)prototype
 {	
-	/*
-	NSEnumerator* enumerator = [pluginClasses objectEnumerator];
-	Class pluginClass;
-	while ((pluginClass = [enumerator nextObject])) {
-		//NSLog([NSString stringWithFormat:@"%@",[pluginClass ]]);
+	NSEnumerator* enumerator = [pluginInstances objectEnumerator];
+	id plugin;
+	while ((plugin = [enumerator nextObject])) {
+		if (([plugin familyCode] & prototype) == prototype) [plugin activate:prototype];
 	}
-	 */
-	
-	/*int i;
-	id tmpTrigger;
-	for (i=0;i<[triggersArray count];i++)
-	{
-		tmpTrigger = [triggersArray objectAtIndex:i];
-		if (([tmpTrigger familyCode] & prototype) == prototype) [tmpTrigger execute];
-	}
-	//[[NSUserDefaults standardUserDefaults]setObject:triggersArray forKey:@"triggers"];
-	 */
 }
 
 #pragma mark IBActions
@@ -217,20 +216,6 @@
 {
 	id sparkle = [[[NSApplication sharedApplication]delegate] sparkle];
 	[sparkle checkForUpdates:self];
-}
-
-- (IBAction)modeCheck:(id)sender
-{
-	if ([[triggerArrayController selectedObjects]count] && [[[triggerArrayController selectedObjects]objectAtIndex:0]modeSelected])
-	{
-		[mute setEnabled:1];
-		[unmute setEnabled:1];
-	}
-	else
-	{
-		[mute setEnabled:0];
-		[unmute setEnabled:0];
-	}
 }
 
 - (IBAction)testFadeIn:(id)sender

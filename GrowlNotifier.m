@@ -21,6 +21,7 @@
  */
 
 #import "GrowlNotifier.h"
+
 #import "DebugUtils.h"
 #import <Growl/Growl.h>
 

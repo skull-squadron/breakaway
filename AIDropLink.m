@@ -21,8 +21,8 @@
  */
 
 #import "AIDropLink.h"
+
 #import "PreferenceHandler.h"
-#import "AITrigger.h"
 
 @implementation AIDropLink
 

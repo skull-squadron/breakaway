@@ -21,7 +21,7 @@
  */
 
 #import "AITriggerTable.h"
-#import "AITrigger.h"
+
 #import "PreferenceHandler.h"
 
 @implementation AITriggerTable
@@ -32,11 +32,17 @@
 	
 }
 
-#pragma mark Delegate
-
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (IBAction)addInstance:(id)sender
 {
+	
 }
+
+- (IBAction)removeInstance:(id)sender
+{
+	[[parentController pluginInstances]removeObjectAtIndex:[self selectedRow]]
+}
+
+#pragma mark Delegate
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
