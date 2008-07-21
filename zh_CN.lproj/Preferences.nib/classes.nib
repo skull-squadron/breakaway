@@ -52,9 +52,9 @@
 				<string>id</string>
 				<key>mute</key>
 				<string>id</string>
-				<key>scriptField</key>
+				<key>pluginSelectorController</key>
 				<string>id</string>
-				<key>triggerArrayController</key>
+				<key>scriptField</key>
 				<string>id</string>
 				<key>triggerTable</key>
 				<string>id</string>

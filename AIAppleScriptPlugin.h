@@ -26,6 +26,8 @@
 
 @interface AIAppleScriptPlugin : NSObject<AITriggerPluginProtocol> {
     IBOutlet id preferences;
+	IBOutlet id arrayController;
+	NSMutableArray* instancesArray;
 	
 	int isCompiled;
     NSAppleScript* applescript;
@@ -47,37 +49,45 @@
 - (IBAction)locateScript:(id)sender;
 - (IBAction)revealScript:(id)sender;
 - (IBAction)openScript:(id)sender;
+-(NSArrayController*)arrayController;
+-(id)initFromDictionary:(NSDictionary*)attributes;
+- (void)observeValues:(NSArrayController *)arrayController using:(NSObject *)observer;
 
--(NSDictionary*)export;
+- (IBAction)save:(id)sender;
 
--(void)compile;
--(void)execute;
+- (NSDictionary*)export;
 
--(NSString*)name;
--(BOOL)nmode;
--(BOOL)hpmode;
--(BOOL)mute;
--(BOOL)unmute;
--(BOOL)hin;
--(BOOL)hout;
--(int)familyCode;
--(int)lod;
--(NSString*)script;
--(BOOL)enabled;
--(BOOL)valid;
--(BOOL)modeSelected;
+- (void)compile;
+- (void)execute;
 
--(void)setName:(NSString*)var;
--(void)setnMode:(bool)var;
--(void)sethpMode:(bool)var;
--(void)setMute:(bool)var;
--(void)setUnmute:(bool)var;
--(void)setHin:(bool)var;
--(void)setHout:(bool)var;
--(void)setFamilyCode;
--(void)setLod:(int)var;
--(void)setScript:(NSString*)var;
--(void)setEnabled:(BOOL)var;
--(void)setValid:(BOOL)var;
--(void)setModeSelected:(BOOL)var;
+- (NSMutableArray*)instancesArray;
+
+// KVC stuff
+- (NSString*)name;
+- (BOOL)nmode;
+- (BOOL)hpmode;
+- (BOOL)mute;
+- (BOOL)unmute;
+- (BOOL)hin;
+- (BOOL)hout;
+- (int)familyCode;
+- (int)lod;
+- (NSString*)script;
+- (BOOL)enabled;
+- (BOOL)valid;
+- (BOOL)modeSelected;
+
+- (void)setName:(NSString*)var;
+- (void)setnMode:(bool)var;
+- (void)sethpMode:(bool)var;
+- (void)setMute:(bool)var;
+- (void)setUnmute:(bool)var;
+- (void)setHin:(bool)var;
+- (void)setHout:(bool)var;
+- (void)setFamilyCode;
+- (void)setLod:(int)var;
+- (void)setScript:(NSString*)var;
+- (void)setEnabled:(BOOL)var;
+- (void)setValid:(BOOL)var;
+- (void)setModeSelected:(BOOL)var;
 @end

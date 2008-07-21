@@ -1,5 +1,5 @@
 /*
- * AITriggerTable.h
+ * AIPluginContent.h
  * Breakaway
  * Created by Kevin Nygaard on 8/15/07.
  * Copyright 2008 Kevin Nygaard.
@@ -22,7 +22,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AITriggerTable : NSTableView
+@interface AIPluginContent : NSTableView
 {
     IBOutlet id arrayController;
     IBOutlet id parentController;

@@ -30,10 +30,12 @@
 		0A47EC6B0C74D0CA00B1DB62 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6A0C74D0CA00B1DB62 /* Add.tiff */; };
 		0A47EC6D0C74D0D200B1DB62 /* flag.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6C0C74D0D200B1DB62 /* flag.tiff */; };
 		0A47EC6F0C74D0E000B1DB62 /* Power.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6E0C74D0E000B1DB62 /* Power.tiff */; };
+		0A4DBF1D0E350C3F00102585 /* AIPluginSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4DBF1B0E350C3F00102585 /* AIPluginSelector.h */; };
+		0A4DBF1E0E350C3F00102585 /* AIPluginSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */; };
 		0A4E88720D7D1F2700AF82F8 /* 15banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4E88710D7D1F2700AF82F8 /* 15banner.png */; };
 		0A4E88740D7D1F7000AF82F8 /* 15bannerSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4E88730D7D1F7000AF82F8 /* 15bannerSmall.png */; };
-		0A5D9F980C774031006C8ADC /* AITriggerTable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A5D9F960C774031006C8ADC /* AITriggerTable.h */; };
-		0A5D9F990C774031006C8ADC /* AITriggerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D9F970C774031006C8ADC /* AITriggerTable.m */; };
+		0A5D9F980C774031006C8ADC /* AIPluginContent.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A5D9F960C774031006C8ADC /* AIPluginContent.h */; };
+		0A5D9F990C774031006C8ADC /* AIPluginContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5D9F970C774031006C8ADC /* AIPluginContent.m */; };
 		0A60A5790DC2C73C0078273D /* Macintosh.dict in Resources */ = {isa = PBXBuildFile; fileRef = 0A60A5780DC2C73C0078273D /* Macintosh.dict */; };
 		0A73575E0DC2882A0095EE7A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A73575D0DC2882A0095EE7A /* Network Utility.tiff */; };
 		0A7A39D20B9784B000A35612 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A7A39D00B9784B000A35612 /* MainMenu.nib */; };
@@ -49,8 +51,8 @@
 		0A9477D60E23B24100E2C06C /* Remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9477D40E23B23C00E2C06C /* Remove.tiff */; };
 		0A97DD490C7CB53C0022AE4A /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A97DD480C7CB53C0022AE4A /* Preferences.nib */; };
 		0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		0A9C81CB0E21CAC4001B29F6 /* AIPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */; };
-		0A9C81CD0E21CB14001B29F6 /* AIPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A9C81CB0E21CAC4001B29F6 /* AIAppleScriptPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C81B90E21C8A2001B29F6 /* AIAppleScriptPlugin.m */; };
+		0A9C81CD0E21CB14001B29F6 /* AIAppleScriptPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81B80E21C8A2001B29F6 /* AIAppleScriptPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A9C81F10E21CD77001B29F6 /* AIPluginInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */; };
 		0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
 		0A9C82220E21D250001B29F6 /* AppleScript Plugin-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */; };
@@ -101,7 +103,7 @@
 				0A94467D0C74053400171875 /* AITrigger.h in CopyFiles */,
 				0A47EBFD0C74C74D00B1DB62 /* defines.h in CopyFiles */,
 				0AC7E9C80C76B96E001C796E /* AIDropLink.h in CopyFiles */,
-				0A5D9F980C774031006C8ADC /* AITriggerTable.h in CopyFiles */,
+				0A5D9F980C774031006C8ADC /* AIPluginContent.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,10 +126,12 @@
 		0A47EC6A0C74D0CA00B1DB62 /* Add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Add.tiff; path = images/Add.tiff; sourceTree = "<group>"; };
 		0A47EC6C0C74D0D200B1DB62 /* flag.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = flag.tiff; path = images/flag.tiff; sourceTree = "<group>"; };
 		0A47EC6E0C74D0E000B1DB62 /* Power.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Power.tiff; path = images/Power.tiff; sourceTree = "<group>"; };
+		0A4DBF1B0E350C3F00102585 /* AIPluginSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginSelector.h; sourceTree = "<group>"; };
+		0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIPluginSelector.m; sourceTree = "<group>"; };
 		0A4E88710D7D1F2700AF82F8 /* 15banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 15banner.png; path = images/15banner.png; sourceTree = "<group>"; };
 		0A4E88730D7D1F7000AF82F8 /* 15bannerSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 15bannerSmall.png; path = images/15bannerSmall.png; sourceTree = "<group>"; };
-		0A5D9F960C774031006C8ADC /* AITriggerTable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AITriggerTable.h; sourceTree = "<group>"; };
-		0A5D9F970C774031006C8ADC /* AITriggerTable.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AITriggerTable.m; sourceTree = "<group>"; };
+		0A5D9F960C774031006C8ADC /* AIPluginContent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AIPluginContent.h; sourceTree = "<group>"; };
+		0A5D9F970C774031006C8ADC /* AIPluginContent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AIPluginContent.m; sourceTree = "<group>"; };
 		0A60A5780DC2C73C0078273D /* Macintosh.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Macintosh.dict; sourceTree = "<group>"; };
 		0A73575D0DC2882A0095EE7A /* Network Utility.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Network Utility.tiff"; path = "images/Network Utility.tiff"; sourceTree = "<group>"; };
 		0A7A39D10B9784B000A35612 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -143,8 +147,8 @@
 		0A9477D40E23B23C00E2C06C /* Remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Remove.tiff; sourceTree = "<group>"; };
 		0A97DD4A0C7CB5460022AE4A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A97DD550C7CB5580022AE4A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPlugin.h; sourceTree = "<group>"; };
-		0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIPlugin.m; sourceTree = "<group>"; };
+		0A9C81B80E21C8A2001B29F6 /* AIAppleScriptPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIAppleScriptPlugin.h; sourceTree = "<group>"; };
+		0A9C81B90E21C8A2001B29F6 /* AIAppleScriptPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIAppleScriptPlugin.m; sourceTree = "<group>"; };
 		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppleScript Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginInterface.h; sourceTree = "<group>"; };
@@ -211,8 +215,10 @@
 				0A94467C0C74053400171875 /* AITrigger.m */,
 				0AC7E9C60C76B96E001C796E /* AIDropLink.h */,
 				0AC7E9C70C76B96E001C796E /* AIDropLink.m */,
-				0A5D9F960C774031006C8ADC /* AITriggerTable.h */,
-				0A5D9F970C774031006C8ADC /* AITriggerTable.m */,
+				0A5D9F960C774031006C8ADC /* AIPluginContent.h */,
+				0A5D9F970C774031006C8ADC /* AIPluginContent.m */,
+				0A4DBF1B0E350C3F00102585 /* AIPluginSelector.h */,
+				0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */,
 				0AAB565E0B19712E005B1E69 /* GrowlNotifier.h */,
 				0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */,
 			);
@@ -243,16 +249,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		0A9C81B70E21C87D001B29F6 /* Plugin */ = {
+		0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */ = {
 			isa = PBXGroup;
 			children = (
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
 				0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */,
 				0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */,
-				0A9C81B80E21C8A2001B29F6 /* AIPlugin.h */,
-				0A9C81B90E21C8A2001B29F6 /* AIPlugin.m */,
+				0A9C81B80E21C8A2001B29F6 /* AIAppleScriptPlugin.h */,
+				0A9C81B90E21C8A2001B29F6 /* AIAppleScriptPlugin.m */,
 			);
-			name = Plugin;
+			name = "AppleScript Plugin";
 			sourceTree = "<group>";
 		};
 		0AD0B2910B183C790021CC15 /* Docs */ = {
@@ -303,7 +309,7 @@
 				0A47EBFB0C74C74D00B1DB62 /* defines.h */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				0A9C81B70E21C87D001B29F6 /* Plugin */,
+				0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				0AD0B2910B183C790021CC15 /* Docs */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -352,7 +358,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A9C81CD0E21CB14001B29F6 /* AIPlugin.h in Headers */,
+				0A9C81CD0E21CB14001B29F6 /* AIAppleScriptPlugin.h in Headers */,
 				0A9C81F10E21CD77001B29F6 /* AIPluginInterface.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +369,7 @@
 			files = (
 				0A9C82260E21D2DF001B29F6 /* AIPluginInterface.h in Headers */,
 				0A9C82860E21D9CA001B29F6 /* AppController.h in Headers */,
+				0A4DBF1D0E350C3F00102585 /* AIPluginSelector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,7 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A9C81CB0E21CAC4001B29F6 /* AIPlugin.m in Sources */,
+				0A9C81CB0E21CAC4001B29F6 /* AIAppleScriptPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +511,8 @@
 				0AD158320C72A52300E95F09 /* PreferenceHandler.m in Sources */,
 				0A94467E0C74053400171875 /* AITrigger.m in Sources */,
 				0AC7E9C90C76B96E001C796E /* AIDropLink.m in Sources */,
-				0A5D9F990C774031006C8ADC /* AITriggerTable.m in Sources */,
+				0A5D9F990C774031006C8ADC /* AIPluginContent.m in Sources */,
+				0A4DBF1E0E350C3F00102585 /* AIPluginSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

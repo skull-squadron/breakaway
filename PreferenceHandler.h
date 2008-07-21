@@ -27,7 +27,8 @@ NSString* osTypeToFourCharCode(OSType inType);
 @interface PreferenceHandler : NSObject
 {
 	int done;
-	IBOutlet id triggerArrayController;
+	IBOutlet id pluginSelectorController;
+	IBOutlet id pluginContentController;
 	IBOutlet id drawer;
 	IBOutlet id scriptField;
 	IBOutlet id triggerTable;
@@ -47,10 +48,9 @@ NSString* osTypeToFourCharCode(OSType inType);
 - (void)loadAllBundles;
 - (NSMutableArray *)allBundles;
 - (NSMutableArray*)pluginInstances;
-- (IBAction)addInstance:(id)sender;
-- (IBAction)removeInstance:(id)sender;
 
-- (id)triggerArrayController;
+- (id)pluginSelectorController;
+- (id)pluginContentController;
 - (id)drawer;
 
 - (void)executeTriggers:(int)prototype;

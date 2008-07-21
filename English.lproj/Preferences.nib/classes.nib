@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
-			<string>AITriggerTable</string>
+			<string>AIPluginContent</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>
@@ -52,6 +52,25 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>AIPluginSelector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>optionsDrawerView</key>
+				<string>id</string>
+				<key>parentController</key>
+				<string>id</string>
+				<key>pluginContentController</key>
+				<string>id</string>
+				<key>pluginSelectorController</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSTableView</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
@@ -120,9 +139,13 @@
 				<string>id</string>
 				<key>optionsDrawerView</key>
 				<string>id</string>
-				<key>scriptField</key>
+				<key>pluginArrayController</key>
 				<string>id</string>
-				<key>triggerArrayController</key>
+				<key>pluginContentController</key>
+				<string>id</string>
+				<key>pluginSelectorController</key>
+				<string>id</string>
+				<key>scriptField</key>
 				<string>id</string>
 				<key>triggerTable</key>
 				<string>id</string>

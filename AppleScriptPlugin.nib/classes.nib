@@ -18,25 +18,36 @@
 			<string>NSTextField</string>
 		</dict>
 		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>locateScript</key>
+				<string>id</string>
+				<key>openScript</key>
+				<string>id</string>
+				<key>revealScript</key>
+				<string>id</string>
+				<key>save</key>
+				<string>id</string>
+			</dict>
 			<key>CLASS</key>
-			<string>FirstResponder</string>
+			<string>AIAppleScriptPlugin</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>arrayController</key>
+				<string>id</string>
+				<key>preferences</key>
+				<string>id</string>
+			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
-			<string>AIPlugin</string>
+			<string>FirstResponder</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>preferences</key>
-				<string>id</string>
-				<key>theObject</key>
-				<string>id</string>
-			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>

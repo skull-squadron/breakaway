@@ -40,14 +40,8 @@
 	
 	[self loadAllBundles];
 	
-	masterList = [[NSMutableArray alloc] init];
-	pluginEnum = [pluginInstances objectEnumerator];
-	NSMutableArray* tmpArray;
-	
-	while (tmpArray = [[pluginEnum nextObject]instancesArray])
-		[masterList addObjectsFromArray:tmpArray];
-	
-	[triggerArrayController setContent:masterList];
+	[pluginSelectorController setContent:pluginInstances];
+	//if([[pluginArrayController selectedObjects] objectAtIndex:0]) [pluginSelectionController setContent:[[[pluginArrayController selectedObjects] objectAtIndex:0] instancesArray]];
 	
 	NSLog(@"preference handler loaded");
 	
@@ -445,7 +439,7 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 	return drawer;
 }
 /* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
-AITriggerTable.m - For displaying the validity of triggers (colering rows, etc) (-objectAtIndex:)*/
+AIPluginContent.m - For displaying the validity of triggers (colering rows, etc) (-objectAtIndex:)*/
 - (NSMutableArray*)pluginInstances
 {
 	return pluginInstances;
@@ -453,9 +447,14 @@ AITriggerTable.m - For displaying the validity of triggers (colering rows, etc) 
 
 /* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
 AIDropLink.m - For getting current selection of table (-selectedObjects:) */
-- (id)triggerArrayController
+- (id)pluginSelectorController
 {
-	return triggerArrayController;
+	return pluginSelectorController;
+}
+
+- (id)pluginContentController
+{
+	return pluginSelectorController;
 }
 
 #pragma mark Delegates

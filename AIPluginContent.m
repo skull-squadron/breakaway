@@ -1,5 +1,5 @@
 /*
- * AITriggerTable.m
+ * AIPluginContent.m
  * Breakaway
  * Created by Kevin Nygaard on 8/15/07.
  * Copyright 2008 Kevin Nygaard.
@@ -20,11 +20,11 @@
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import "AITriggerTable.h"
+#import "AIPluginContent.h"
 
 #import "PreferenceHandler.h"
 
-@implementation AITriggerTable
+@implementation AIPluginContent
 
 -(void)awakeFromNib
 {
@@ -32,19 +32,9 @@
 	
 }
 
-- (IBAction)addInstance:(id)sender
-{
-	
-}
-
-- (IBAction)removeInstance:(id)sender
-{
-	[[parentController pluginInstances]removeObjectAtIndex:[self selectedRow]]
-}
-
 #pragma mark Delegate
 
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
+/*- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
 	if ([self selectedRow] != -1)
 	{
@@ -72,7 +62,7 @@
 			int i;
 			for (i=0;[files count]>i;i++)
 			{
-				[[[[parentController triggerArrayController] selectedObjects]objectAtIndex:0] setScript:[files objectAtIndex:i]];
+				[[[[parentController pluginSelectorController] selectedObjects]objectAtIndex:0] setScript:[files objectAtIndex:i]];
 			}
 			
         }
@@ -98,5 +88,5 @@
     return NSDragOperationNone;
 }
 
-
+*/
 @end

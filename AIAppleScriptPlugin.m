@@ -22,8 +22,6 @@
 
 #import "AIAppleScriptPlugin.h"
 
-static NSBundle* pluginBundle = nil;
-
 @implementation AIAppleScriptPlugin
 
 #pragma mark Required Plugin Info
@@ -35,7 +33,7 @@ static NSBundle* pluginBundle = nil;
 
 - (NSString*)pluginUniqueName
 {
-	return @"AppleScript Trigger Loader";
+	return name;
 }
 
 - (NSView*)preferenceView {
@@ -54,13 +52,39 @@ static NSBundle* pluginBundle = nil;
 	[applescript performSelectorOnMainThread:@selector(executeAndReturnError:) withObject:nil waitUntilDone:NO];
 }
 
-- (void)addInstance
+#pragma mark 
+
+- (id)init
 {
+	if (!(self = [super init])) return nil;
+	
+	instancesArray = [[NSMutableArray alloc]init];
+	
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
+	
+	int i;
+	NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"AIAppleScriptTriggers"];
+	for (i=0;[tmpArray count]>i;i++)
+	{
+		if ([[tmpArray objectAtIndex:i]count] > 9)
+			[instancesArray addObject:[[AIAppleScriptPlugin alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
+		else NSLog(@"Not enough attributes to make an AITrigger (%i). Not adding to instancesArray.",[[tmpArray objectAtIndex:i]count]);
+	}
+	
+	[arrayController setContent: instancesArray];
+	
+	return self;
 	
 }
-- (void)removeInstance;
-
-#pragma mark 
 
 -(id)initFromDictionary:(NSDictionary*)attributes
 {
@@ -91,7 +115,32 @@ static NSBundle* pluginBundle = nil;
 	
 	return self;
 }
+-(NSArrayController*)arrayController
+{
+	return arrayController;
+}
+- (void)exportToArray
+{
+	int i;
+	id instance;
+	NSMutableArray* returnArray = [NSMutableArray array];
+	
+	for (i=0;[instancesArray count]>i;i++)
+	{
+		instance = [instancesArray objectAtIndex:i];
+		[returnArray addObject:[instance export]];
+	}
+	
+	NSArray* trueArray = [NSArray arrayWithArray:returnArray];
+	
+	[[NSUserDefaults standardUserDefaults]setObject:trueArray forKey:@"AIAppleScriptTriggers"];
+	[[NSUserDefaults standardUserDefaults]synchronize];
+}
 
+- (NSMutableArray*)instancesArray
+{
+	return instancesArray;
+}
 
 #pragma mark Script Manipulators
 -(void)setScript:(NSString*)var
@@ -125,6 +174,10 @@ static NSBundle* pluginBundle = nil;
 	[applescript compileAndReturnError:nil];
 }
 
+- (IBAction)save:(id)sender
+{
+	[self exportToArray];
+}
 - (IBAction)locateScript:(id)sender
 {
 	NSOpenPanel* panel = [NSOpenPanel openPanel];
@@ -264,6 +317,23 @@ static NSBundle* pluginBundle = nil;
 
 #pragma mark KVC sets
 //{{{
+
+-(void)setEnabled:(BOOL)var
+{	
+	if([[NSFileManager defaultManager]fileExistsAtPath:script])
+	{
+		[self setValid:TRUE];
+		enabled = var;
+		[self setFamilyCode];
+	}
+	else
+	{
+		enabled = FALSE;
+		[self setValid:FALSE];
+		[self setFamilyCode];
+	}
+}
+
 -(void)setName:(NSString*)var
 {
 	[name release];

@@ -52,9 +52,9 @@
 			int i;
 			for (i=0;[files count]>i;i++)
 			{
-				[[[[parentController triggerArrayController] selectedObjects]objectAtIndex:0] setScript:[files objectAtIndex:i]];
+				[[[[parentController pluginSelectorController] selectedObjects]objectAtIndex:0] setScript:[files objectAtIndex:i]];
 				
-				if ([[[[parentController triggerArrayController] selectedObjects]objectAtIndex:0]valid])
+				if ([[[[parentController pluginSelectorController] selectedObjects]objectAtIndex:0]valid])
 				{
 					[[parentController scriptField] setTextColor:[NSColor blackColor]];
 				}
