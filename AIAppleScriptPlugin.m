@@ -24,7 +24,7 @@
 
 @implementation AIAppleScriptPlugin
 
-#pragma mark Required Plugin Info
+#pragma mark Some Required Plugin Info
 
 - (NSString*)pluginTypeName
 {
@@ -36,60 +36,44 @@
 	return name;
 }
 
-- (NSView*)preferenceView {
+- (NSView*)preferenceView
+{
 	// link up your NSView in IB and return that outlet here. Breakaway handles loading your plugin nib for you
 	return preferences;
 }
 
-- (int)familyCode {
-	return familyCode;
-}
-
-- (void)activate:(int)prototype
-{
-	NSLog(@"::Launching Script::\n::%@::\n::%@::",[applescript source],[applescript isCompiled]?@"COMPILED":@"NOT COMPILED");
-	if (![applescript isCompiled]) [applescript performSelectorOnMainThread:@selector(compileAndReturnError:) withObject:nil waitUntilDone:NO];
-	[applescript performSelectorOnMainThread:@selector(executeAndReturnError:) withObject:nil waitUntilDone:NO];
-}
-
 #pragma mark 
 
--(void)awakeFromNib
-{
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
-	[arrayController setContent: instancesArray];
-}
-
+/*
+ this gets called when the plugin is first instantiated (re loaded)
+ this is also bad programming convention, as i have made the controller and object in the same class. ideally,
+ you would want to have two separate classes; one that controlls all the objects, and one soley as the object
+ */
 - (id)init
 {
 	if (!(self = [super init])) return nil;
 	
-	instancesArray = [[NSMutableArray alloc]init];
-	
-	int i;
-	NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"AIAppleScriptTriggers"];
-	for (i=0;[tmpArray count]>i;i++)
+	// if our array, hasn't been made yet, make it and fill it up
+	if (!instancesArray)
 	{
-		if ([[tmpArray objectAtIndex:i]count] > 9)
-			[instancesArray addObject:[[AIAppleScriptPlugin alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
-		else NSLog(@"Not enough attributes to make an AITrigger (%i). Not adding to instancesArray.",[[tmpArray objectAtIndex:i]count]);
+		instancesArray = [[NSMutableArray alloc]init];
+		
+		int i;
+		NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"AIAppleScriptTriggers"];
+		for (i=0;[tmpArray count]>i;i++)
+		{
+			if ([[tmpArray objectAtIndex:i]count] >= 8)
+				[instancesArray addObject:[[AIAppleScriptPlugin alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
+			else NSLog(@"Not enough attributes to make an AITrigger (%@). Not adding to instancesArray.",[[tmpArray objectAtIndex:i]description]);
+		}
 	}
-	
 	return self;
 	
 }
 
+// this is how we load our instances. exactly how it was done in old trigger days
 -(id)initFromDictionary:(NSDictionary*)attributes
-{
+{	
 	if (!(self = [super init])) return nil;
 	
 	//if ([attributes count] < 10) { NSLog(@"Not enough attributes to pop. Returning NULL."); return NULL; }
@@ -117,14 +101,32 @@
 	
 	return self;
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+
+/*
+ this fn is called when we load our nib, so this hooks in all our stuff for saving
+ make sure you set the application's delegate to your file owner, or this won't be called at the right time
+ */
+-(void)awakeFromNib
 {
-	if ([[arrayController selectedObjects]count] != 0) [self save:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
+	
+	[arrayController setContent: instancesArray];
 }
 
--(NSArrayController*)arrayController
+// this fn is whats the observers call from above during a change
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	return arrayController; 
+	// if something is selected, save
+	if ([[arrayController selectedObjects]count] != 0) [self exportToArray];
 }
 
 - (void)exportToArray
@@ -144,72 +146,6 @@
 	[[NSUserDefaults standardUserDefaults]setObject:trueArray forKey:@"AIAppleScriptTriggers"];
 	[[NSUserDefaults standardUserDefaults]synchronize];
 }
-
-- (NSMutableArray*)instancesArray
-{
-	return instancesArray;
-}
-
-#pragma mark Script Manipulators
--(void)setScript:(NSString*)var
-{
-	// If we pass a null string, just run through our stuff, as we probably just want to reset up our scripts
-	if(var)
-	{
-		[script release];
-		script = [var retain];
-	}
-	
-    if(applescript) [applescript release];
-	
-	// If the script we are given is a path
-	if([[NSFileManager defaultManager]fileExistsAtPath:script])
-	{
-		applescript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath: script] error:nil];
-		[self setValid:TRUE];
-		[self compile];
-	}
-	else
-	{
-		[self setEnabled:FALSE];
-		[self setValid:FALSE];
-	}
-}
-
--(void)compile
-{
-	if([applescript source]== nil) [self setScript:nil];
-	[applescript compileAndReturnError:nil];
-}
-
-- (IBAction)save:(id)sender
-{
-	[self exportToArray];
-}
-- (IBAction)locateScript:(id)sender
-{
-	NSOpenPanel* panel = [NSOpenPanel openPanel];
-	[panel setCanChooseFiles:YES];
-	[panel setCanChooseDirectories:NO];
-	[panel setAllowsMultipleSelection:NO];
-	if([panel runModalForDirectory:nil file:nil types:nil] == NSOKButton)
-		[self setScript:[[panel filenames]objectAtIndex:0]];
-	
-	/*[triggerTable tableViewSelectionDidChange:nil];
-	[triggerTable reloadData];*/
-	
-}
-
-- (IBAction)revealScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] selectFile: [self script] inFileViewerRootedAtPath:nil];
-}
-
-- (IBAction)openScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openFile:[self script]];
-}
-#pragma mark -
 
 -(NSDictionary*)export
 {
@@ -236,10 +172,50 @@
     if (script) [script release];
     [super dealloc];
 }
+#pragma mark Script Functions
 
-/*- (IBAction)modeCheck:(id)sender
+- (void)activate:(int)prototype
 {
-	if ([[triggerArrayController selectedObjects]count] && [[[triggerArrayController selectedObjects]objectAtIndex:0]modeSelected])
+	NSLog(@"::Launching Script::\n::%@::\n::%@::",[applescript source],[applescript isCompiled]?@"COMPILED":@"NOT COMPILED");
+	if (![applescript isCompiled]) [applescript performSelectorOnMainThread:@selector(compileAndReturnError:) withObject:nil waitUntilDone:NO];
+	[applescript performSelectorOnMainThread:@selector(executeAndReturnError:) withObject:nil waitUntilDone:NO];
+}
+
+-(void)compile
+{
+	if([applescript source]== nil) [self setScript:nil];
+	[applescript compileAndReturnError:nil];
+}
+
+#pragma mark Script Actions
+
+- (IBAction)locateScript:(id)sender
+{
+	NSOpenPanel* panel = [NSOpenPanel openPanel];
+	[panel setCanChooseFiles:YES];
+	[panel setCanChooseDirectories:NO];
+	[panel setAllowsMultipleSelection:NO];
+	if([panel runModalForDirectory:nil file:nil types:nil] == NSOKButton)
+		[[[arrayController selectedObjects]objectAtIndex:0] setScript:[[panel filenames]objectAtIndex:0]];
+	
+	/*[triggerTable tableViewSelectionDidChange:nil];
+	 [triggerTable reloadData];*/
+	
+}
+
+- (IBAction)revealScript:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] selectFile: [[[arrayController selectedObjects]objectAtIndex:0] script] inFileViewerRootedAtPath:nil];
+}
+
+- (IBAction)openScript:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openFile:[[[arrayController selectedObjects]objectAtIndex:0] script]];
+}
+
+- (IBAction)modeCheck:(id)sender
+{
+	if ([[arrayController selectedObjects]count] && [[[arrayController selectedObjects]objectAtIndex:0]modeSelected])
 	{
 		[mute setEnabled:TRUE];
 		[unmute setEnabled:TRUE];
@@ -250,9 +226,30 @@
 		[unmute setEnabled:FALSE];
 	}
 }
-*/
+
+
 #pragma mark KVC Accessors
 //{{{ KVC Functions
+
+-(BOOL)valid
+{
+	if([[NSFileManager defaultManager]fileExistsAtPath:script])
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+-(BOOL)modeSelected
+{
+	int tmp = (hpmode||nmode)?1:0;
+	[self setModeSelected:tmp];
+	return modeSelected;
+}
+
 -(NSString*)name
 {
 	return name;
@@ -303,28 +300,45 @@
 	return enabled;
 }
 
--(BOOL)valid
+- (int)familyCode
 {
-	if([[NSFileManager defaultManager]fileExistsAtPath:script])
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return familyCode;
 }
 
--(BOOL)modeSelected
+-(void)setModeSelected:(BOOL)var
 {
-	int tmp = (hpmode||nmode)?1:0;
-	[self setModeSelected:tmp];
-	return modeSelected;
+	modeSelected = var;
 }
+
 //}}}
 
 #pragma mark KVC sets
 //{{{
+
+-(void)setScript:(NSString*)var
+{
+	// If we pass a null string, just run through our stuff, as we probably just want to reset up our scripts
+	if(var)
+	{
+		[script release];
+		script = [var retain];
+	}
+	
+    if(applescript) [applescript release];
+	
+	// If the script we are given is a path
+	if([[NSFileManager defaultManager]fileExistsAtPath:script])
+	{
+		applescript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath: script] error:nil];
+		[self setValid:TRUE];
+		[self compile];
+	}
+	else
+	{
+		[self setEnabled:FALSE];
+		[self setValid:FALSE];
+	}
+}
 
 -(void)setEnabled:(BOOL)var
 {	
@@ -340,6 +354,27 @@
 		[self setValid:FALSE];
 		[self setFamilyCode];
 	}
+}
+
+-(void)setFamilyCode
+{	
+	int tmp = 0;
+	
+	if (hout) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (hin) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (unmute) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (mute) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (hpmode) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (nmode) { tmp++; tmp<<=1; }
+	else tmp<<=1;
+	if (enabled) { tmp++; }
+	//else tmp<<=1;
+	familyCode = tmp;
 }
 
 -(void)setName:(NSString*)var
@@ -394,24 +429,15 @@
 	valid = var;
 }
 
--(void)setFamilyCode
-{	
-	int tmp = 0;
-	
-	if (hout) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (hin) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (unmute) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (mute) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (hpmode) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (nmode) { tmp++; tmp<<=1; }
-	else tmp<<=1;
-	if (enabled) { tmp++; }
-	//else tmp<<=1;
-	familyCode = tmp;
+#pragma mark Accessors (External)
+
+-(NSArrayController*)arrayController
+{
+	return arrayController; 
+}
+
+- (NSMutableArray*)instancesArray
+{
+	return instancesArray;
 }
 @end

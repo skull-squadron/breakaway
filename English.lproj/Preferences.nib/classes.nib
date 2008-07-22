@@ -6,16 +6,24 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
-			<string>AIPluginContent</string>
+			<string>AIPluginSelector</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
-				<key>arrayController</key>
+				<key>addButton</key>
 				<string>id</string>
 				<key>optionsDrawerView</key>
 				<string>id</string>
 				<key>parentController</key>
+				<string>id</string>
+				<key>pluginContentController</key>
+				<string>id</string>
+				<key>pluginContentTable</key>
+				<string>id</string>
+				<key>pluginSelectorController</key>
+				<string>id</string>
+				<key>removeButton</key>
 				<string>id</string>
 			</dict>
 			<key>SUPERCLASS</key>
@@ -52,27 +60,6 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSWindowController</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>AIPluginSelector</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>optionsDrawerView</key>
-				<string>id</string>
-				<key>parentController</key>
-				<string>id</string>
-				<key>pluginContentController</key>
-				<string>id</string>
-				<key>pluginContentTable</key>
-				<string>id</string>
-				<key>pluginSelectorController</key>
-				<string>id</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSTableView</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>

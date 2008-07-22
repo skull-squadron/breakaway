@@ -33,15 +33,13 @@
 // [[[NSApplication sharedApplication]delegate] = AppController
 -(void)awakeFromNib
 {	
-	NSEnumerator *pluginEnum;
-	
 	// Setting up these for plugin stuff
 	pluginInstances = [[NSMutableArray alloc] init];
 	
+	// load all our bundles, init them, and put them in pluginInstances
 	[self loadAllBundles];
 	
 	[pluginSelectorController setContent:pluginInstances];
-	//if([[pluginArrayController selectedObjects] objectAtIndex:0]) [pluginSelectionController setContent:[[[pluginArrayController selectedObjects] objectAtIndex:0] instancesArray]];
 	
 	NSLog(@"preference handler loaded");
 	
@@ -132,10 +130,14 @@
 #pragma mark Plugin Management
 - (void)executeTriggers:(int)prototype
 {	
-	NSEnumerator* enumerator = [pluginInstances objectEnumerator];
+	NSEnumerator* listEnum = [pluginInstances objectEnumerator];
 	id plugin;
-	while ((plugin = [enumerator nextObject])) {
-		if (([plugin familyCode] & prototype) == prototype) [plugin activate:prototype];
+	while ((plugin = [listEnum nextObject]))
+	{
+		id pluginInstance;
+		NSEnumerator* instanceEnum = [[[plugin arrayController]content] objectEnumerator];
+		while ((pluginInstance = [instanceEnum nextObject])) 
+			if (([pluginInstance familyCode] & prototype) == prototype) [pluginInstance activate:prototype];
 	}
 }
 

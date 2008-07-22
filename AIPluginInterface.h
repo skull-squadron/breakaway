@@ -25,10 +25,8 @@
 
 @protocol AITriggerPluginProtocol
 
-- (id)initMain;
-- (NSMutableArray*)instancesArray;
-- (void)addInstance;
-- (void)removeInstance;
+// Required: an array controller with instancesArray as its content
+- (NSArrayController*)arrayController;
 
 // Required: name of the plugin type (ie. AppleScript trigger, VLC manager)
 - (NSString*)pluginTypeName;

@@ -23,9 +23,10 @@
 #import "AppController.h"
 
 #import <CoreAudio/CoreAudio.h>
-#import "GrowlNotifier.h"
 #import "PreferencesController.h"
 #import "PreferenceHandler.h"
+#import "GrowlNotifier.h"
+#import <Sparkle/SUUpdater.h>
 #import "DebugUtils.h"
 #import "defines.h"
 

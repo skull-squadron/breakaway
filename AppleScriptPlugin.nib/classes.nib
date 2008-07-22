@@ -26,8 +26,6 @@
 				<string>id</string>
 				<key>revealScript</key>
 				<string>id</string>
-				<key>save</key>
-				<string>id</string>
 			</dict>
 			<key>CLASS</key>
 			<string>AIAppleScriptPlugin</string>
@@ -37,7 +35,11 @@
 			<dict>
 				<key>arrayController</key>
 				<string>id</string>
+				<key>muteButton</key>
+				<string>id</string>
 				<key>preferences</key>
+				<string>id</string>
+				<key>unmuteButton</key>
 				<string>id</string>
 			</dict>
 			<key>SUPERCLASS</key>
