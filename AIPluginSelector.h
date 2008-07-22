@@ -14,6 +14,7 @@
 	IBOutlet id parentController;
 	IBOutlet id pluginSelectorController;
 	IBOutlet id pluginContentController;
+	IBOutlet id pluginContentTable;
 	IBOutlet id optionsDrawerView;
 }
 

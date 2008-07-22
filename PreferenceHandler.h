@@ -31,7 +31,6 @@ NSString* osTypeToFourCharCode(OSType inType);
 	IBOutlet id pluginContentController;
 	IBOutlet id drawer;
 	IBOutlet id scriptField;
-	IBOutlet id triggerTable;
 	IBOutlet id mute;
 	IBOutlet id unmute;
 	IBOutlet id fadeInSlider;

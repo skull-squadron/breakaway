@@ -54,12 +54,8 @@
 
 #pragma mark 
 
-- (id)init
+-(void)awakeFromNib
 {
-	if (!(self = [super init])) return nil;
-	
-	instancesArray = [[NSMutableArray alloc]init];
-	
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
@@ -70,6 +66,14 @@
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
 	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
+	[arrayController setContent: instancesArray];
+}
+
+- (id)init
+{
+	if (!(self = [super init])) return nil;
+	
+	instancesArray = [[NSMutableArray alloc]init];
 	
 	int i;
 	NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"AIAppleScriptTriggers"];
@@ -79,8 +83,6 @@
 			[instancesArray addObject:[[AIAppleScriptPlugin alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
 		else NSLog(@"Not enough attributes to make an AITrigger (%i). Not adding to instancesArray.",[[tmpArray objectAtIndex:i]count]);
 	}
-	
-	[arrayController setContent: instancesArray];
 	
 	return self;
 	
@@ -115,10 +117,16 @@
 	
 	return self;
 }
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if ([[arrayController selectedObjects]count] != 0) [self save:nil];
+}
+
 -(NSArrayController*)arrayController
 {
-	return arrayController;
+	return arrayController; 
 }
+
 - (void)exportToArray
 {
 	int i;

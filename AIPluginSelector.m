@@ -27,16 +27,26 @@
 		id plugin = [[pluginSelectorController selectedObjects]objectAtIndex:0];
 		[[parentController drawer] setContentView:[plugin preferenceView]];
 		[pluginContentController setObjectClass:[plugin class]];
-		[pluginContentController setContent:[plugin instancesArray]];
-		[plugin observeValues:pluginContentController using:self];
+		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] bind:@"value"
+															   toObject:[plugin arrayController]
+															withKeyPath:@"arrangedObjects.enabled"
+																options:nil];
+		
+		[[pluginContentTable tableColumnWithIdentifier:@"name"] bind:@"value"
+															toObject:[plugin arrayController]
+														 withKeyPath:@"arrangedObjects.name"
+															 options:nil];
+		
 	}
-	else [[parentController drawer] setContentView:optionsDrawerView];
+	else
+	{
+		[pluginContentController setContent:nil];
+		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] unbind:@"value"];
+		
+		[[pluginContentTable tableColumnWithIdentifier:@"name"] unbind:@"value"];
+		[[parentController drawer] setContentView:optionsDrawerView];
+	}
 }
 
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	[[[pluginSelectorController selectedObjects]objectAtIndex:0] save];
-}
 
 @end
