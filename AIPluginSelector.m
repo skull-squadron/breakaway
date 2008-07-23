@@ -30,6 +30,10 @@
 		// set the plugin's preferences in the drawer
 		[[parentController drawer] setContentView:[plugin preferenceView]];
 		
+		// remove our bindings (thus displaying nothing anymore)
+		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] unbind:@"value"];
+		[[pluginContentTable tableColumnWithIdentifier:@"name"] unbind:@"value"];
+		
 		// hook in the content table to display the plugin's instances
 		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] bind:@"value"
 															   toObject:[plugin arrayController]
@@ -42,14 +46,29 @@
 															 options:nil];
 		
 		// hook in our buttons to make/remove instances
-		[addButton setTarget:[plugin arrayController]];
-		[addButton setAction:@selector(add:)];
-		
-		[removeButton setTarget:[plugin arrayController]];
-		[removeButton setAction:@selector(remove:)];
-		
-		[addButton setEnabled:TRUE];
-		[removeButton setEnabled:TRUE];
+		if ([plugin instantiate])
+		{
+			[addButton setTarget:[plugin arrayController]];
+			[addButton setAction:@selector(add:)];
+			
+			[removeButton setTarget:[plugin arrayController]];
+			[removeButton setAction:@selector(remove:)];
+			
+			[addButton setEnabled:TRUE];
+			[removeButton setEnabled:TRUE];
+		}
+		else
+		{
+			[addButton setTarget:nil];
+			[addButton setAction:NULL];
+			
+			[removeButton setTarget:nil];
+			[removeButton setAction:NULL];
+			
+			[addButton setEnabled:FALSE];
+			[removeButton setEnabled:FALSE];
+		}
+		[pluginContentTable reloadData];
 	}
 	else
 	{
@@ -69,6 +88,7 @@
 		
 		// set preferences back to the default (none)
 		[[parentController drawer] setContentView:optionsDrawerView];
+		[pluginContentTable reloadData];
 	}
 }
 

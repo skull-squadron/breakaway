@@ -6,18 +6,6 @@
 	objectVersion = 42;
 	objects = {
 
-/* Begin PBXAppleScriptBuildPhase section */
-		0AA06CDA0D9E1935003EE2A0 /* AppleScript */ = {
-			isa = PBXAppleScriptBuildPhase;
-			buildActionMask = 2147483647;
-			contextName = "";
-			files = (
-			);
-			isSharedContext = 0;
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXAppleScriptBuildPhase section */
-
 /* Begin PBXBuildFile section */
 		0A2C18BA0D7D0DEE005FA988 /* 15BreakawayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0A2C18B90D7D0DEE005FA988 /* 15BreakawayIcon.icns */; };
 		0A4573220AFFD6E3007EBF43 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4573200AFFD6E3007EBF43 /* AppController.m */; };
@@ -26,7 +14,7 @@
 		0A4611480DF0741B001A579C /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611470DF0741B001A579C /* Readme.rtf */; };
 		0A46114B0DF07425001A579C /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611490DF07425001A579C /* COPYING.txt */; };
 		0A46114C0DF07425001A579C /* devs log.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* devs log.txt */; };
-		0A47EBFD0C74C74D00B1DB62 /* defines.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A47EBFB0C74C74D00B1DB62 /* defines.h */; };
+		0A47EBFD0C74C74D00B1DB62 /* defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A47EBFB0C74C74D00B1DB62 /* defines.h */; };
 		0A47EC6B0C74D0CA00B1DB62 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6A0C74D0CA00B1DB62 /* Add.tiff */; };
 		0A47EC6D0C74D0D200B1DB62 /* flag.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6C0C74D0D200B1DB62 /* flag.tiff */; };
 		0A47EC6F0C74D0E000B1DB62 /* Power.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6E0C74D0E000B1DB62 /* Power.tiff */; };
@@ -34,6 +22,12 @@
 		0A4DBF1E0E350C3F00102585 /* AIPluginSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */; };
 		0A4E88720D7D1F2700AF82F8 /* 15banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4E88710D7D1F2700AF82F8 /* 15banner.png */; };
 		0A4E88740D7D1F7000AF82F8 /* 15bannerSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4E88730D7D1F7000AF82F8 /* 15bannerSmall.png */; };
+		0A55C4910E36D83200347DB7 /* VLCPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C4900E36D83200347DB7 /* VLCPlugin.nib */; };
+		0A55C4920E36D83B00347DB7 /* AIVLCPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A55C4790E36D7A500347DB7 /* AIVLCPlugin.m */; };
+		0A55C4930E36D83B00347DB7 /* VLC Plugin-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C4890E36D7C200347DB7 /* VLC Plugin-Info.plist */; };
+		0A55C4A00E36D8BA00347DB7 /* VLC Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */; };
+		0A55C4C00E36EC3C00347DB7 /* AIVLCPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A55C4780E36D7A500347DB7 /* AIVLCPlugin.h */; };
+		0A55C4C10E36EC3D00347DB7 /* AIPluginInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */; };
 		0A60A5790DC2C73C0078273D /* Macintosh.dict in Resources */ = {isa = PBXBuildFile; fileRef = 0A60A5780DC2C73C0078273D /* Macintosh.dict */; };
 		0A73575E0DC2882A0095EE7A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A73575D0DC2882A0095EE7A /* Network Utility.tiff */; };
 		0A7A39D20B9784B000A35612 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A7A39D00B9784B000A35612 /* MainMenu.nib */; };
@@ -44,7 +38,7 @@
 		0A9444370C736D4C00171875 /* Terminal.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9444360C736D4C00171875 /* Terminal.tiff */; };
 		0A9444390C736D5A00171875 /* Terminal.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9444380C736D5A00171875 /* Terminal.tiff */; };
 		0A94443D0C736D7F00171875 /* Delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A94443C0C736D7F00171875 /* Delete.tiff */; };
-		0A94467D0C74053400171875 /* AITrigger.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A94467B0C74053400171875 /* AITrigger.h */; };
+		0A94467D0C74053400171875 /* AITrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A94467B0C74053400171875 /* AITrigger.h */; };
 		0A94467E0C74053400171875 /* AITrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A94467C0C74053400171875 /* AITrigger.m */; };
 		0A9477D60E23B24100E2C06C /* Remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9477D40E23B23C00E2C06C /* Remove.tiff */; };
 		0A97DD490C7CB53C0022AE4A /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A97DD480C7CB53C0022AE4A /* Preferences.nib */; };
@@ -59,13 +53,13 @@
 		0AAB56010B196B18005B1E69 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB56610B19712E005B1E69 /* GrowlNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */; };
-		0AC7E9C80C76B96E001C796E /* AIDropLink.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC7E9C60C76B96E001C796E /* AIDropLink.h */; };
+		0AC7E9C80C76B96E001C796E /* AIDropLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AC7E9C60C76B96E001C796E /* AIDropLink.h */; };
 		0AC7E9C90C76B96E001C796E /* AIDropLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC7E9C70C76B96E001C796E /* AIDropLink.m */; };
 		0AD0B2620B1831B50021CC15 /* oldIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2610B1831B50021CC15 /* oldIcon.icns */; };
 		0AD0B28A0B183C060021CC15 /* disconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2890B183C060021CC15 /* disconnected.png */; };
-		0AD1580E0C729AD400E95F09 /* PreferencesController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AD1580C0C729AD400E95F09 /* PreferencesController.h */; };
+		0AD1580E0C729AD400E95F09 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD1580C0C729AD400E95F09 /* PreferencesController.h */; };
 		0AD1580F0C729AD400E95F09 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1580D0C729AD400E95F09 /* PreferencesController.m */; };
-		0AD158310C72A52300E95F09 /* PreferenceHandler.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AD1582F0C72A52300E95F09 /* PreferenceHandler.h */; };
+		0AD158310C72A52300E95F09 /* PreferenceHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD1582F0C72A52300E95F09 /* PreferenceHandler.h */; };
 		0AD158320C72A52300E95F09 /* PreferenceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD158300C72A52300E95F09 /* PreferenceHandler.m */; };
 		0AE6EFB00C71828D0090AA93 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */; };
 		0AE6EFC90C7182C30090AA93 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */; };
@@ -84,6 +78,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				0A55C4A00E36D8BA00347DB7 /* VLC Plugin.plugin in CopyFiles */,
 				0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.plugin in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,11 +91,6 @@
 			files = (
 				0AE6EFC90C7182C30090AA93 /* Sparkle.framework in CopyFiles */,
 				0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */,
-				0AD1580E0C729AD400E95F09 /* PreferencesController.h in CopyFiles */,
-				0AD158310C72A52300E95F09 /* PreferenceHandler.h in CopyFiles */,
-				0A94467D0C74053400171875 /* AITrigger.h in CopyFiles */,
-				0A47EBFD0C74C74D00B1DB62 /* defines.h in CopyFiles */,
-				0AC7E9C80C76B96E001C796E /* AIDropLink.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +117,11 @@
 		0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIPluginSelector.m; sourceTree = "<group>"; };
 		0A4E88710D7D1F2700AF82F8 /* 15banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 15banner.png; path = images/15banner.png; sourceTree = "<group>"; };
 		0A4E88730D7D1F7000AF82F8 /* 15bannerSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 15bannerSmall.png; path = images/15bannerSmall.png; sourceTree = "<group>"; };
+		0A55C4780E36D7A500347DB7 /* AIVLCPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIVLCPlugin.h; sourceTree = "<group>"; };
+		0A55C4790E36D7A500347DB7 /* AIVLCPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIVLCPlugin.m; sourceTree = "<group>"; };
+		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A55C4890E36D7C200347DB7 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VLC Plugin-Info.plist"; sourceTree = "<group>"; };
+		0A55C4900E36D83200347DB7 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = VLCPlugin.nib; sourceTree = "<group>"; };
 		0A60A5780DC2C73C0078273D /* Macintosh.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Macintosh.dict; sourceTree = "<group>"; };
 		0A73575D0DC2882A0095EE7A /* Network Utility.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Network Utility.tiff"; path = "images/Network Utility.tiff"; sourceTree = "<group>"; };
 		0A7A39D10B9784B000A35612 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -175,6 +170,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A55C4860E36D7C200347DB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A9C81BE0E21CA62001B29F6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,12 +244,32 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		0A55C4770E36D77400347DB7 /* VLC Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				0A55C4890E36D7C200347DB7 /* VLC Plugin-Info.plist */,
+				0A55C4900E36D83200347DB7 /* VLCPlugin.nib */,
+				0A55C4780E36D7A500347DB7 /* AIVLCPlugin.h */,
+				0A55C4790E36D7A500347DB7 /* AIVLCPlugin.m */,
+			);
+			name = "VLC Plugin";
+			sourceTree = "<group>";
+		};
+		0A55C48F0E36D7FF00347DB7 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */,
+				0A55C4770E36D77400347DB7 /* VLC Plugin */,
+				0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
 		0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */ = {
 			isa = PBXGroup;
 			children = (
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
 				0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */,
-				0A9C81D20E21CB74001B29F6 /* AIPluginInterface.h */,
 				0A9C81B80E21C8A2001B29F6 /* AIAppleScriptPlugin.h */,
 				0A9C81B90E21C8A2001B29F6 /* AIAppleScriptPlugin.m */,
 			);
@@ -292,6 +314,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* Breakaway.app */,
 				0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */,
+				0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,7 +325,7 @@
 				0A47EBFB0C74C74D00B1DB62 /* defines.h */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */,
+				0A55C48F0E36D7FF00347DB7 /* Plugins */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				0AD0B2910B183C790021CC15 /* Docs */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -347,6 +370,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		0A55C4C50E36EC5B00347DB7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A55C4C00E36EC3C00347DB7 /* AIVLCPlugin.h in Headers */,
+				0A55C4C10E36EC3D00347DB7 /* AIPluginInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A9C81CF0E21CB35001B29F6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,6 +392,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD1580E0C729AD400E95F09 /* PreferencesController.h in Headers */,
+				0AD158310C72A52300E95F09 /* PreferenceHandler.h in Headers */,
+				0A94467D0C74053400171875 /* AITrigger.h in Headers */,
+				0A47EBFD0C74C74D00B1DB62 /* defines.h in Headers */,
+				0AC7E9C80C76B96E001C796E /* AIDropLink.h in Headers */,
 				0A9C82260E21D2DF001B29F6 /* AIPluginInterface.h in Headers */,
 				0A9C82860E21D9CA001B29F6 /* AppController.h in Headers */,
 				0A4DBF1D0E350C3F00102585 /* AIPluginSelector.h in Headers */,
@@ -369,6 +406,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0A55C4870E36D7C200347DB7 /* VLC Plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A55C48E0E36D7C300347DB7 /* Build configuration list for PBXNativeTarget "VLC Plugin" */;
+			buildPhases = (
+				0A55C4840E36D7C200347DB7 /* Resources */,
+				0A55C4850E36D7C200347DB7 /* Sources */,
+				0A55C4860E36D7C200347DB7 /* Frameworks */,
+				0A55C4C50E36EC5B00347DB7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "VLC Plugin";
+			productName = "VLC Plugin";
+			productReference = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A9C81C60E21CA62001B29F6 /* Build configuration list for PBXNativeTarget "AppleScript Plugin" */;
@@ -396,7 +451,6 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				0AAB560A0B196B9C005B1E69 /* CopyFiles */,
-				0AA06CDA0D9E1935003EE2A0 /* AppleScript */,
 				0A9C82200E21D1F7001B29F6 /* CopyFiles */,
 			);
 			buildRules = (
@@ -434,11 +488,21 @@
 			targets = (
 				8D1107260486CEB800E47090 /* Breakaway */,
 				0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */,
+				0A55C4870E36D7C200347DB7 /* VLC Plugin */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0A55C4840E36D7C200347DB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A55C4910E36D83200347DB7 /* VLCPlugin.nib in Resources */,
+				0A55C4930E36D83B00347DB7 /* VLC Plugin-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A9C81BC0E21CA62001B29F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -485,6 +549,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A55C4850E36D7C200347DB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A55C4920E36D83B00347DB7 /* AIVLCPlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A9C81BD0E21CA62001B29F6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -551,6 +623,99 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0A55C48A0E36D7C300347DB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "VLC Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "VLC Plugin";
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		0A55C48B0E36D7C300347DB7 /* Debug (no Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "VLC Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "VLC Plugin";
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = YES;
+			};
+			name = "Debug (no Logs)";
+		};
+		0A55C48C0E36D7C300347DB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "VLC Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "VLC Plugin";
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0A55C48D0E36D7C300347DB7 /* Release (Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "VLC Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "VLC Plugin";
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = YES;
+			};
+			name = "Release (Logs)";
+		};
 		0A9C81C20E21CA62001B29F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -800,6 +965,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A55C48E0E36D7C300347DB7 /* Build configuration list for PBXNativeTarget "VLC Plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A55C48A0E36D7C300347DB7 /* Debug */,
+				0A55C48B0E36D7C300347DB7 /* Debug (no Logs) */,
+				0A55C48C0E36D7C300347DB7 /* Release */,
+				0A55C48D0E36D7C300347DB7 /* Release (Logs) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0A9C81C60E21CA62001B29F6 /* Build configuration list for PBXNativeTarget "AppleScript Plugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

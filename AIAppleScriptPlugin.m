@@ -31,6 +31,11 @@
 	return @"AppleScript Trigger";
 }
 
+- (BOOL)instantiate 
+{
+	return TRUE;
+}
+
 - (NSString*)pluginUniqueName
 {
 	return name;

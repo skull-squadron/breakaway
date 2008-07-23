@@ -25,6 +25,10 @@
 
 @protocol AITriggerPluginProtocol
 
+// Required: if your plugin is designed to be copied more than once (like an AppleScript plugin), return TRUE. Otherwise
+// if you have a single shot plugin that does not need multiple instantiations, return FALSE.
+- (bool)instantiate;
+
 // Required: an array controller with instancesArray as its content
 - (NSArrayController*)arrayController;
 
@@ -32,9 +36,9 @@
 - (NSString*)pluginTypeName;
 
 // Required: Unique name of the plugin (ie. Sleep on mute). Do not confuse this with pluginTypeName.
-// For example, a plugin may have a pluginTypeName of "AppleScriptTrigger" and a pluginUniqueName of "Sleep on mute".
+// For example, a plugin may have a pluginTypeName of "AppleScriptTrigger" and a name of "Sleep on mute".
 // If you don't plan on having your plugin instantiated more than once, just make this the same as pluginTypeName
-- (NSString*)pluginUniqueName;
+- (NSString*)name;
 
 // Required: a bitfield represented as a number containing the trigger activation paramaters
 /* 
