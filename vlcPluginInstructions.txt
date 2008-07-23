@@ -1,0 +1,7 @@
+to get vlc module to work
+
+open vlc
+VLC -> preferences
+interface -> main interfaces -> [X] HTTP remote control interface -> Save
+restart vlc
+should work

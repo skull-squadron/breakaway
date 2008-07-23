@@ -122,6 +122,7 @@
 		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A55C4890E36D7C200347DB7 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VLC Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A55C4900E36D83200347DB7 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = VLCPlugin.nib; sourceTree = "<group>"; };
+		0A55C5850E36F5B400347DB7 /* vlcPluginInstructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vlcPluginInstructions.txt; sourceTree = "<group>"; };
 		0A60A5780DC2C73C0078273D /* Macintosh.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Macintosh.dict; sourceTree = "<group>"; };
 		0A73575D0DC2882A0095EE7A /* Network Utility.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Network Utility.tiff"; path = "images/Network Utility.tiff"; sourceTree = "<group>"; };
 		0A7A39D10B9784B000A35612 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -279,6 +280,7 @@
 		0AD0B2910B183C790021CC15 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
+				0A55C5850E36F5B400347DB7 /* vlcPluginInstructions.txt */,
 				0A4611450DF07412001A579C /* todo.txt */,
 				0A46114A0DF07425001A579C /* devs log.txt */,
 				0A4611470DF0741B001A579C /* Readme.rtf */,
