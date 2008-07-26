@@ -77,8 +77,14 @@
 {	
 	if (enabled)
 	{
-		if(((prototype & 79)==prototype)) [self pauseMusic];
-		else if(((prototype & 55)==prototype)) [self pauseMusic];
+		
+		if ([self isPlaying])
+		{
+			// mute/hout
+			if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
+		}
+		// unmute/hin
+		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
 	}
 }
 
@@ -90,6 +96,42 @@
 -(void)pauseMusic
 {
 	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/curl" arguments:[NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml?command=pl_pause", nil]];
+}
+
+-(BOOL)isPlaying
+{
+	NSTask *statusTask = [[NSTask alloc]init];
+	NSData *data;	
+	NSArray *args = [NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml", nil];
+	
+	[statusTask setLaunchPath:@"/usr/bin/curl"];
+	[statusTask setArguments: args];
+	[statusTask setStandardOutput: [NSPipe pipe]];
+	
+	[statusTask launch];
+	
+	data = [[[statusTask standardOutput] fileHandleForReading] readDataToEndOfFile];
+	
+	NSXMLParser *parser = [[NSXMLParser alloc]initWithData:data];
+	[parser setDelegate:self];
+	[parser parse];
+	
+	return isPlaying;
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+	if ([elementName isEqualToString:@"state"]) {
+		isPlaying = ([currentStringValue isEqualToString:@"\n  playing"])?1:0;
+	}
+	currentStringValue = nil;
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+    if (!currentStringValue) {
+        // currentStringValue is an NSMutableString instance variable
+        currentStringValue = [[NSMutableString alloc] initWithCapacity:50];
+    }
+    [currentStringValue appendString:string];
 }
 
 @end

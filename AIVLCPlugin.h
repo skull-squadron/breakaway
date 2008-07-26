@@ -15,9 +15,14 @@
 	NSArrayController* arrayController;
 	
 	bool enabled;
+	bool isPlaying;
+	bool appHit;
+	
+	NSMutableString* currentStringValue;
 	NSMutableArray* instancesArray;
 }
 
 -(void)playMusic;
 -(void)pauseMusic;
+-(BOOL)isPlaying;
 @end
