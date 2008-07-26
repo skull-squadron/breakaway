@@ -5,3 +5,4 @@ VLC -> preferences
 interface -> main interfaces -> [X] HTTP remote control interface -> Save
 restart vlc
 should work
+

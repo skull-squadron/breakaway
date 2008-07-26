@@ -18,6 +18,7 @@
 		0A47EC6B0C74D0CA00B1DB62 /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6A0C74D0CA00B1DB62 /* Add.tiff */; };
 		0A47EC6D0C74D0D200B1DB62 /* flag.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6C0C74D0D200B1DB62 /* flag.tiff */; };
 		0A47EC6F0C74D0E000B1DB62 /* Power.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A47EC6E0C74D0E000B1DB62 /* Power.tiff */; };
+		0A49545A0E3BCC53005F7781 /* usefulPluginTips.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A4954590E3BCC53005F7781 /* usefulPluginTips.txt */; };
 		0A4DBF1D0E350C3F00102585 /* AIPluginSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4DBF1B0E350C3F00102585 /* AIPluginSelector.h */; };
 		0A4DBF1E0E350C3F00102585 /* AIPluginSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */; };
 		0A4E88720D7D1F2700AF82F8 /* 15banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4E88710D7D1F2700AF82F8 /* 15banner.png */; };
@@ -113,6 +114,7 @@
 		0A47EC6A0C74D0CA00B1DB62 /* Add.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Add.tiff; path = images/Add.tiff; sourceTree = "<group>"; };
 		0A47EC6C0C74D0D200B1DB62 /* flag.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = flag.tiff; path = images/flag.tiff; sourceTree = "<group>"; };
 		0A47EC6E0C74D0E000B1DB62 /* Power.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Power.tiff; path = images/Power.tiff; sourceTree = "<group>"; };
+		0A4954590E3BCC53005F7781 /* usefulPluginTips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usefulPluginTips.txt; sourceTree = "<group>"; };
 		0A4DBF1B0E350C3F00102585 /* AIPluginSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginSelector.h; sourceTree = "<group>"; };
 		0A4DBF1C0E350C3F00102585 /* AIPluginSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIPluginSelector.m; sourceTree = "<group>"; };
 		0A4E88710D7D1F2700AF82F8 /* 15banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 15banner.png; path = images/15banner.png; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 		0AD0B2910B183C790021CC15 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
+				0A4954590E3BCC53005F7781 /* usefulPluginTips.txt */,
 				0A55C5850E36F5B400347DB7 /* vlcPluginInstructions.txt */,
 				0A4611450DF07412001A579C /* todo.txt */,
 				0A46114A0DF07425001A579C /* devs log.txt */,
@@ -545,6 +548,7 @@
 				0A46114B0DF07425001A579C /* COPYING.txt in Resources */,
 				0A46114C0DF07425001A579C /* devs log.txt in Resources */,
 				0A9477D60E23B24100E2C06C /* Remove.tiff in Resources */,
+				0A49545A0E3BCC53005F7781 /* usefulPluginTips.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,4 @@
+application -> delegate-> file owner's 
+double click target -> build -> wrapper extension = plugin
+right click target -> add -> copy headers ; include AIPluginInterface.h
+see AS plugin and VLC plugin for making instantiable and single shot plugins (respectively)
