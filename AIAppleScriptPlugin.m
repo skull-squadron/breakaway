@@ -43,6 +43,11 @@
 
 - (NSView*)preferenceView
 {
+	if(!preferences)
+	{ 
+		//Load our view 
+		[NSBundle loadNibNamed:@"AppleScriptPlugin.nib" owner:self]; 
+	}
 	// link up your NSView in IB and return that outlet here. Breakaway handles loading your plugin nib for you
 	return preferences;
 }

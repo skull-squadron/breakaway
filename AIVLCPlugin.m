@@ -17,9 +17,11 @@
 	return @"VLC Plugin";
 }
 
-- (void)setName:(NSString*)var
+/*
+ - (void)setName:(NSString*)var
 {
 }
+ */
 
 - (NSString*)name
 {
@@ -53,6 +55,11 @@
 
 - (NSView*)preferenceView
 {
+	if(!preferences)
+	{ 
+		//Load our view 
+		[NSBundle loadNibNamed:@"VLCPlugin.nib" owner:self]; 
+	}
 	// link up your NSView in IB and return that outlet here. Breakaway handles loading your plugin nib for you
 	return preferences;
 }

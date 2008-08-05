@@ -40,7 +40,6 @@ NSString* osTypeToFourCharCode(OSType inType);
 	// Plugins
 	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 	NSMutableArray* masterList;
-
 }
 
 // Plugin

@@ -12,6 +12,19 @@
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>AIVLCPlugin</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>preferences</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
 	</array>
 	<key>IBVersion</key>
 	<string>1</string>

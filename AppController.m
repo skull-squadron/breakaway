@@ -73,6 +73,7 @@
 
 -(void) awakeFromNib
 {		
+	//[[NSApplication sharedApplication]setDelegate:self];
 	// sets up our user defaults for preference fetching
 	userDefaults = [NSUserDefaults standardUserDefaults];
 	

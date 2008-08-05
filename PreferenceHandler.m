@@ -30,12 +30,12 @@
 #define UI_PLIST_LOCATION 23
 @implementation PreferenceHandler
 
-// [[[NSApplication sharedApplication]delegate] = AppController
+// [[NSApp delegate] = AppController
 -(void)awakeFromNib
 {	
 	// Setting up these for plugin stuff
 	pluginInstances = [[NSMutableArray alloc] init];
-	
+		
 	// load all our bundles, init them, and put them in pluginInstances
 	[self loadAllBundles];
 	
@@ -77,7 +77,6 @@
                 currInstance = [[currPrincipalClass alloc] init]; 
                 if(currInstance)
                 {
-					[NSBundle loadNibNamed:[infoDictionary valueForKey:@"NSMainNibFile"] owner:currInstance];
                     [pluginInstances addObject:[currInstance autorelease]];
                 }
             }
@@ -144,17 +143,17 @@
 #pragma mark IBActions
 - (IBAction)donate:(id)sender
 {
-	[[[NSApplication sharedApplication]delegate] openDonate:nil];
+	[[NSApp delegate] openDonate:nil];
 }
 
 - (IBAction)showInMenuBar:(id)sender
 {
-	[[[NSApplication sharedApplication]delegate] showInMenuBarAct:nil];
+	[[NSApp delegate] showInMenuBarAct:nil];
 }
 
 - (IBAction)muteKeyEnable:(id)sender
 {
-	[[[NSApplication sharedApplication]delegate] muteKeyEnableAct:nil];
+	[[NSApp delegate] muteKeyEnableAct:nil];
 }
 
 - (IBAction)showInDock:(id)sender
@@ -177,7 +176,7 @@
 	2 Daily: 86,400
 	3 Weekly:  604,800*/
 	
-	id sparkle = [[[NSApplication sharedApplication]delegate] sparkle];
+	id sparkle = [[NSApp  delegate] sparkle];
 	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 	int selection = [sender indexOfSelectedItem];
 	
@@ -210,14 +209,14 @@
 
 - (IBAction)updateCheck:(id)sender
 {
-	id sparkle = [[[NSApplication sharedApplication]delegate] sparkle];
+	id sparkle = [[NSApp  delegate] sparkle];
 	[sparkle checkForUpdates:self];
 }
 
 - (IBAction)testFadeIn:(id)sender
 {
-	[[[NSApplication sharedApplication]delegate]recompileFadeIn];
-	[[[NSApplication sharedApplication]delegate]executeFadeIn];
+	[[NSApp  delegate]recompileFadeIn];
+	[[NSApp  delegate]executeFadeIn];
 }
 
 NSString* osTypeToFourCharCode(OSType inType) {
@@ -464,7 +463,7 @@ AIDropLink.m - For getting current selection of table (-selectedObjects:) */
 {
 	//[self exportToArray];
 	[drawer close:nil];
-	[[[NSApplication sharedApplication]delegate]recompileFadeIn];
+	[[NSApp delegate]recompileFadeIn];
 	return YES;
 }
 
