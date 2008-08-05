@@ -24,13 +24,16 @@
 
 #import <CoreAudio/CoreAudio.h>
 #import "PreferencesController.h"
-#import "PreferenceHandler.h"
+//#import "PreferenceHandler.h"
 #import "GrowlNotifier.h"
 #import <Sparkle/SUUpdater.h>
 #import "DebugUtils.h"
 #import "defines.h"
+#import "AIPluginSelector.h"
 
 @implementation AppController
+
+static AppController *appController = nil;  
 
 // Cool thing about +initialize is that it runs before any other method gets called
 + (void)initialize
@@ -60,10 +63,6 @@
 		[NSNumber numberWithBool:0], @"enableFlowing",
 		[NSNumber numberWithFloat:0], @"fadeInTime",
 		[NSNumber numberWithBool:1], @"keepVol",
-		/*
-		[NSNumber numberWithInt:0], @"oldMethod",
-		[NSNumber numberWithInt:0], @"typeB",
-		*/
 		[NSNumber numberWithFloat:0.1], @"throwout",
         
         nil];
@@ -71,9 +70,15 @@
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
 }
 
++ (AppController*)appController
+{
+	return appController;
+}
+
 -(void) awakeFromNib
 {		
-	//[[NSApplication sharedApplication]setDelegate:self];
+	appController = self;
+	
 	// sets up our user defaults for preference fetching
 	userDefaults = [NSUserDefaults standardUserDefaults];
 	
@@ -104,6 +109,7 @@
 	
     DEBUG_OUTPUT(@"done!");
 	
+	// calls our controller to load our preference window, including all our plugins
 	[PreferencesController sharedPreferencesController];
 	
 	//////// Stop Loading Stuff
@@ -397,11 +403,6 @@ PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithIn
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
 {
     [growlNotifier growlNotify:title andDescription:description];
-}
-
-- (void)trigger:(int)prototype
-{
-	[[[PreferencesController sharedPreferencesController]preferenceHandler]executeTriggers:prototype];
 }
 
 - (BOOL)isPlaying
@@ -925,14 +926,14 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 			 // User Triggers
 			 if (inPropertyID == kAudioDevicePropertyMute)
 			 {
-				 if (muteOn) [self trigger:13];
-				 else [self trigger:21];
+				 if (muteOn) [[AIPluginSelector pluginController] executeTriggers:13];
+				 else [[AIPluginSelector pluginController] executeTriggers:21];
 			 }
 			 // we iced scalar volume trigger, so if it's not mute, it has to be jack
 			 else if (inPropertyID == kAudioDevicePropertyDataSource || inPropertyID == kAudioDevicePropertyDataSources)
 			 {
-				 if (jConnect) [self trigger:37];
-				 else [self trigger:69];
+				 if (jConnect) [[AIPluginSelector pluginController] executeTriggers:37];
+				 else [[AIPluginSelector pluginController] executeTriggers:69];
 			 }			 
 			 
 			// Printing our Growl notifications
@@ -961,8 +962,8 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 			 
 			 if (inPropertyID == kAudioDevicePropertyMute)
 			 {
-				 if (muteOn)  [self trigger:11];
-				 else [self trigger:19];
+				 if (muteOn)  [[AIPluginSelector pluginController] executeTriggers:11];
+				 else [[AIPluginSelector pluginController] executeTriggers:19];
 			 }			 
 			
 		 }

@@ -30,130 +30,28 @@
 #define UI_PLIST_LOCATION 23
 @implementation PreferenceHandler
 
-// [[NSApp delegate] = AppController
 -(void)awakeFromNib
 {	
-	// Setting up these for plugin stuff
-	pluginInstances = [[NSMutableArray alloc] init];
-		
-	// load all our bundles, init them, and put them in pluginInstances
-	[self loadAllBundles];
-	
-	[pluginSelectorController setContent:pluginInstances];
-	
 	NSLog(@"preference handler loaded");
 	
 	// this is used for testing the system (startTest:)
 	done=0;
 }
 
-#pragma mark 
-#pragma mark Plugin Loading
-
-- (void)loadAllBundles
-{                                        
-    NSMutableArray *bundlePaths;
-	NSDictionary *infoDictionary;
-    NSEnumerator *pathEnum;
-    NSString *currPath;
-    NSBundle *currBundle;
-    Class currPrincipalClass;
-    id currInstance;
-	
-    bundlePaths = [NSMutableArray array];
-	
-    [bundlePaths addObjectsFromArray:[self allBundles]];               
-	
-    pathEnum = [bundlePaths objectEnumerator];
-    while(currPath = [pathEnum nextObject])
-    {
-        currBundle = [NSBundle bundleWithPath:currPath];               
-        if(currBundle)
-        {
-            currPrincipalClass = [currBundle principalClass];
-			infoDictionary = [currBundle infoDictionary];
-            if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AITriggerPluginProtocol)])
-            {
-                currInstance = [[currPrincipalClass alloc] init]; 
-                if(currInstance)
-                {
-                    [pluginInstances addObject:[currInstance autorelease]];
-                }
-            }
-        }
-    }
-}
-
-- (NSMutableArray *)allBundles
-{
-    NSArray *librarySearchPaths;
-    NSEnumerator *searchPathEnum;
-    NSString *currPath;
-    NSMutableArray *bundleSearchPaths = [NSMutableArray array];
-    NSMutableArray *allBundles = [NSMutableArray array];
-	
-    librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-	
-    searchPathEnum = [librarySearchPaths objectEnumerator];
-	while(currPath = [searchPathEnum nextObject])
-    {
-        [bundleSearchPaths addObject:
-		 [currPath stringByAppendingPathComponent:@"Application Support/Breakaway/PlugIn"]];
-    }
-    [bundleSearchPaths addObject:
-	 [[NSBundle mainBundle] builtInPlugInsPath]];
-	
-    searchPathEnum = [bundleSearchPaths objectEnumerator];
-    while(currPath = [searchPathEnum nextObject])
-    {
-        NSDirectoryEnumerator *bundleEnum;
-        NSString *currBundlePath;
-        bundleEnum = [[NSFileManager defaultManager]
-					  enumeratorAtPath:currPath];
-        if(bundleEnum)
-        {
-            while(currBundlePath = [bundleEnum nextObject])
-            {
-                if([[currBundlePath pathExtension] isEqualToString:@"plugin"])
-                {
-					[allBundles addObject:[currPath stringByAppendingPathComponent:currBundlePath]];
-                }
-            }
-        }
-    }
-	
-    return allBundles;
-}
-
-#pragma mark 
-#pragma mark Plugin Management
-- (void)executeTriggers:(int)prototype
-{	
-	NSEnumerator* listEnum = [pluginInstances objectEnumerator];
-	id plugin;
-	while ((plugin = [listEnum nextObject]))
-	{
-		id pluginInstance;
-		NSEnumerator* instanceEnum = [[[plugin arrayController]content] objectEnumerator];
-		while ((pluginInstance = [instanceEnum nextObject])) 
-			if (([pluginInstance familyCode] & prototype) == prototype) [pluginInstance activate:prototype];
-	}
-}
-
 #pragma mark IBActions
 - (IBAction)donate:(id)sender
 {
-	[[NSApp delegate] openDonate:nil];
+	[[AppController appController] openDonate:nil];
 }
 
 - (IBAction)showInMenuBar:(id)sender
 {
-	[[NSApp delegate] showInMenuBarAct:nil];
+	[[AppController appController] showInMenuBarAct:nil];
 }
 
 - (IBAction)muteKeyEnable:(id)sender
 {
-	[[NSApp delegate] muteKeyEnableAct:nil];
+	[[AppController appController] muteKeyEnableAct:nil];
 }
 
 - (IBAction)showInDock:(id)sender
@@ -176,7 +74,7 @@
 	2 Daily: 86,400
 	3 Weekly:  604,800*/
 	
-	id sparkle = [[NSApp  delegate] sparkle];
+	id sparkle = [[AppController appController] sparkle];
 	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 	int selection = [sender indexOfSelectedItem];
 	
@@ -209,14 +107,14 @@
 
 - (IBAction)updateCheck:(id)sender
 {
-	id sparkle = [[NSApp  delegate] sparkle];
+	id sparkle = [[AppController appController] sparkle];
 	[sparkle checkForUpdates:self];
 }
 
 - (IBAction)testFadeIn:(id)sender
 {
-	[[NSApp  delegate]recompileFadeIn];
-	[[NSApp  delegate]executeFadeIn];
+	[[AppController appController] recompileFadeIn];
+	[[AppController appController] executeFadeIn];
 }
 
 NSString* osTypeToFourCharCode(OSType inType) {
@@ -243,10 +141,10 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
     // find out what the main output device is (assuming it's built in audio)
     OSStatus err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,
                                             &size, &device);
-	if (err != noErr) [log insertText:@"Could not get main output device\n"];
-	else [log insertText:@"Successfully retrieved main output device\n"];
+	if (err != noErr) [testResultBox insertText:@"Could not get main output device\n"];
+	else [testResultBox insertText:@"Successfully retrieved main output device\n"];
 	
-	[log insertText:@"======================================================\n"];
+	[testResultBox insertText:@"======================================================\n"];
 	
 	err = AudioDeviceGetProperty( device,
 										   0,
@@ -256,8 +154,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected ('%@')\n",fccString]];
 
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -268,8 +166,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources ('%@')\n",fccString]];
 
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -280,8 +178,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	
@@ -294,8 +192,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -306,8 +204,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 1) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 1) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -318,8 +216,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 1) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 1) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	
@@ -332,8 +230,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -344,8 +242,8 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 2) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 2) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	err = AudioDeviceGetProperty( device,
@@ -356,23 +254,23 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 										   &dataSource);
 	
 	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [log insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [log insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 2) ('%@')\n",fccString]];
+	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
+	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 2) ('%@')\n",fccString]];
 	
 	dataSourceBuff = sizeof(outt);
 	
 	if (done) 
 	{
-		[log insertText:@"\n\n"];
-		[log insertText:NSLocalizedString(@"You are done! Click the sumbit results button. Thank you for making Breakaway better.",nil)];
-		[log insertText:@"\n"];
+		[testResultBox insertText:@"\n\n"];
+		[testResultBox insertText:NSLocalizedString(@"You are done! Click the sumbit results button. Thank you for making Breakaway better.",nil)];
+		[testResultBox insertText:@"\n"];
 		done=0;
 	}
 	else
 	{
-		[log insertText:@"\n\n"];
-		[log insertText:NSLocalizedString(@"Please connect headphones now and click on the button again",nil)];
-		[log insertText:@"\n"];
+		[testResultBox insertText:@"\n\n"];
+		[testResultBox insertText:NSLocalizedString(@"Please connect headphones now and click on the button again",nil)];
+		[testResultBox insertText:@"\n"];
 		done=1;
 	}
 }
@@ -428,34 +326,10 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
         bugFix = versionBugFix;
     }
 	NSString *url = [NSString string];
-	url = [url stringByAppendingString:[NSString stringWithFormat:@"mailto:balthamos89@gmail.com?subject=Expand Breakaway Test Results&body=%@ | OS %u.%u.%u \n\n%@\n\n", computerModel,main, next, bugFix ,[log string]]];
-	url = [url stringByAppendingString:NSLocalizedString(@"Feel free to add additional questions and comments (like if Breakaway \"kind of\" works, etc.). Please have these statements in English, if possible.",nil)];
+	url = [url stringByAppendingString:[NSString stringWithFormat:@"mailto:balthamos89@gmail.com?subject=Expand Breakaway Test Results&body=%@ | OS %u.%u.%u | v %@\n\n%@\n\n", computerModel,main, next, bugFix, [[[NSBundle mainBundle]infoDictionary]valueForKey:@"CFBundleVersion"] ,[testResultBox string]]];
+	url = [url stringByAppendingString:NSLocalizedString(@"Please state what part of the application is not working. Please have these statements in English, if possible.",nil)];
 	
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-}
-
-#pragma mark Accessors (external)
-- (id)drawer
-{
-	return drawer;
-}
-/* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
-AIPluginContent.m - For displaying the validity of triggers (colering rows, etc) (-objectAtIndex:)*/
-- (NSMutableArray*)pluginInstances
-{
-	return pluginInstances;
-}
-
-/* PreferenceHandler.m (self) - Just to act as a portal for everyone else ()
-AIDropLink.m - For getting current selection of table (-selectedObjects:) */
-- (id)pluginSelectorController
-{
-	return pluginSelectorController;
-}
-
-- (id)pluginContentController
-{
-	return pluginSelectorController;
 }
 
 #pragma mark Delegates
@@ -463,7 +337,7 @@ AIDropLink.m - For getting current selection of table (-selectedObjects:) */
 {
 	//[self exportToArray];
 	[drawer close:nil];
-	[[NSApp delegate]recompileFadeIn];
+	[[AppController appController] recompileFadeIn];
 	return YES;
 }
 

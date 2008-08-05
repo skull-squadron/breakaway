@@ -84,14 +84,16 @@
 {	
 	if (enabled)
 	{
-		
-		if ([self isPlaying])
-		{
-			// mute/hout
-			if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
-		}
+		// mute/hout
+		if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
 		// unmute/hin
 		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
+		if ([self isPlaying])
+		{
+			if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
+			// unmute/hin
+			else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
+		}
 	}
 }
 

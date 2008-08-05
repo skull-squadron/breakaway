@@ -7,6 +7,8 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>addInstance</key>
+				<string>id</string>
 				<key>donate</key>
 				<string>id</string>
 				<key>fadeInModified</key>
@@ -20,6 +22,8 @@
 				<key>muteKeyEnable</key>
 				<string>id</string>
 				<key>openScript</key>
+				<string>id</string>
+				<key>removeInstance</key>
 				<string>id</string>
 				<key>revealScript</key>
 				<string>id</string>
@@ -48,15 +52,19 @@
 				<string>id</string>
 				<key>fadeInSlider</key>
 				<string>id</string>
-				<key>log</key>
-				<string>id</string>
 				<key>mute</key>
+				<string>id</string>
+				<key>optionsDrawerView</key>
+				<string>id</string>
+				<key>pluginArrayController</key>
+				<string>id</string>
+				<key>pluginContentController</key>
 				<string>id</string>
 				<key>pluginSelectorController</key>
 				<string>id</string>
 				<key>scriptField</key>
 				<string>id</string>
-				<key>triggerTable</key>
+				<key>testResultBox</key>
 				<string>id</string>
 				<key>unmute</key>
 				<string>id</string>
@@ -66,27 +74,24 @@
 		</dict>
 		<dict>
 			<key>CLASS</key>
-			<string>AIDropLink</string>
+			<string>AIPluginSelector</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
-				<key>parentController</key>
+				<key>addButton</key>
 				<string>id</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSTextField</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>AITriggerTable</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>arrayController</key>
+				<key>optionsDrawerView</key>
 				<string>id</string>
 				<key>parentController</key>
+				<string>id</string>
+				<key>pluginContentController</key>
+				<string>id</string>
+				<key>pluginContentTable</key>
+				<string>id</string>
+				<key>pluginSelectorController</key>
+				<string>id</string>
+				<key>removeButton</key>
 				<string>id</string>
 			</dict>
 			<key>SUPERCLASS</key>

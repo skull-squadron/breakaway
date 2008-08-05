@@ -64,9 +64,8 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 	IBOutlet id sparkleController;
 	NSUserDefaults* userDefaults;
 	NSDate *then;
-	NSDate *now;
-	NSArray* triggerArray;
 }
++ (AppController*)appController;
 - (id)sparkle;
 - (void)awakeFromNib;
 - (void)loadListeners;
@@ -103,7 +102,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 - (NSDate *)then;
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
-- (void)trigger:(int)prototype;
 
 #pragma mark 
 #pragma mark Queries

@@ -21,45 +21,22 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "AIPluginInterface.h"
 
 NSString* osTypeToFourCharCode(OSType inType);
 @interface PreferenceHandler : NSObject
 {
 	int done;
-	IBOutlet id pluginSelectorController;
-	IBOutlet id pluginContentController;
 	IBOutlet id drawer;
-	IBOutlet id scriptField;
-	IBOutlet id mute;
-	IBOutlet id unmute;
-	IBOutlet id fadeInSlider;
-	
-	IBOutlet id log;
-	
-	// Plugins
-	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
-	NSMutableArray* masterList;
+	IBOutlet id testResultBox;
 }
 
 // Plugin
-- (void)loadAllBundles;
-- (NSMutableArray *)allBundles;
-- (NSMutableArray*)pluginInstances;
-
-- (id)pluginSelectorController;
-- (id)pluginContentController;
-- (id)drawer;
-
-- (void)executeTriggers:(int)prototype;
-
 - (IBAction)donate:(id)sender;
 - (IBAction)showInMenuBar:(id)sender;
 - (IBAction)muteKeyEnable:(id)sender;
 - (IBAction)showInDock:(id)sender;
 - (IBAction)update:(id)sender;
 - (IBAction)updateCheck:(id)sender;
-- (IBAction)modeCheck:(id)sender;
 - (IBAction)testFadeIn:(id)sender;
 
 - (IBAction)sendResults:(id)sender;

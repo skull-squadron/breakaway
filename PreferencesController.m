@@ -22,7 +22,7 @@
 
 #import "PreferencesController.h"
 
-#import "PreferenceHandler.h"
+//#import "PreferenceHandler.h"
 
 #define WINDOW_TITLE_HEIGHT 78
 

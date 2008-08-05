@@ -45,11 +45,9 @@
 			<dict>
 				<key>addButton</key>
 				<string>id</string>
+				<key>drawer</key>
+				<string>id</string>
 				<key>optionsDrawerView</key>
-				<string>id</string>
-				<key>parentController</key>
-				<string>id</string>
-				<key>pluginContentController</key>
 				<string>id</string>
 				<key>pluginContentTable</key>
 				<string>id</string>
@@ -77,25 +75,9 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
-				<key>addInstance</key>
-				<string>id</string>
 				<key>donate</key>
 				<string>id</string>
-				<key>fadeInModified</key>
-				<string>id</string>
-				<key>forceSave</key>
-				<string>id</string>
-				<key>locateScript</key>
-				<string>id</string>
-				<key>modeCheck</key>
-				<string>id</string>
 				<key>muteKeyEnable</key>
-				<string>id</string>
-				<key>openScript</key>
-				<string>id</string>
-				<key>removeInstance</key>
-				<string>id</string>
-				<key>revealScript</key>
 				<string>id</string>
 				<key>sendResults</key>
 				<string>id</string>
@@ -120,23 +102,7 @@
 			<dict>
 				<key>drawer</key>
 				<string>id</string>
-				<key>fadeInSlider</key>
-				<string>id</string>
-				<key>log</key>
-				<string>id</string>
-				<key>mute</key>
-				<string>id</string>
-				<key>optionsDrawerView</key>
-				<string>id</string>
-				<key>pluginArrayController</key>
-				<string>id</string>
-				<key>pluginContentController</key>
-				<string>id</string>
-				<key>pluginSelectorController</key>
-				<string>id</string>
-				<key>scriptField</key>
-				<string>id</string>
-				<key>unmute</key>
+				<key>testResultBox</key>
 				<string>id</string>
 			</dict>
 			<key>SUPERCLASS</key>

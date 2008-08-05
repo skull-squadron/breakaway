@@ -11,13 +11,25 @@
 
 @interface AIPluginSelector : NSTableView
 {
-	IBOutlet id parentController;
 	IBOutlet id pluginSelectorController;
 	IBOutlet id pluginContentTable;
+	
+	IBOutlet id drawer;
 	IBOutlet id optionsDrawerView;
 	
 	IBOutlet id addButton;
 	IBOutlet id removeButton;
+	
+	// Plugins
+	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 }
+
+// Plugin
+- (void)loadAllBundles;
+- (NSMutableArray *)allBundles;
+
+- (void)executeTriggers:(int)prototype;
+
++ (AIPluginSelector *)pluginController;
 
 @end
