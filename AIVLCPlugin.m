@@ -35,6 +35,7 @@
 
 -(BOOL)enabled
 {
+	enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AIVLCPluginEnable"];
 	return enabled;
 }
 
@@ -51,6 +52,8 @@
 -(void)setEnabled:(bool)var
 {
 	enabled = var;
+	[[NSUserDefaults standardUserDefaults]setBool:enabled forKey:@"AIVLCPluginEnable"];
+	[[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 - (NSView*)preferenceView
@@ -75,6 +78,7 @@
 		instancesArray = [[NSMutableArray alloc]init];
 		arrayController = [[NSArrayController alloc]init];
 		[instancesArray addObject:self];
+		[self setEnabled:[[NSUserDefaults standardUserDefaults] boolForKey:@"AIVLCPluginEnable"]];
 		[arrayController setContent: instancesArray];
 	}
 	return self;
@@ -83,17 +87,14 @@
 - (void)activate:(int)prototype
 {	
 	if (enabled)
-	{
-		// mute/hout
-		if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
-		// unmute/hin
-		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
+	{		
 		if ([self isPlaying])
 		{
+			// mute/hout
 			if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
-			// unmute/hin
-			else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
 		}
+		// unmute/hin
+		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
 	}
 }
 
@@ -110,7 +111,15 @@
 -(BOOL)isPlaying
 {
 	NSTask *statusTask = [[NSTask alloc]init];
-	NSData *data;	
+	
+	NSString *tmp = [[NSBundle bundleForClass:@"AIVLCPlugin"]bundlePath];
+	[statusTask setLaunchPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"vlcPlaying" ofType:nil]];
+	[statusTask launch];
+	[statusTask waitUntilExit];
+	int status = [statusTask terminationStatus];
+	return status;
+	/*
+	 NSData *data;	
 	NSArray *args = [NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml", nil];
 	
 	[statusTask setLaunchPath:@"/usr/bin/curl"];
@@ -119,13 +128,14 @@
 	
 	[statusTask launch];
 	
-	data = [[[statusTask standardOutput] fileHandleForReading] readDataToEndOfFile];
+	data = [[[statusTask standardOutput] fileHandleForReading] availableData];
 	
 	NSXMLParser *parser = [[NSXMLParser alloc]initWithData:data];
 	[parser setDelegate:self];
 	[parser parse];
 	
 	return isPlaying;
+	 */
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {

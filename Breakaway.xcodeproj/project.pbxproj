@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A2C18BA0D7D0DEE005FA988 /* 15BreakawayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0A2C18B90D7D0DEE005FA988 /* 15BreakawayIcon.icns */; };
+		0A2ECF3C0E496F41005905B6 /* vlcPlaying in Resources */ = {isa = PBXBuildFile; fileRef = 0A2ECF3A0E496F39005905B6 /* vlcPlaying */; };
 		0A4573220AFFD6E3007EBF43 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4573200AFFD6E3007EBF43 /* AppController.m */; };
 		0A45732F0AFFD766007EBF43 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45732E0AFFD766007EBF43 /* CoreAudio.framework */; };
 		0A4611480DF0741B001A579C /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611470DF0741B001A579C /* Readme.rtf */; };
@@ -98,6 +99,7 @@
 		0A0DAB0C0D864BBE0049B022 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh_CN; path = zh_CN.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A0DAB350D865A0D0049B022 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0A2C18B90D7D0DEE005FA988 /* 15BreakawayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = 15BreakawayIcon.icns; path = images/15BreakawayIcon.icns; sourceTree = "<group>"; };
+		0A2ECF3A0E496F39005905B6 /* vlcPlaying */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = vlcPlaying; sourceTree = "<group>"; };
 		0A4573200AFFD6E3007EBF43 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		0A4573210AFFD6E3007EBF43 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -237,6 +239,7 @@
 		0A55C4770E36D77400347DB7 /* VLC Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				0A2ECF3A0E496F39005905B6 /* vlcPlaying */,
 				0A55C4890E36D7C200347DB7 /* VLC Plugin-Info.plist */,
 				0A55C4900E36D83200347DB7 /* VLCPlugin.nib */,
 				0A55C4780E36D7A500347DB7 /* AIVLCPlugin.h */,
@@ -490,6 +493,7 @@
 			files = (
 				0A55C4910E36D83200347DB7 /* VLCPlugin.nib in Resources */,
 				0A55C4930E36D83B00347DB7 /* VLC Plugin-Info.plist in Resources */,
+				0A2ECF3C0E496F41005905B6 /* vlcPlaying in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
