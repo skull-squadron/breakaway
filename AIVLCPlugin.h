@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AIPluginInterface.h"
+#import "AIPluginProtocol.h"
+#import "AIPluginControllerProtocol.h"
 
-@interface AIVLCPlugin : NSObject<AITriggerPluginProtocol>
+@interface AIVLCPlugin : NSObject<AIPluginControllerProtocol>
 {
     IBOutlet id preferences;
 	NSArrayController* arrayController;

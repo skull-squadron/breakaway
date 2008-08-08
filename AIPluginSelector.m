@@ -7,7 +7,8 @@
 //
 
 #import "AIPluginSelector.h"
-#import "AIPluginInterface.h"
+#import "AIPluginControllerProtocol.h"
+#import "AIPluginProtocol.h"
 
 static AIPluginSelector *pluginController = nil;
 
@@ -57,7 +58,7 @@ static AIPluginSelector *pluginController = nil;
         {
             currPrincipalClass = [currBundle principalClass];
 			infoDictionary = [currBundle infoDictionary];
-            if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AITriggerPluginProtocol)])
+            if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AIPluginControllerProtocol)])
             {
                 currInstance = [[currPrincipalClass alloc] init]; 
                 if(currInstance)
@@ -156,7 +157,7 @@ static AIPluginSelector *pluginController = nil;
 															 options:nil];
 		
 		// hook in our buttons to make/remove instances
-		if ([plugin instantiate])
+		if ([plugin isInstantiable])
 		{
 			[addButton setTarget:[plugin arrayController]];
 			[addButton setAction:@selector(add:)];

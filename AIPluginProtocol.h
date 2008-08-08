@@ -1,5 +1,5 @@
 /*
- * AIPluginInterface.h
+ * AIPluginProtocol.h
  * Breakaway
  *
  * Created by Kevin Nygaard on 7/6/08.
@@ -23,22 +23,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol AITriggerPluginProtocol
+@protocol AIPluginProtocol
 
-// Required: if your plugin is designed to be copied more than once (like an AppleScript plugin), return TRUE. Otherwise
-// if you have a single shot plugin that does not need multiple instantiations, return FALSE.
-- (bool)instantiate;
-
-// Required: an array controller with instancesArray as its content
-- (NSArrayController*)arrayController;
-
-// Required: name of the plugin type (ie. AppleScript trigger, VLC manager)
-- (NSString*)pluginTypeName;
-
-// Required: Unique name of the plugin (ie. Sleep on mute). Do not confuse this with pluginTypeName.
-// For example, a plugin may have a pluginTypeName of "AppleScriptTrigger" and a name of "Sleep on mute".
-// If you don't plan on having your plugin instantiated more than once, just make this the same as pluginTypeName
+// Required: name of unique plugin
 - (NSString*)name;
+
+// Not Required: sets the name of the plugin. If you don't want the user changing the unique name of the plugin, don't implement this
+- (void)setName:(NSString*)var;
+
+// Required: TRUE allows the plugin to activate. FALSE and the plugin cannot activate
+- (BOOL)enabled;
+
+// Required: Allows the user to enable/disable your plugin
+- (void)setEnabled:(bool)var;
 
 // Required: a bitfield represented as a number containing the trigger activation paramaters
 /* 
@@ -65,9 +62,6 @@
  Code will be supplied for you to easily generate this family code if you are unfamiliar with bit level manipulation
  */
 - (int)familyCode;
-
-// Required: NSView containing the options to this plugin
-- (NSView*)preferenceView;
 
 // Required: this will house whatever it is you want executed as a trigger. You will also be sent the prototype code, that is,
 // the current paramaters that allowed your code to execute. So, if you had a family code of 0110 0011, possible prototype codes

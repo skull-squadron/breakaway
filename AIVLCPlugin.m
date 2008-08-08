@@ -28,7 +28,7 @@
 	return @"VLC Plugin";
 }
 
-- (BOOL)instantiate 
+- (BOOL)isInstantiable 
 {
 	return FALSE;
 }

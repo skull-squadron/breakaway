@@ -1,85 +1,13 @@
-/*
- * DebugUtils.h
- * Breakaway
- * Created by Kevin Nygaard on 7/6/08.
- * Copyright 2008 Kevin Nygaard.
- *
- * This file is part of Breakaway.
- *
- * Breakaway is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Breakaway is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+//  AIASPlugin.m
+//  Breakaway
+//
+//  Created by Kevin Nygaard on 8/8/08.
+//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//
 
 #import "AIAppleScriptPlugin.h"
-
 @implementation AIAppleScriptPlugin
-
-#pragma mark Some Required Plugin Info
-
-- (NSString*)pluginTypeName
-{
-	return @"AppleScript Trigger";
-}
-
-- (BOOL)instantiate 
-{
-	return TRUE;
-}
-
-- (NSString*)pluginUniqueName
-{
-	return name;
-}
-
-- (NSView*)preferenceView
-{
-	if(!preferences)
-	{ 
-		//Load our view 
-		[NSBundle loadNibNamed:@"AppleScriptPlugin.nib" owner:self]; 
-	}
-	// link up your NSView in IB and return that outlet here. Breakaway handles loading your plugin nib for you
-	return preferences;
-}
-
-#pragma mark 
-
-/*
- this gets called when the plugin is first instantiated (re loaded)
- this is also bad programming convention, as i have made the controller and object in the same class. ideally,
- you would want to have two separate classes; one that controlls all the objects, and one soley as the object
- */
-- (id)init
-{
-	if (!(self = [super init])) return nil;
-	
-	// if our array, hasn't been made yet, make it and fill it up
-	if (!instancesArray)
-	{
-		instancesArray = [[NSMutableArray alloc]init];
-		
-		int i;
-		NSMutableArray* tmpArray = [[NSUserDefaults standardUserDefaults]objectForKey:@"AIAppleScriptTriggers"];
-		for (i=0;[tmpArray count]>i;i++)
-		{
-			if ([[tmpArray objectAtIndex:i]count] >= 8)
-				[instancesArray addObject:[[AIAppleScriptPlugin alloc]initFromDictionary:[tmpArray objectAtIndex:i]]];
-			else NSLog(@"Not enough attributes to make an AITrigger (%@). Not adding to instancesArray.",[[tmpArray objectAtIndex:i]description]);
-		}
-	}
-	return self;
-	
-}
 
 // this is how we load our instances. exactly how it was done in old trigger days
 -(id)initFromDictionary:(NSDictionary*)attributes
@@ -112,77 +40,19 @@
 	return self;
 }
 
-/*
- this fn is called when we load our nib, so this hooks in all our stuff for saving
- make sure you set the application's delegate to your file owner, or this won't be called at the right time
- */
--(void)awakeFromNib
+- (NSColor*)scriptTextColor
 {
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
-	
-	[arrayController setContent: instancesArray];
+	if ([self valid]) return [NSColor blackColor];
+	else  return [NSColor redColor];
 }
 
-// this fn is whats the observers call from above during a change
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	// if something is selected, save
-	if ([[arrayController selectedObjects]count] != 0) [self exportToArray];
-}
-
-- (void)exportToArray
-{
-	int i;
-	id instance;
-	NSMutableArray* returnArray = [NSMutableArray array];
-	
-	for (i=0;[instancesArray count]>i;i++)
-	{
-		instance = [instancesArray objectAtIndex:i];
-		[returnArray addObject:[instance export]];
-	}
-	
-	NSArray* trueArray = [NSArray arrayWithArray:returnArray];
-	
-	[[NSUserDefaults standardUserDefaults]setObject:trueArray forKey:@"AIAppleScriptTriggers"];
-	[[NSUserDefaults standardUserDefaults]synchronize];
-}
-
--(NSDictionary*)export
-{
-	//NSLog(@"%@,%i,%i,%i,%@, %i",name,mode,trigger,lod,script,enabled);
-	NSDictionary* tmpDict = [NSDictionary dictionaryWithObjectsAndKeys:
-							 name, @"name",
-							 [NSNumber numberWithBool:nmode], @"nmode",
-							 [NSNumber numberWithBool:hpmode], @"hpmode",
-							 [NSNumber numberWithBool:mute], @"mute",
-							 [NSNumber numberWithBool:unmute], @"unmute",
-							 [NSNumber numberWithBool:hin], @"hin",
-							 [NSNumber numberWithBool:hout], @"hout",
-							 [NSNumber numberWithInt:lod], @"lod",
-							 script,@"script",
-							 [NSNumber numberWithBool:enabled], @"enabled",
-							 nil];
-	return tmpDict;
-}
-
--(void)dealloc
-{
-    if (applescript) [applescript release];
-    if (name) [name release];
-    if (script) [script release];
-    [super dealloc];
-}
 #pragma mark Script Functions
+
+-(void)compile
+{
+	if([applescript source]== nil) [self setScript:nil];
+	[applescript compileAndReturnError:nil];
+}
 
 - (void)activate:(int)prototype
 {
@@ -191,57 +61,11 @@
 	[applescript performSelectorOnMainThread:@selector(executeAndReturnError:) withObject:nil waitUntilDone:NO];
 }
 
--(void)compile
-{
-	if([applescript source]== nil) [self setScript:nil];
-	[applescript compileAndReturnError:nil];
-}
-
-#pragma mark Script Actions
-
-- (IBAction)locateScript:(id)sender
-{
-	NSOpenPanel* panel = [NSOpenPanel openPanel];
-	[panel setCanChooseFiles:YES];
-	[panel setCanChooseDirectories:NO];
-	[panel setAllowsMultipleSelection:NO];
-	if([panel runModalForDirectory:nil file:nil types:nil] == NSOKButton)
-		[[[arrayController selectedObjects]objectAtIndex:0] setScript:[[panel filenames]objectAtIndex:0]];
-	
-	/*[triggerTable tableViewSelectionDidChange:nil];
-	 [triggerTable reloadData];*/
-	
-}
-
-- (IBAction)revealScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] selectFile: [[[arrayController selectedObjects]objectAtIndex:0] script] inFileViewerRootedAtPath:nil];
-}
-
-- (IBAction)openScript:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openFile:[[[arrayController selectedObjects]objectAtIndex:0] script]];
-}
-
-- (IBAction)modeCheck:(id)sender
-{
-	if ([[arrayController selectedObjects]count] && [[[arrayController selectedObjects]objectAtIndex:0]modeSelected])
-	{
-		[mute setEnabled:TRUE];
-		[unmute setEnabled:TRUE];
-	}
-	else
-	{
-		[mute setEnabled:FALSE];
-		[unmute setEnabled:FALSE];
-	}
-}
-
 
 #pragma mark KVC Accessors
 //{{{ KVC Functions
 
--(BOOL)valid
+-(bool)valid
 {
 	if([[NSFileManager defaultManager]fileExistsAtPath:script])
 	{
@@ -253,11 +77,10 @@
 	}
 }
 
--(BOOL)modeSelected
+-(bool)modeSelected
 {
 	int tmp = (hpmode||nmode)?1:0;
-	[self setModeSelected:tmp];
-	return modeSelected;
+	return tmp;
 }
 
 -(NSString*)name
@@ -265,32 +88,32 @@
 	return name;
 }
 
--(BOOL)nmode
+-(bool)nmode
 {
 	return nmode;
 }
 
--(BOOL)hpmode
+-(bool)hpmode
 {
 	return hpmode;
 }
 
--(BOOL)mute
+-(bool)mute
 {
 	return mute;
 }
 
--(BOOL)unmute
+-(bool)unmute
 {
 	return unmute;
 }
 
--(BOOL)hin
+-(bool)hin
 {
 	return hin;
 }
 
--(BOOL)hout
+-(bool)hout
 {
 	return hout;
 }
@@ -305,7 +128,7 @@
 	return lod;
 }
 
--(BOOL)enabled
+-(bool)enabled
 {
 	return enabled;
 }
@@ -315,7 +138,7 @@
 	return familyCode;
 }
 
--(void)setModeSelected:(BOOL)var
+-(void)setModeSelected:(bool)var
 {
 	modeSelected = var;
 }
@@ -350,7 +173,7 @@
 	}
 }
 
--(void)setEnabled:(BOOL)var
+-(void)setEnabled:(bool)var
 {	
 	if([[NSFileManager defaultManager]fileExistsAtPath:script])
 	{
@@ -434,20 +257,36 @@
 	lod = var;
 }
 
--(void)setValid:(BOOL)var
+-(void)setValid:(bool)var
 {
 	valid = var;
 }
 
-#pragma mark Accessors (External)
-
--(NSArrayController*)arrayController
+#pragma mark End Operations
+-(NSDictionary*)export
 {
-	return arrayController; 
+	//NSLog(@"%@,%i,%i,%i,%@, %i",name,mode,trigger,lod,script,enabled);
+	NSDictionary* tmpDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							 name, @"name",
+							 [NSNumber numberWithBool:nmode], @"nmode",
+							 [NSNumber numberWithBool:hpmode], @"hpmode",
+							 [NSNumber numberWithBool:mute], @"mute",
+							 [NSNumber numberWithBool:unmute], @"unmute",
+							 [NSNumber numberWithBool:hin], @"hin",
+							 [NSNumber numberWithBool:hout], @"hout",
+							 [NSNumber numberWithInt:lod], @"lod",
+							 script,@"script",
+							 [NSNumber numberWithBool:enabled], @"enabled",
+							 nil];
+	return tmpDict;
 }
 
-- (NSMutableArray*)instancesArray
+-(void)dealloc
 {
-	return instancesArray;
+    if (applescript) [applescript release];
+    if (name) [name release];
+    if (script) [script release];
+    [super dealloc];
 }
+
 @end
