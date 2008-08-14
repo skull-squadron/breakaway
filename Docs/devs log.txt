@@ -107,5 +107,6 @@ Balthamos | April 2008
 	 
 1.9: Triggers now replaced with plugins
 	 Complete plugin protocol adopted
+	 iTunes playpause calls now extremely fast
 
 ===========================================================================

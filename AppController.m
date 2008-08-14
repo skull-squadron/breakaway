@@ -23,6 +23,8 @@
 #import "AppController.h"
 
 #import <CoreAudio/CoreAudio.h>
+#import <ApplicationServices/ApplicationServices.h>
+
 #import "PreferencesController.h"
 //#import "PreferenceHandler.h"
 #import "GrowlNotifier.h"
@@ -478,8 +480,7 @@ PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithIn
 #pragma mark Script Manipulation
 - (void)compileScript
 {
-    // Define and compile our stopstart script. This takes the place of the old school kicker
-    stopstart = [[NSAppleScript alloc] initWithSource:@"tell application \"iTunes\" to playpause"];
+    // Define and compile our playstate script
     playerState = [[NSAppleScript alloc] initWithSource:@"tell application \"iTunes\" to return (player state) as string"];
 	    
     // If iTunes is open, compile the scripts. If not, they will be compiled at a later time by handleAppLaunch:
@@ -487,7 +488,6 @@ PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithIn
     if (isActive || [userDefaults boolForKey:@"force open"])
      {
         DEBUG_OUTPUT(@"Compiling Script...");
-        [stopstart compileAndReturnError:nil];
         [playerState compileAndReturnError:nil];
 		[self recompileFadeIn];
         isCompiled = TRUE;
@@ -503,7 +503,22 @@ PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithIn
 		BOOL wasVisible = [[[PreferencesController sharedPreferencesController]window]isVisible];
 		 
 		DEBUG_OUTPUT(@"Executing iTunes stop/start...");
-		[stopstart executeAndReturnError:nil];
+		 const OSType sig ='hook';
+		 AppleEvent *event = malloc(sizeof(AppleEvent));
+		 AEBuildAppleEvent(sig,
+						   'PlPs',
+						   typeApplSignature,
+						   &sig,
+						   sizeof(sig),
+						   kAutoGenerateReturnID,
+						   kAnyTransactionID,
+						   event,
+						   NULL,
+						   "'----':'null'()");
+		 
+		 AESendMessage(event, NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+		 AEDisposeDesc(event);
+		 free(event);
 		 
 		 // When we run the script, our preference window closes, so we have to open it again if it was open to begin with
 		 if (wasVisible) [[[PreferencesController sharedPreferencesController]window]makeKeyAndOrderFront:nil];
@@ -903,7 +918,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
         [pool release];
         return noErr;
      }
-    
+	
     //Actual Logic starts here
 	if (isActive)
 	{

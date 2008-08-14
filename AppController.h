@@ -33,7 +33,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 @interface AppController : NSObject
 {
 	// Our scripts for controlling iTunes
-	NSAppleScript *stopstart;
 	NSAppleScript *playerState;
 	NSAppleScript *fadeIn;
 	BOOL isPlaying;
@@ -65,6 +64,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 	NSUserDefaults* userDefaults;
 	NSDate *then;
 }
+
 + (AppController*)appController;
 - (id)sparkle;
 - (void)awakeFromNib;

@@ -1,7 +1,7 @@
 /*
- * DebugUtils.h
+ * AIAppleScriptPluginController.m
  * Breakaway
- * Created by Kevin Nygaard on 7/6/08.
+ * Created by Kevin Nygaard on 8/8/08.
  * Copyright 2008 Kevin Nygaard.
  *
  * This file is part of Breakaway.
