@@ -68,10 +68,12 @@
 				if ([[[[parentController arrayController] selectedObjects]objectAtIndex:0]valid])
 				{
 					[scriptField setTextColor:[NSColor blackColor]];
+					[self setImage: [[NSWorkspace sharedWorkspace] iconForFile:[files objectAtIndex:i]]];
 				}
 				else
 				{
 					[scriptField setTextColor:[NSColor redColor]];
+					[self setImage:@"notfoundover.png"];
 				}
 				
 			}
@@ -97,6 +99,11 @@
         }
     }
     return NSDragOperationNone;
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	if ([[[[parentController arrayController] selectedObjects]objectAtIndex:0]valid]) [self revealScript:nil];
 }
 
 @end

@@ -108,7 +108,6 @@
 	if ([[arrayController selectedObjects]count] != 0)
 	{
 		[self exportToArray];
-		if ([keyPath isEqualToString:@"arrangedObjects.script"]) NSLog(@"We changed");
 	}
 }
 

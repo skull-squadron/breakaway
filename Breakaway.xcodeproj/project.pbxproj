@@ -32,6 +32,8 @@
 		0A60A5790DC2C73C0078273D /* Macintosh.dict in Resources */ = {isa = PBXBuildFile; fileRef = 0A60A5780DC2C73C0078273D /* Macintosh.dict */; };
 		0A73575E0DC2882A0095EE7A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A73575D0DC2882A0095EE7A /* Network Utility.tiff */; };
 		0A7A39D20B9784B000A35612 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A7A39D00B9784B000A35612 /* MainMenu.nib */; };
+		0A83B3570E55AC2500B2227C /* notfoundover.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A83B3560E55AC2500B2227C /* notfoundover.png */; };
+		0A83B3830E55B07C00B2227C /* plugins.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A83B33F0E55AA9400B2227C /* plugins.png */; };
 		0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */; };
 		0A897E890E4C0ACC0043CCF3 /* AIDropWell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A897E870E4C0ACC0043CCF3 /* AIDropWell.h */; };
 		0A897E8A0E4C0ACC0043CCF3 /* AIDropWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A897E880E4C0ACC0043CCF3 /* AIDropWell.m */; };
@@ -130,6 +132,8 @@
 		0A60A5780DC2C73C0078273D /* Macintosh.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Macintosh.dict; sourceTree = "<group>"; };
 		0A73575D0DC2882A0095EE7A /* Network Utility.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Network Utility.tiff"; path = "images/Network Utility.tiff"; sourceTree = "<group>"; };
 		0A7A39D10B9784B000A35612 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		0A83B33F0E55AA9400B2227C /* plugins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plugins.png; sourceTree = "<group>"; };
+		0A83B3560E55AC2500B2227C /* notfoundover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notfoundover.png; sourceTree = "<group>"; };
 		0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = AppleScriptPlugin.nib; sourceTree = "<group>"; };
 		0A897E870E4C0ACC0043CCF3 /* AIDropWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDropWell.h; sourceTree = "<group>"; };
 		0A897E880E4C0ACC0043CCF3 /* AIDropWell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDropWell.m; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 		0A48B5040DF1AD3900175D08 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0A83B33F0E55AA9400B2227C /* plugins.png */,
 				0A9477D40E23B23C00E2C06C /* Remove.tiff */,
 				0A9444230C736CE100171875 /* General Preferences.tiff */,
 				0A47EC6C0C74D0D200B1DB62 /* flag.tiff */,
@@ -269,17 +274,34 @@
 			name = Plugins;
 			sourceTree = "<group>";
 		};
-		0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */ = {
+		0A83B35C0E55AC6A00B2227C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
 				0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */,
+				0A83B3560E55AC2500B2227C /* notfoundover.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		0A83B35D0E55AC7D00B2227C /* Source */ = {
+			isa = PBXGroup;
+			children = (
 				0A9C81B80E21C8A2001B29F6 /* AIAppleScriptPluginController.h */,
 				0A9C81B90E21C8A2001B29F6 /* AIAppleScriptPluginController.m */,
 				0A897EB20E4C12DB0043CCF3 /* AIAppleScriptPlugin.h */,
 				0A897EB30E4C12DB0043CCF3 /* AIAppleScriptPlugin.m */,
 				0A897E870E4C0ACC0043CCF3 /* AIDropWell.h */,
 				0A897E880E4C0ACC0043CCF3 /* AIDropWell.m */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				0A83B35D0E55AC7D00B2227C /* Source */,
+				0A83B35C0E55AC6A00B2227C /* Resources */,
 			);
 			name = "AppleScript Plugin";
 			sourceTree = "<group>";
@@ -521,6 +543,7 @@
 			files = (
 				0A9C82220E21D250001B29F6 /* AppleScript Plugin-Info.plist in Resources */,
 				0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */,
+				0A83B3570E55AC2500B2227C /* notfoundover.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +578,7 @@
 				0A46114C0DF07425001A579C /* devs log.txt in Resources */,
 				0A9477D60E23B24100E2C06C /* Remove.tiff in Resources */,
 				0A601C290E481A2D00A15D73 /* vlcPluginInstructions.txt in Resources */,
+				0A83B3830E55B07C00B2227C /* plugins.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

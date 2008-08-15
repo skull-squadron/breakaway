@@ -104,9 +104,7 @@ Balthamos | April 2008
 
 1.8: Now open source on SourceForge.net
      Now under GPL license
-	 
-1.9: Triggers now replaced with plugins
-	 Complete plugin protocol adopted
-	 iTunes playpause calls now extremely fast
+	 Triggers now replaced with Plugins
+	 iTunes playpause calls now significantly faster
 
 ===========================================================================

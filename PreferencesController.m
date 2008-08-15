@@ -46,7 +46,7 @@ static PreferencesController *sharedPreferencesController = nil;
 {
 	GeneralToolbarItemIdentifier				= NSLocalizedString(@"General",nil);
 	AdvancedToolbarItemIdentifier				= NSLocalizedString(@"Advanced",nil);
-	TriggersToolbarItemIdentifier				= NSLocalizedString(@"Triggers",nil);
+	PluginsToolbarItemIdentifier				= NSLocalizedString(@"Plugins",nil);
 	AboutToolbarItemIdentifier  				= NSLocalizedString(@"About",nil);
 	ExpandBreakawayToolbarItemIdentifier  		= NSLocalizedString(@"Expand",nil);
 	QuitToolbarItemIdentifier     				= NSLocalizedString(@"Quit",nil);
@@ -71,14 +71,14 @@ static PreferencesController *sharedPreferencesController = nil;
 	NSSize content;
 	content.width = 280;
 	content.height = 239;
-	[triggerDrawer setContentSize:content]; 
+	[pluginPreferenceDrawer setContentSize:content]; 
 }
 
 - (IBAction)showWindow:(id)sender 
 {
 	if (![[self window] isVisible]) [[self window] center];
 	
-	[triggerDrawer close:nil];
+	[pluginPreferenceDrawer close:nil];
 	[super showWindow:sender];
 	[[self window]makeKeyAndOrderFront:self];
 }
@@ -94,7 +94,7 @@ static PreferencesController *sharedPreferencesController = nil;
 {
 	return [NSArray arrayWithObjects:
 		GeneralToolbarItemIdentifier,
-		TriggersToolbarItemIdentifier,
+		PluginsToolbarItemIdentifier,
 		AdvancedToolbarItemIdentifier,
 		NSToolbarFlexibleSpaceItemIdentifier,
 		NSToolbarSeparatorItemIdentifier,
@@ -108,7 +108,7 @@ static PreferencesController *sharedPreferencesController = nil;
 {
 	return [NSArray arrayWithObjects:
 		GeneralToolbarItemIdentifier,
-		TriggersToolbarItemIdentifier,
+		PluginsToolbarItemIdentifier,
 		AdvancedToolbarItemIdentifier,
 		AboutToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
@@ -123,7 +123,7 @@ static PreferencesController *sharedPreferencesController = nil;
 {
 	return [NSArray arrayWithObjects:
 		GeneralToolbarItemIdentifier,
-		TriggersToolbarItemIdentifier,
+		PluginsToolbarItemIdentifier,
 		AdvancedToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
 		/*AboutToolbarItemIdentifier,
@@ -142,10 +142,10 @@ static PreferencesController *sharedPreferencesController = nil;
 		[item setTarget:self];
 		[item setAction:@selector(toggleActivePreferenceView:)];
 	}
-	else if ([identifier isEqualToString:TriggersToolbarItemIdentifier])
+	else if ([identifier isEqualToString:PluginsToolbarItemIdentifier])
 	{
-		[item setLabel:TriggersToolbarItemIdentifier];
-		[item setImage:[NSImage imageNamed:@"flag"]];
+		[item setLabel:PluginsToolbarItemIdentifier];
+		[item setImage:[NSImage imageNamed:@"plugins"]];
 		[item setTarget:self];
 		[item setAction:@selector(toggleActivePreferenceView:)];
 	}
@@ -192,14 +192,14 @@ static PreferencesController *sharedPreferencesController = nil;
 	
 	if ([[sender itemIdentifier] isEqualToString:GeneralToolbarItemIdentifier])
 		view = generalPreferenceView;
-	else if ([[sender itemIdentifier] isEqualToString:TriggersToolbarItemIdentifier])
-		view = triggersPreferenceView;
+	else if ([[sender itemIdentifier] isEqualToString:PluginsToolbarItemIdentifier])
+		view = pluginsPreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:AdvancedToolbarItemIdentifier])
 		view = advancedPreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:ExpandBreakawayToolbarItemIdentifier])
 		view = expandBreakawayPreferenceView;
 	
-	if (view != triggersPreferenceView) [triggerDrawer close:self];
+	if (view != pluginsPreferenceView) [pluginPreferenceDrawer close:self];
 	
 	[self setActiveView:view animate:YES];
 	[[self window] setTitle:[sender itemIdentifier]];

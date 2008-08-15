@@ -26,7 +26,7 @@
 {
 	NSString *GeneralToolbarItemIdentifier	;
 	NSString *AdvancedToolbarItemIdentifier;
-	NSString *TriggersToolbarItemIdentifier;
+	NSString *PluginsToolbarItemIdentifier;
 	NSString *AboutToolbarItemIdentifier  	;
 	NSString *QuitToolbarItemIdentifier    ;
 	NSString *ExpandBreakawayToolbarItemIdentifier    ;
@@ -35,11 +35,11 @@
     IBOutlet id advancedPreferenceView;
     IBOutlet id chatStatusRollout;
     IBOutlet id generalPreferenceView;
-    IBOutlet id triggersPreferenceView;
+    IBOutlet id pluginsPreferenceView;
 	IBOutlet id expandBreakawayPreferenceView;
 	
 	IBOutlet id preferenceHandler;
-	IBOutlet id triggerDrawer;
+	IBOutlet id pluginPreferenceDrawer;
 	
 	bool loadedNib;
 }

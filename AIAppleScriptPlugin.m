@@ -51,6 +51,12 @@
 	// if we aren't loading on demand, compile now and be done with it
 	if (!lod) [self compile];
 	
+	// we cant use [NSImage imageNamed:@"notfoundover.png"] because it doesnt look at our plugin bundle path
+	// we have to do this in order to get a full path to our bundle resources
+	notFoundImage = [[NSImage alloc]initByReferencingFile:
+					 [[[NSBundle bundleForClass:[self class]]
+					   resourcePath]stringByAppendingPathComponent:@"notfoundover.png"]];
+	
 	return self;
 }
 
@@ -58,6 +64,12 @@
 {
 	if ([self valid]) return [NSColor blackColor];
 	else  return [NSColor redColor];
+}
+
+- (NSImage*)image
+{
+	if ([self valid]) return [[NSWorkspace sharedWorkspace] iconForFile:script];
+	else return notFoundImage;
 }
 
 #pragma mark Script Functions
@@ -300,6 +312,7 @@
     if (applescript) [applescript release];
     if (name) [name release];
     if (script) [script release];
+	[notFoundImage release];
     [super dealloc];
 }
 

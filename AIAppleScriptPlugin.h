@@ -27,6 +27,7 @@
 {
 	int isCompiled;
     NSAppleScript* applescript;
+	NSImage* notFoundImage;
 	
     NSString* name;
     bool nmode;
@@ -50,6 +51,7 @@
 
 - (bool)modeSelected;
 - (NSColor*)scriptTextColor;
+- (NSImage*)image;
 
 // KVC stuff
 - (bool)enabled;

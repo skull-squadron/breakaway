@@ -1,18 +1,18 @@
 {\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf330
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fnil\fcharset0 LucidaGrande;
 \f3\fnil\fcharset0 AppleSymbols;}
-{\colortbl;\red255\green255\blue255;\red0\green192\blue3;\red255\green3\blue0;}
+{\colortbl;\red255\green255\blue255;\red0\green192\blue3;\red0\green19\blue255;\red255\green3\blue0;
+}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid1}
 {\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid2}
 {\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid3}
 {\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid4}
 {\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid5}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
-\vieww16280\viewh11060\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\qc
 
 \f0\b\fs68 \cf0 \ul \ulc0   Breakaway
-\b0\fs28 \ulnone v1.7\
+\b0\fs28 \ulnone v1.9\
 \pard\ql\qnatural
 
 \b \cf0 System Requirements:
@@ -62,9 +62,9 @@
 	 You start iTunes \cf2 playing\cf0  with headphones in jack\
 	 \
 	 Headphones are \cf3 pulled\cf0  from jack\
-	\cf3  \cf0 Breakaway tells iTunes to \cf3 stop\cf0  music\
+	\cf4  \cf0 Breakaway tells iTunes to \cf4 stop\cf0  music\
              \
-	 Headphones are \cf2 plugged\cf0  back in\
+	 Headphones are \cf3 plugged\cf0  back in\
 	 Breakaway tells iTunes to \cf2 resume\cf0  play\
 
 \fs24 \
@@ -143,7 +143,7 @@
 \fs28 \cf0 \ulnone Attempt to guess mode:
 \b0  Breakaway will try to guess what mode you 
 \i want
-\i0  to be in. Based on the conditions of which you alter iTunes, Breakaway dynamically updates the mode to keep up with your habits, so you don't have to flip between modes/ disable Breakaway when you change listening styles. Recommended to keep on, unless you like to stay in a definite mode.\
+\i0  to be in. Based on the conditions of which you alter iTunes, Breakaway dynamically updates the mode to keep up with your habits, so you don't have to flip between modes or disable Breakaway when you change listening styles. Recommended to keep on, unless you like to stay in a definite mode.\
 
 \fs24 \
 
@@ -219,7 +219,7 @@ In addition, if the system volume is brought below the lowest setting, iTunes wi
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
-\b\fs40 \cf0 \ul >Triggers Detail
+\b\fs40 \cf0 \ul >Plugins Detail
 \b0\fs28 \ulnone \
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
@@ -393,9 +393,15 @@ Deleting a trigger: Hit the minus button (-) in the lower left portion of the sc
 \pard\tx940\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li1440\fi-1440\ql\qnatural\pardirnatural
 \ls4\ilvl1\cf0 {\listtext	\uc0\u8259 	}Delete the preference file (~/Library/Preferences/com.AllocInit.Breakaway.plist OR /Library/Preferences/com.AllocInit.Breakaway.plist).\
 {\listtext	\uc0\u8259 	}Start Breakaway\
-\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b\fs36 \cf0 iTunes does not resume when I plug my headphones back in:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b0\fs28 \cf0 Make sure you have "Resume play on reinsert" enabled. If it still doesn't work after that, follow the steps above.\
+\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
 \b\fs36 \cf0 I enabled "Mute key functionality", but when I press the mute button, nothing happens (or it only works sometimes):\
@@ -425,25 +431,49 @@ Deleting a trigger: Hit the minus button (-) in the lower left portion of the sc
 That's just shorthand for your user home folder, or /Users/YOURNAME/\
 \
 
-\b\fs36 I have a really good trigger that I think should be packaged in every build:
+\b\fs36 I have a really good plugin that I think should be packaged in every build:
 \b0\fs28 \
-Great! Just send me an e-mail with the trigger, and I'll have a look at it.\
+Great! Just send me an e-mail with the plugin, and I'll have a look at it.\
 \
 
 \b\fs36 Wait, did you just say VLC support?:
 \b0\fs28 \
-Yes, I did. You have to enable it yourself though, as it really is not "hardcoded" into the program itself, rather, it utilizes the power of Triggers. Just create a new trigger, check all the mode/trigger boxes (so it will proc pretty much everytime), then point the path to the included script, vlcPlayPause (or your own script).\
+Yes, I did. You have to enable it yourself though. Just follow the steps in the info box in the plugin window and you should be good to go.\
 \
 
 \b\fs36 Could you please, please support *insert media playing application here*?:
 \b0\fs28 \
-It's possible, but highly improbable unless there is a good reason. The more application that are supported through hard code, the slower everything will be. Breakaway was meant to be for iTunes (and as you can see, it is lightning fast), but that doesn't mean I'm going to throw you out on the street. Triggers were made so you could add your own functionality that are executed at reasonable speeds. Drop me an email if you need help setting up your triggers for your application.\
+It's possible, but highly improbable unless there is a good reason. The more application that are supported through hard code, the slower everything will be. Breakaway was meant to be for iTunes (and as you can see, it is lightning fast). But that doesn't mean I'm going to throw you out on the street. Plugins were made so you could add your own functionality that are executed at reasonable speeds. Drop me an email if you need help developing a plugin for your application.\
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
-\b\fs36 I would like a certain feature added OR I found a problem:\
+\b\fs36 \cf0 I know you won't *insert native language here* localization because you hate me! Why do you hate me!?:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b0\fs28 \cf0 I don't hate you, I just don't know your language. I love *insert your country*, but I just haven't had the time to learn the language. You are more than welcome to localize if you want to; all you need is Interface Builder (or a text editor). You could be the hero of *insert your country here*!\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b\fs36 \cf0 I would like a certain feature added OR I found a problem:\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
 \b0\fs28 \cf0 Please email me with your idea or the problem you are experiencing. I will do my best to try and implement/fix your feature/problem. See below for contact information.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b\fs36 \cf0 I am a developer and would like to see your source code:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b0\fs28 \cf0 Go to SourceForge.net and search for Breakaway ({\field{\*\fldinst{HYPERLINK "http://sourceforge.net/projects/breakaway"}}{\fldrslt http://sourceforge.net/projects/breakaway}}).\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b\fs36 \cf0 Do you need help with development?:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b0\fs28 \cf0 Yea, sure! I always use a hand. Just drop me an email.\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
 \fs24 \cf0 \

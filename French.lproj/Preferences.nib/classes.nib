@@ -73,6 +73,51 @@
 			<string>NSObject</string>
 		</dict>
 		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>toggleActivePreferenceView</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>PreferencesController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>activeContentView</key>
+				<string>id</string>
+				<key>advancedPreferenceView</key>
+				<string>id</string>
+				<key>chatStatusRollout</key>
+				<string>id</string>
+				<key>expandBreakawayPreferenceView</key>
+				<string>id</string>
+				<key>generalPreferenceView</key>
+				<string>id</string>
+				<key>pluginPreferenceDrawer</key>
+				<string>id</string>
+				<key>pluginsPreferenceView</key>
+				<string>id</string>
+				<key>preferenceHandler</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key></key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
 			<key>CLASS</key>
 			<string>AIPluginSelector</string>
 			<key>LANGUAGE</key>
@@ -96,51 +141,6 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSTableView</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>toggleActivePreferenceView</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>PreferencesController</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>activeContentView</key>
-				<string>id</string>
-				<key>advancedPreferenceView</key>
-				<string>id</string>
-				<key>chatStatusRollout</key>
-				<string>id</string>
-				<key>expandBreakawayPreferenceView</key>
-				<string>id</string>
-				<key>generalPreferenceView</key>
-				<string>id</string>
-				<key>preferenceHandler</key>
-				<string>id</string>
-				<key>triggerDrawer</key>
-				<string>id</string>
-				<key>triggersPreferenceView</key>
-				<string>id</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSWindowController</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key></key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>FirstResponder</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
 		</dict>
 	</array>
 	<key>IBVersion</key>

@@ -94,11 +94,11 @@
 				<string>id</string>
 				<key>generalPreferenceView</key>
 				<string>id</string>
+				<key>pluginPreferenceDrawer</key>
+				<string>id</string>
+				<key>pluginsPreferenceView</key>
+				<string>id</string>
 				<key>preferenceHandler</key>
-				<string>id</string>
-				<key>triggerDrawer</key>
-				<string>id</string>
-				<key>triggersPreferenceView</key>
 				<string>id</string>
 			</dict>
 			<key>SUPERCLASS</key>
