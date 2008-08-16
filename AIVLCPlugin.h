@@ -24,7 +24,7 @@
 #import "AIPluginProtocol.h"
 #import "AIPluginControllerProtocol.h"
 
-@interface AIVLCPlugin : NSObject<AIPluginControllerProtocol>
+@interface AIVLCPlugin : NSObject<AIPluginControllerProtocol, AIPluginProtocol>
 {
     IBOutlet id preferences;
 	NSArrayController* arrayController;

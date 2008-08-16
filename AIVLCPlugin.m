@@ -21,6 +21,7 @@
  */
 
 #import "AIVLCPlugin.h"
+#import <ApplicationServices/ApplicationServices.h>
 
 
 @implementation AIVLCPlugin
@@ -102,6 +103,32 @@
 {	
 	if (enabled)
 	{		
+		///////////////// grab our original sound
+		NSAppleEventDescriptor* finder = [NSAppleEventDescriptor descriptorWithDescriptorType:typeApplicationBundleID
+														data:[@"com.Apple.Finder" dataUsingEncoding:NSUTF8StringEncoding]];
+		
+		
+		NSAppleEventDescriptor* ae = [NSAppleEventDescriptor appleEventWithEventClass:'syso' 
+												 eventID:'gtvl' 
+										targetDescriptor:finder
+												returnID:kAutoGenerateReturnID 
+										   transactionID:kAnyTransactionID];
+		NSAppleEventDescriptor* reply = [NSAppleEventDescriptor nullDescriptor];
+		// ignore this warning; we got it right
+		AESendMessage([ae aeDesc], [reply aeDesc], kAEWaitReply | kAECanInteract, kAEDefaultTimeout);
+		int origVolume = [[[reply descriptorAtIndex:1]descriptorAtIndex:1]int32Value];
+		
+		///////////////// kill sound
+		NSAppleEventDescriptor* muter = [NSAppleEventDescriptor appleEventWithEventClass:'aevt' 
+																				 eventID:'stvl' 
+																		targetDescriptor:finder
+																				returnID:kAutoGenerateReturnID 
+																		   transactionID:kAnyTransactionID];
+		
+		[muter setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:origVolume?0:1] forKeyword:'ouvl'];
+		AESendMessage([muter aeDesc], NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+		
+		///////////////// do our freakin long logic
 		if ([self isPlaying])
 		{
 			// mute/hout
@@ -109,6 +136,11 @@
 		}
 		// unmute/hin
 		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
+		
+		///////////////// put volume back the way it was
+		
+		[muter setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:origVolume] forKeyword:'ouvl'];
+		AESendMessage([muter aeDesc], NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
 	}
 }
 
@@ -132,39 +164,6 @@
 	[statusTask waitUntilExit];
 	int status = [statusTask terminationStatus];
 	return status;
-	/*
-	 NSData *data;	
-	NSArray *args = [NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml", nil];
-	
-	[statusTask setLaunchPath:@"/usr/bin/curl"];
-	[statusTask setArguments: args];
-	[statusTask setStandardOutput: [NSPipe pipe]];
-	
-	[statusTask launch];
-	
-	data = [[[statusTask standardOutput] fileHandleForReading] availableData];
-	
-	NSXMLParser *parser = [[NSXMLParser alloc]initWithData:data];
-	[parser setDelegate:self];
-	[parser parse];
-	
-	return isPlaying;
-	 */
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	if ([elementName isEqualToString:@"state"]) {
-		isPlaying = ([currentStringValue isEqualToString:@"\n  playing"])?1:0;
-	}
-	currentStringValue = nil;
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if (!currentStringValue) {
-        // currentStringValue is an NSMutableString instance variable
-        currentStringValue = [[NSMutableString alloc] initWithCapacity:50];
-    }
-    [currentStringValue appendString:string];
 }
 
 @end
