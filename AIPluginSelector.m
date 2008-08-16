@@ -72,7 +72,7 @@ static AIPluginSelector *pluginController = nil;
         {
             currPrincipalClass = [currBundle principalClass];
 			infoDictionary = [currBundle infoDictionary];
-            if(currPrincipalClass && [currPrincipalClass conformsToProtocol:@protocol(AIPluginControllerProtocol)])
+            if(currPrincipalClass && ( [currPrincipalClass conformsToProtocol:@protocol(AIPluginControllerProtocol)] || [currPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]))
             {
                 currInstance = [[currPrincipalClass alloc] init]; 
                 if(currInstance)
