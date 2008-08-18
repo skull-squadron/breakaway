@@ -40,4 +40,6 @@
 -(void)playMusic;
 -(void)pauseMusic;
 -(BOOL)isPlaying;
+- (void)setSystemVolume:(int)newVolume;
+- (int)currentSystemVolume;
 @end

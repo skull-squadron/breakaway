@@ -21,7 +21,7 @@
  */
 
 #import "AIVLCPlugin.h"
-#import <ApplicationServices/ApplicationServices.h>
+//#import <ApplicationServices/ApplicationServices.h>
 
 
 @implementation AIVLCPlugin
@@ -99,36 +99,53 @@
 	return self;
 }
 
+- (int)currentSystemVolume
+{
+	NSAppleEventDescriptor* finder = [NSAppleEventDescriptor descriptorWithDescriptorType:typeApplicationBundleID
+																					 data:[@"com.Apple.Finder" dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	
+	NSAppleEventDescriptor* ae = [NSAppleEventDescriptor appleEventWithEventClass:'syso' 
+																		  eventID:'gtvl' 
+																 targetDescriptor:finder
+																		 returnID:kAutoGenerateReturnID 
+																	transactionID:kAnyTransactionID];
+	NSAppleEventDescriptor* reply = [NSAppleEventDescriptor nullDescriptor];
+	// ignore this warning; we got it right
+	AESendMessage([ae aeDesc], [reply aeDesc], kAEWaitReply | kAECanInteract, kAEDefaultTimeout);
+	int origVolume = [[[reply descriptorAtIndex:1]descriptorAtIndex:1]int32Value];
+	return origVolume;
+}
+
+- (void)setSystemVolume:(int)newVolume
+{
+	NSAppleEventDescriptor* finder = [NSAppleEventDescriptor descriptorWithDescriptorType:typeApplicationBundleID
+																					 data:[@"com.Apple.Finder" dataUsingEncoding:NSUTF8StringEncoding]];
+		
+	
+	NSAppleEventDescriptor* muter = [NSAppleEventDescriptor appleEventWithEventClass:'aevt' 
+																			 eventID:'stvl' 
+																	targetDescriptor:finder
+																			returnID:kAutoGenerateReturnID 
+																	   transactionID:kAnyTransactionID];
+	
+	[muter setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:newVolume] forKeyword:'ouvl'];
+	AESendMessage([muter aeDesc], NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+}
+
 - (void)activate:(int)prototype
 {	
 	if (enabled)
-	{		
-		///////////////// grab our original sound
-		NSAppleEventDescriptor* finder = [NSAppleEventDescriptor descriptorWithDescriptorType:typeApplicationBundleID
-														data:[@"com.Apple.Finder" dataUsingEncoding:NSUTF8StringEncoding]];
+	{	
+		/* 
+		 This dip routine works, but not as fast as we would like it. rather than disappoint people with a subpar
+		 dip, it is better to hold off on this until a better solution is found
+		// grab our orig volume if we are pulling out the headphones
+		int origVolume = 0;
+		if (((prototype & 69)==prototype)) { origVolume = [self currentSystemVolume]; [self setSystemVolume:1];}
+		 */
 		
-		
-		NSAppleEventDescriptor* ae = [NSAppleEventDescriptor appleEventWithEventClass:'syso' 
-												 eventID:'gtvl' 
-										targetDescriptor:finder
-												returnID:kAutoGenerateReturnID 
-										   transactionID:kAnyTransactionID];
-		NSAppleEventDescriptor* reply = [NSAppleEventDescriptor nullDescriptor];
-		// ignore this warning; we got it right
-		AESendMessage([ae aeDesc], [reply aeDesc], kAEWaitReply | kAECanInteract, kAEDefaultTimeout);
-		int origVolume = [[[reply descriptorAtIndex:1]descriptorAtIndex:1]int32Value];
-		
-		///////////////// kill sound
-		NSAppleEventDescriptor* muter = [NSAppleEventDescriptor appleEventWithEventClass:'aevt' 
-																				 eventID:'stvl' 
-																		targetDescriptor:finder
-																				returnID:kAutoGenerateReturnID 
-																		   transactionID:kAnyTransactionID];
-		
-		[muter setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:origVolume?0:1] forKeyword:'ouvl'];
-		AESendMessage([muter aeDesc], NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
-		
-		///////////////// do our freakin long logic
+		// do logic
 		if ([self isPlaying])
 		{
 			// mute/hout
@@ -137,10 +154,8 @@
 		// unmute/hin
 		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
 		
-		///////////////// put volume back the way it was
-		
-		[muter setParamDescriptor:[NSAppleEventDescriptor descriptorWithInt32:origVolume] forKeyword:'ouvl'];
-		AESendMessage([muter aeDesc], NULL, kAENoReply | kAENeverInteract, kAEDefaultTimeout);
+		// put volume back the way it was
+		//if (((prototype & 69)==prototype)) [self setSystemVolume:origVolume];
 	}
 }
 
@@ -151,7 +166,8 @@
 
 -(void)pauseMusic
 {
-	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/curl" arguments:[NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml?command=pl_pause", nil]];
+	NSTask *pauseTask = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/curl" arguments:[NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml?command=pl_pause", nil]];
+	[pauseTask waitUntilExit];
 }
 
 -(BOOL)isPlaying

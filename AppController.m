@@ -360,11 +360,6 @@ static AppController *appController = nil;
     //DEBUG_OUTPUT1(@"%@",then);
 }
 
-- (IBAction)openDonate:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=kevinnygaard%40mac%2ecom&item_name=Breakaway&item_number=Donation&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8"]];
-}
-
 - (IBAction)openInfo:(id)sender
 {
 	[NSApp orderFrontStandardAboutPanel:nil];

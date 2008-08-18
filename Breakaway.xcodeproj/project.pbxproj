@@ -28,7 +28,6 @@
 		0A55C4A00E36D8BA00347DB7 /* VLC Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */; };
 		0A55C4C00E36EC3C00347DB7 /* AIVLCPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A55C4780E36D7A500347DB7 /* AIVLCPlugin.h */; };
 		0A55C4C10E36EC3D00347DB7 /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginProtocol.h */; };
-		0A601C290E481A2D00A15D73 /* vlcPluginInstructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C5850E36F5B400347DB7 /* vlcPluginInstructions.txt */; };
 		0A60A5790DC2C73C0078273D /* Macintosh.dict in Resources */ = {isa = PBXBuildFile; fileRef = 0A60A5780DC2C73C0078273D /* Macintosh.dict */; };
 		0A73575E0DC2882A0095EE7A /* Network Utility.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A73575D0DC2882A0095EE7A /* Network Utility.tiff */; };
 		0A7A39D20B9784B000A35612 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A7A39D00B9784B000A35612 /* MainMenu.nib */; };
@@ -59,6 +58,10 @@
 		0AAB56010B196B18005B1E69 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB56610B19712E005B1E69 /* GrowlNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */; };
+		0AB0A20C0E57EB8500987699 /* Folder.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A20B0E57EB8500987699 /* Folder.tiff */; };
+		0AB0A2260E57ED8700987699 /* a PLUGIN README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
+		0AB0A22B0E57EE4200987699 /* a PLUGIN README.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
+		0AB0A23D0E57F67800987699 /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A23C0E57F67800987699 /* Users.tiff */; };
 		0AD0B2620B1831B50021CC15 /* oldIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2610B1831B50021CC15 /* oldIcon.icns */; };
 		0AD0B28A0B183C060021CC15 /* disconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2890B183C060021CC15 /* disconnected.png */; };
 		0AD1580E0C729AD400E95F09 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD1580C0C729AD400E95F09 /* PreferencesController.h */; };
@@ -82,6 +85,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				0AB0A22B0E57EE4200987699 /* a PLUGIN README.txt in CopyFiles */,
 				0A55C4A00E36D8BA00347DB7 /* VLC Plugin.plugin in CopyFiles */,
 				0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.plugin in CopyFiles */,
 			);
@@ -157,6 +161,9 @@
 		0AAB56000B196B18005B1E69 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		0AAB565E0B19712E005B1E69 /* GrowlNotifier.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GrowlNotifier.h; sourceTree = "<group>"; };
 		0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GrowlNotifier.m; sourceTree = "<group>"; };
+		0AB0A20B0E57EB8500987699 /* Folder.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Folder.tiff; sourceTree = "<group>"; };
+		0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "a PLUGIN README.txt"; sourceTree = "<group>"; };
+		0AB0A23C0E57F67800987699 /* Users.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Users.tiff; sourceTree = "<group>"; };
 		0ACA9C320B0D297F00610F2A /* DebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugUtils.h; sourceTree = "<group>"; };
 		0AD0B2610B1831B50021CC15 /* oldIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = oldIcon.icns; path = images/oldIcon.icns; sourceTree = "<group>"; };
 		0AD0B2890B183C060021CC15 /* disconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnected.png; path = images/disconnected.png; sourceTree = "<group>"; };
@@ -229,6 +236,8 @@
 		0A48B5040DF1AD3900175D08 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0AB0A23C0E57F67800987699 /* Users.tiff */,
+				0AB0A20B0E57EB8500987699 /* Folder.tiff */,
 				0A83B33F0E55AA9400B2227C /* plugins.png */,
 				0A9477D40E23B23C00E2C06C /* Remove.tiff */,
 				0A9444230C736CE100171875 /* General Preferences.tiff */,
@@ -316,6 +325,7 @@
 				0A4611470DF0741B001A579C /* Readme.rtf */,
 				0AF44E370B1229D0007163FE /* Credits.rtf */,
 				0A4611490DF07425001A579C /* COPYING.txt */,
+				0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */,
 			);
 			name = Docs;
 			sourceTree = "<group>";
@@ -577,8 +587,10 @@
 				0A46114B0DF07425001A579C /* COPYING.txt in Resources */,
 				0A46114C0DF07425001A579C /* devs log.txt in Resources */,
 				0A9477D60E23B24100E2C06C /* Remove.tiff in Resources */,
-				0A601C290E481A2D00A15D73 /* vlcPluginInstructions.txt in Resources */,
 				0A83B3830E55B07C00B2227C /* plugins.png in Resources */,
+				0AB0A20C0E57EB8500987699 /* Folder.tiff in Resources */,
+				0AB0A2260E57ED8700987699 /* a PLUGIN README.txt in Resources */,
+				0AB0A23D0E57F67800987699 /* Users.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

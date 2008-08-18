@@ -4,10 +4,15 @@
 <dict>
 	<key>IBFramework Version</key>
 	<string>629</string>
+	<key>IBLastKnownRelativeProjectPath</key>
+	<string>../../Breakaway.xcodeproj</string>
 	<key>IBOldestOS</key>
 	<integer>5</integer>
 	<key>IBOpenObjects</key>
-	<array/>
+	<array>
+		<integer>113</integer>
+		<integer>3396</integer>
+	</array>
 	<key>IBSystem Version</key>
 	<string>9E17</string>
 	<key>targetFramework</key>

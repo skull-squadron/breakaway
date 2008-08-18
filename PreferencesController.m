@@ -47,6 +47,7 @@ static PreferencesController *sharedPreferencesController = nil;
 	GeneralToolbarItemIdentifier				= NSLocalizedString(@"General",nil);
 	AdvancedToolbarItemIdentifier				= NSLocalizedString(@"Advanced",nil);
 	PluginsToolbarItemIdentifier				= NSLocalizedString(@"Plugins",nil);
+	DonateToolbarItemIdentifier				    = NSLocalizedString(@"Donate",nil);
 	AboutToolbarItemIdentifier  				= NSLocalizedString(@"About",nil);
 	ExpandBreakawayToolbarItemIdentifier  		= NSLocalizedString(@"Expand",nil);
 	QuitToolbarItemIdentifier     				= NSLocalizedString(@"Quit",nil);
@@ -97,8 +98,9 @@ static PreferencesController *sharedPreferencesController = nil;
 		PluginsToolbarItemIdentifier,
 		AdvancedToolbarItemIdentifier,
 		NSToolbarFlexibleSpaceItemIdentifier,
-		NSToolbarSeparatorItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
+		NSToolbarSeparatorItemIdentifier,
+		DonateToolbarItemIdentifier,
 		AboutToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,
 		nil];
@@ -112,6 +114,7 @@ static PreferencesController *sharedPreferencesController = nil;
 		AdvancedToolbarItemIdentifier,
 		AboutToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
+		DonateToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,
 		NSToolbarSeparatorItemIdentifier,
 		NSToolbarSpaceItemIdentifier,
@@ -125,6 +128,7 @@ static PreferencesController *sharedPreferencesController = nil;
 		GeneralToolbarItemIdentifier,
 		PluginsToolbarItemIdentifier,
 		AdvancedToolbarItemIdentifier,
+		DonateToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
 		/*AboutToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,*/
@@ -163,6 +167,13 @@ static PreferencesController *sharedPreferencesController = nil;
 		[item setTarget:self];
 		[item setAction:@selector(toggleActivePreferenceView:)];
 	} 
+	else if ([identifier isEqualToString:DonateToolbarItemIdentifier])
+	{
+		[item setLabel:DonateToolbarItemIdentifier];
+		[item setImage:[NSImage imageNamed:@"Users"]];
+		[item setTarget:self];
+		[item setAction:@selector(toggleActivePreferenceView:)];
+	} 
 	else if ([identifier isEqualToString:AboutToolbarItemIdentifier])
 	{
 		[item setLabel:AboutToolbarItemIdentifier];
@@ -198,6 +209,8 @@ static PreferencesController *sharedPreferencesController = nil;
 		view = advancedPreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:ExpandBreakawayToolbarItemIdentifier])
 		view = expandBreakawayPreferenceView;
+	else if ([[sender itemIdentifier] isEqualToString:DonateToolbarItemIdentifier])
+		view = donatePreferenceView;
 	
 	if (view != pluginsPreferenceView) [pluginPreferenceDrawer close:self];
 	

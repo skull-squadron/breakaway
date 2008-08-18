@@ -140,6 +140,11 @@ static AIPluginSelector *pluginController = nil;
 	}
 }
 
+- (IBAction)openPluginFolder:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] builtInPlugInsPath]  inFileViewerRootedAtPath:@""];
+}
+
 #pragma mark Delegate
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification

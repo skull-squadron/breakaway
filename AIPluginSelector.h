@@ -43,7 +43,7 @@
 - (NSMutableArray *)allBundles;
 
 - (void)executeTriggers:(int)prototype;
-
+- (IBAction)openPluginFolder:(id)sender;
 + (AIPluginSelector *)pluginController;
 
 @end

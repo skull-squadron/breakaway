@@ -30,12 +30,14 @@
 	NSString *AboutToolbarItemIdentifier  	;
 	NSString *QuitToolbarItemIdentifier    ;
 	NSString *ExpandBreakawayToolbarItemIdentifier    ;
+	NSString *DonateToolbarItemIdentifier    ;
 	
     IBOutlet id activeContentView;
     IBOutlet id advancedPreferenceView;
     IBOutlet id chatStatusRollout;
     IBOutlet id generalPreferenceView;
     IBOutlet id pluginsPreferenceView;
+	IBOutlet id donatePreferenceView;
 	IBOutlet id expandBreakawayPreferenceView;
 	
 	IBOutlet id preferenceHandler;

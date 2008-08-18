@@ -38,6 +38,7 @@ NSString* osTypeToFourCharCode(OSType inType);
 - (IBAction)update:(id)sender;
 - (IBAction)updateCheck:(id)sender;
 - (IBAction)testFadeIn:(id)sender;
+- (IBAction)viewReadme:(id)sender;
 
 - (IBAction)sendResults:(id)sender;
 - (IBAction)startTest:(id)sender;

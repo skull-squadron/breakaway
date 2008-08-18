@@ -41,7 +41,12 @@
 #pragma mark IBActions
 - (IBAction)donate:(id)sender
 {
-	[[AppController appController] openDonate:nil];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://balthamos.awardspace.com/donate.php"]];
+}
+
+- (IBAction)viewReadme:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:@"Readme.rtf"]];
 }
 
 - (IBAction)showInMenuBar:(id)sender
