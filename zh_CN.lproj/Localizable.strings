@@ -6,13 +6,13 @@
 "Enable"="启用";
 "Enabled"="已启用";
 "General"="一般选项";
+"Plugins"="Plugins";
 "Expand"="扩展";
 "Jack Connected"="插头已连接";
 "Jack Disconnected"="插头未连接";
 "Quit"="退出";
 "The menu extra has sucessfully been disabled. Breakaway is still running."="禁用文本";
 "The menu extra has sucessfully been enabled."="启用文本";
-"Triggers"="开关";
 "Please state what part of the application is not working. Please have these statements in English, if possible."="尽管提出您额外的问题（例如若 Breakway 只能部分工作）与评价。如果可能请尽量使用英文";
 "Please connect headphones now and click on the button again"="现在请插入耳机，然后再次点击按钮";
 "You are done! Click the sumbit results button. Thank you for making Breakaway better."="完成！点击发送结果按钮。谢谢您对 Breakaway 的支持";

@@ -102,11 +102,11 @@ Balthamos | April 2008
      Updated French localization
      Minor UI adjustments
 
-1.8: [New] Now open source on SourceForge.net
-     [New] Now under GPL license
-	 [New] Plugins added
-	 [Change] Triggers replaced with Plugins
-	 [Change] iTunes playpause calls now significantly faster
-	 [Change] Preferences rearranged
+1.75b: [New] Now open source on SourceForge.net
+       [New] Now under GPL license
+	   [New] Plugins added
+	   [Change] Triggers replaced with Plugins
+	   [Change] iTunes playpause calls now significantly faster
+	   [Change] Preferences rearranged
 
 ===========================================================================
