@@ -55,21 +55,19 @@
 		0A9C82220E21D250001B29F6 /* AppleScript Plugin-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */; };
 		0A9C82260E21D2DF001B29F6 /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C81D20E21CB74001B29F6 /* AIPluginProtocol.h */; };
 		0A9C82860E21D9CA001B29F6 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4573210AFFD6E3007EBF43 /* AppController.h */; };
-		0AAB56010B196B18005B1E69 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
-		0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AAB56000B196B18005B1E69 /* Growl.framework */; };
 		0AAB56610B19712E005B1E69 /* GrowlNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */; };
 		0AB0A20C0E57EB8500987699 /* Folder.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A20B0E57EB8500987699 /* Folder.tiff */; };
 		0AB0A2260E57ED8700987699 /* a PLUGIN README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
 		0AB0A22B0E57EE4200987699 /* a PLUGIN README.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
 		0AB0A23D0E57F67800987699 /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A23C0E57F67800987699 /* Users.tiff */; };
+		0AC67D880F0F2C7600196632 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
+		0AC67D890F0F2C7600196632 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0AD0B2620B1831B50021CC15 /* oldIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2610B1831B50021CC15 /* oldIcon.icns */; };
 		0AD0B28A0B183C060021CC15 /* disconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2890B183C060021CC15 /* disconnected.png */; };
 		0AD1580E0C729AD400E95F09 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD1580C0C729AD400E95F09 /* PreferencesController.h */; };
 		0AD1580F0C729AD400E95F09 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1580D0C729AD400E95F09 /* PreferencesController.m */; };
 		0AD158310C72A52300E95F09 /* PreferenceHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD1582F0C72A52300E95F09 /* PreferenceHandler.h */; };
 		0AD158320C72A52300E95F09 /* PreferenceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD158300C72A52300E95F09 /* PreferenceHandler.m */; };
-		0AE6EFB00C71828D0090AA93 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */; };
-		0AE6EFC90C7182C30090AA93 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */; };
 		0AF44E380B1229D0007163FE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* Credits.rtf */; };
 		0AF44EF30B127AAA007163FE /* connected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44EF00B127A9E007163FE /* connected.png */; };
 		0AF44EF40B127AAA007163FE /* disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44EF10B127A9E007163FE /* disabled.png */; };
@@ -97,8 +95,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0AE6EFC90C7182C30090AA93 /* Sparkle.framework in CopyFiles */,
-				0AAB560C0B196BD5005B1E69 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,12 +154,13 @@
 		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppleScript Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A9C81D20E21CB74001B29F6 /* AIPluginProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginProtocol.h; sourceTree = "<group>"; };
-		0AAB56000B196B18005B1E69 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		0AAB565E0B19712E005B1E69 /* GrowlNotifier.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GrowlNotifier.h; sourceTree = "<group>"; };
 		0AAB565F0B19712E005B1E69 /* GrowlNotifier.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GrowlNotifier.m; sourceTree = "<group>"; };
 		0AB0A20B0E57EB8500987699 /* Folder.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Folder.tiff; sourceTree = "<group>"; };
 		0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "a PLUGIN README.txt"; sourceTree = "<group>"; };
 		0AB0A23C0E57F67800987699 /* Users.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Users.tiff; sourceTree = "<group>"; };
+		0AC67D860F0F2C7500196632 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		0AC67D870F0F2C7600196632 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		0ACA9C320B0D297F00610F2A /* DebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugUtils.h; sourceTree = "<group>"; };
 		0AD0B2610B1831B50021CC15 /* oldIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = oldIcon.icns; path = images/oldIcon.icns; sourceTree = "<group>"; };
 		0AD0B2890B183C060021CC15 /* disconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnected.png; path = images/disconnected.png; sourceTree = "<group>"; };
@@ -172,7 +169,6 @@
 		0AD1580D0C729AD400E95F09 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		0AD1582F0C72A52300E95F09 /* PreferenceHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreferenceHandler.h; sourceTree = "<group>"; };
 		0AD158300C72A52300E95F09 /* PreferenceHandler.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PreferenceHandler.m; sourceTree = "<group>"; };
-		0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		0AF44E370B1229D0007163FE /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Credits.rtf; path = Docs/Credits.rtf; sourceTree = "<group>"; };
 		0AF44EF00B127A9E007163FE /* connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = connected.png; path = images/connected.png; sourceTree = "<group>"; };
 		0AF44EF10B127A9E007163FE /* disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disabled.png; path = images/disabled.png; sourceTree = "<group>"; };
@@ -208,8 +204,8 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0A45732F0AFFD766007EBF43 /* CoreAudio.framework in Frameworks */,
-				0AAB56010B196B18005B1E69 /* Growl.framework in Frameworks */,
-				0AE6EFB00C71828D0090AA93 /* Sparkle.framework in Frameworks */,
+				0AC67D880F0F2C7600196632 /* Growl.framework in Frameworks */,
+				0AC67D890F0F2C7600196632 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,8 +329,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0AE6EFAF0C71828D0090AA93 /* Sparkle.framework */,
-				0AAB56000B196B18005B1E69 /* Growl.framework */,
+				0AC67D860F0F2C7500196632 /* Growl.framework */,
+				0AC67D870F0F2C7600196632 /* Sparkle.framework */,
 				0A45732E0AFFD766007EBF43 /* CoreAudio.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
@@ -866,10 +862,12 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -906,10 +904,12 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
@@ -943,10 +943,12 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = "";
@@ -971,10 +973,12 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
