@@ -15,11 +15,13 @@ APPCASTUPDATE=`echo ~/Desktop/appcastUpdate.xml`
 # Make a dir on the desktop with the latest app all bundled up
 # also, make a tar of it so we don't have to
 mkdir $BAF
-cp $DEVDIR/Docs/Readme.rtf $BAF/
-cp $DEVDIR/Docs/Readme\ \(Chinese\).rtf $BAF/
-cp $DEVDIR/Docs/devs\ log.txt $BAF/
+#cp $DEVDIR/Docs/Readme.rtf $BAF/
+#cp $DEVDIR/Docs/Readme\ \(Chinese\).rtf $BAF/
+#cp $DEVDIR/Docs/devs\ log.txt $BAF/
 cp -R $DEVDIR/build/Release/Breakaway.app $BAF/
-cp -R $DEVDIR/Premade\ Scripts $BAF/
+ln -s $BAF/Breakaway.app/Contents/Resources/Readme.rtf $BAF/
+ln -s $BAF/Breakaway.app/Contents/Resources/devs\ log.txt $BAF/
+#cp -R $DEVDIR/Premade\ Scripts $BAF/
 
 # We have this crazy line with the cd so we don't get /Some/Crazy/User/Path/When/We/Decompress/Breakaway/
 cd ~/Desktop/; zip -r Breakaway\(${VERSION}\).zip Breakaway\(${VERSION}\)
@@ -35,7 +37,7 @@ echo "&lt;ul&gt;" >> $APPCASTUPDATE
 # Pulling the changes from the changelog.txt
 X=`grep -n "${VERSION}:" $BAF/devs\ log.txt | awk -F':' '{ print $1 }'`
 Y=`grep -n "^=" $BAF/devs\ log.txt | awk -F':' '{ print $1 }'`
-sed -n -E "$X,${Y}s/[^A-Za-z]*$//g;$X,${Y}s/([^:]*:|[^A-Za-z]*[^A-Za-z])(.*$)/\&lt;li\&gt;\2/p" $BAF/devs\ log.txt >> $APPCASTUPDATE
+sed -n -E "$X,${Y}s/[^A-Za-z]*$//g;$X,${Y}s/([^:]*:|[^A-Za-z]*[^A-Za-z])(.*$)/\&lt;li\&gt;\2/p" $BAF/Breakaway.app/Contents/Resources/devs\ log.txt >> $APPCASTUPDATE
 echo "&lt;/ul&gt;" >> $APPCASTUPDATE
 echo "</description>" >> $APPCASTUPDATE
 echo "</item>" >> $APPCASTUPDATE
