@@ -92,14 +92,11 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 - (IBAction)sendemail:(id)sender;
 - (IBAction)openDonate:(id)sender;
 
-- (void)updateThen;
-
 - (IBAction)openInfo:(id)sender;
 - (IBAction)openUpdater:(id)sender;
 
 #pragma mark
 #pragma mark Accessor Functions
-- (NSDate *)then;
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
 

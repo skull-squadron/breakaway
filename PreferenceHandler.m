@@ -41,7 +41,7 @@
 #pragma mark IBActions
 - (IBAction)donate:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://balthamos.awardspace.com/donate.php"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://balthamos.darkraver.net/donate.php"]];
 }
 
 - (IBAction)viewReadme:(id)sender

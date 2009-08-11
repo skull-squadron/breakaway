@@ -39,6 +39,8 @@
 		0A897EB40E4C12DB0043CCF3 /* AIAppleScriptPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A897EB20E4C12DB0043CCF3 /* AIAppleScriptPlugin.h */; };
 		0A897EB50E4C12DB0043CCF3 /* AIAppleScriptPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A897EB30E4C12DB0043CCF3 /* AIAppleScriptPlugin.m */; };
 		0A897ECF0E4C1B520043CCF3 /* AIPluginControllerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A897ECE0E4C1B520043CCF3 /* AIPluginControllerProtocol.h */; };
+		0A89FC0F102A81BB00E1EC47 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
+		0A89FC1C102A81DA00E1EC47 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0A90C2ED0C7CC41000599C43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A90C2EB0C7CC41000599C43 /* Localizable.strings */; };
 		0A9444240C736CE100171875 /* General Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9444230C736CE100171875 /* General Preferences.tiff */; };
 		0A94442F0C736D2300171875 /* Get Info.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A94442E0C736D2300171875 /* Get Info.tiff */; };
@@ -60,7 +62,7 @@
 		0AB0A2260E57ED8700987699 /* a PLUGIN README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
 		0AB0A22B0E57EE4200987699 /* a PLUGIN README.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AB0A2250E57ED8700987699 /* a PLUGIN README.txt */; };
 		0AB0A23D0E57F67800987699 /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AB0A23C0E57F67800987699 /* Users.tiff */; };
-		0AC67D880F0F2C7600196632 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
+		0AC67D880F0F2C7600196632 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AC67D890F0F2C7600196632 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0AD0B2620B1831B50021CC15 /* oldIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2610B1831B50021CC15 /* oldIcon.icns */; };
 		0AD0B28A0B183C060021CC15 /* disconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD0B2890B183C060021CC15 /* disconnected.png */; };
@@ -77,6 +79,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0A89FC2B102A820200E1EC47 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0A89FC1C102A81DA00E1EC47 /* Sparkle.framework in CopyFiles */,
+				0AC67D880F0F2C7600196632 /* Growl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A9C82200E21D1F7001B29F6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,15 +99,6 @@
 				0AB0A22B0E57EE4200987699 /* a PLUGIN README.txt in CopyFiles */,
 				0A55C4A00E36D8BA00347DB7 /* VLC Plugin.plugin in CopyFiles */,
 				0A9C82180E21D1D9001B29F6 /* AppleScript Plugin.plugin in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0AAB560A0B196B9C005B1E69 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,9 +206,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A89FC0F102A81BB00E1EC47 /* Growl.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0A45732F0AFFD766007EBF43 /* CoreAudio.framework in Frameworks */,
-				0AC67D880F0F2C7600196632 /* Growl.framework in Frameworks */,
 				0AC67D890F0F2C7600196632 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,8 +493,8 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				0AAB560A0B196B9C005B1E69 /* CopyFiles */,
 				0A9C82200E21D1F7001B29F6 /* CopyFiles */,
+				0A89FC2B102A820200E1EC47 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -863,11 +867,15 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -905,11 +913,15 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
@@ -944,11 +956,15 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = "";
@@ -974,11 +990,15 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
