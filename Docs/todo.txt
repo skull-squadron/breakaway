@@ -1,5 +1,7 @@
 TODO
 
+disabled image changes with jack status
+
 trigger options
     complete core management
         breakaway handles all preferences, reinstantating on runs, loading refs

@@ -28,9 +28,12 @@
 #import "PreferencesController.h"
 #import "GrowlNotifier.h"
 #import <Sparkle/SUUpdater.h>
+#import <MTCoreAudio/MTCoreAudio.h>
 #import "DebugUtils.h"
 #import "defines.h"
 #import "AIPluginSelector.h"
+
+static     unsigned char outBuff[4096];
 
 @implementation AppController
 
@@ -525,17 +528,77 @@ static AppController *appController = nil;
 
 - (BOOL)audioFlowing
 {
+#if DEBUG
+#warning Soundflower status set programatically
+#else
+#error Soundflower status set programatically
+#endif
+    BOOL useSoundflower = TRUE;
+    
     AudioDeviceID defaultDevice;
     UInt32 audioDeviceSize = sizeof defaultDevice;
     AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
     
+    // we could be switching between defaultOut and headphones. best wait for everyone to get resituated
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false);
+    
     UInt32 runningSomewhere;
     UInt32 uint32Size = sizeof runningSomewhere;
     AudioDeviceGetProperty(defaultDevice,0,0,kAudioDevicePropertyDeviceIsRunningSomewhere,&uint32Size,&runningSomewhere);
-
     
-    return runningSomewhere == 1;
+    if (!runningSomewhere || !useSoundflower) return runningSomewhere;
+        
+    audioIsFlowing = BAAudioActivityUnknown;
+    NSArray *soundflowerArray = [MTCoreAudioDevice devicesWithName:@"Soundflower (2ch)" havingStreamsForDirection:kMTCoreAudioDevicePlaybackDirection];
+    if (![soundflowerArray count]) return BAAudioDormant;
+    
+    MTCoreAudioDevice *soundflowerDevice = [soundflowerArray objectAtIndex:0];
+    AudioDeviceID soundflowerDeviceID = [soundflowerDevice deviceID];
+    
+    AudioHardwareSetProperty(kAudioHardwarePropertyDefaultOutputDevice,audioDeviceSize,&soundflowerDeviceID);
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false);
+    
+    // set up the recording callback
+    [soundflowerDevice setIOTarget: self withSelector: @selector(readCycleForDevice:timeStamp:inputData:inputTime:outputData:outputTime:clientData:) withClientData: NULL];
+    [soundflowerDevice deviceStart];
+    
+    while (audioIsFlowing == BAAudioActivityUnknown);
+    
+    [soundflowerDevice deviceStop];
+    //[soundflowerDevice removeIOTarget];
+    
+    audioIsFlowing = BAAudioActivityUnknown;
+    [soundflowerDevice setIOTarget: self withSelector: @selector(readCycleForDevice:timeStamp:inputData:inputTime:outputData:outputTime:clientData:) withClientData: NULL];
+    [soundflowerDevice deviceStart];
+    
+    // we put this here instead of a while loop because there are certain instances where the iotarget won't get called, then we would be stuck here forever
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false);    
+    
+    [soundflowerDevice deviceStop];    
+    
+    DEBUG_OUTPUT1(@"Audio is %@.",audioIsFlowing?@"flowing":@"not flowing");
+    
+    AudioHardwareSetProperty(kAudioHardwarePropertyDefaultOutputDevice,audioDeviceSize,&defaultDevice);
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false);    
+    
+    return audioIsFlowing == BAAudioActive;
 }
+
+- (OSStatus)readCycleForDevice:(MTCoreAudioDevice*)theDevice timeStamp:(const AudioTimeStamp*)now inputData:(const AudioBufferList*)inputData inputTime:(const AudioTimeStamp*)inputTime outputData:(AudioBufferList*)outputData outputTime:(const AudioTimeStamp*)outputTime clientData:(void*)clientData
+{
+    if (audioIsFlowing != BAAudioActivityUnknown) return (noErr);
+    
+    const AudioBuffer *buffer;
+    buffer = &inputData->mBuffers[0];
+    
+    memcpy (outBuff,buffer->mData, buffer->mDataByteSize);
+    
+    if (outBuff[0] != 0) audioIsFlowing = BAAudioActive;
+    else audioIsFlowing = BAAudioDormant;
+    
+    return (noErr);
+}
+
 
 - (BOOL)jackConnected
 {
@@ -628,8 +691,11 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     // we don't know who self is, so we passed it in as a parameter. how clever!
     id self = (id)inClientData;
     
-    // this has to be determined now; if we wait any longer, then we are going to detect the sound that plays when you change the volume!
-    BOOL isFlowing = ([userDefaults boolForKey:@"enableFlowing"]) ? [self audioFlowing] : 0;
+    BOOL isPlaying = [self isPlaying]; // TRUE if iTunes is playing
+
+    // this has to be determined now; if we wait any longer, then we are going to detect the sound that plays when you change the volume! also, if we are playing, this option is useless to us.
+    CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.3, false);
+    BAAudioFlowing isFlowing = (!isPlaying && [userDefaults boolForKey:@"enableFlowing"]) ? [self audioFlowing] : BAAudioDormant;
 
     DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
     
@@ -656,7 +722,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     
     //// Pre-fetching all our stats
     BOOL hpMode = [userDefaults boolForKey:@"headphonesMode"]; // TRUE if headphones mode is on
-    BOOL isPlaying = [self isPlaying]; // TRUE if iTunes is playing
     BOOL jConnect = [self jackConnected]; // TRUE if headphones in jack
     
     // if we want !force open, take isActive, otherwise lie and always say TRUE (which will activate iTunes if it has to)

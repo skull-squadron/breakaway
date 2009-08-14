@@ -29,9 +29,16 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 									   Boolean                 isInput,
 									   AudioDevicePropertyID   inPropertyID,
 									   void*                   inClientData);
+typedef enum _BAAudioFlowing {
+    BAAudioActivityUnknown = -1,
+    BAAudioDormant,
+    BAAudioActive
+} BAAudioFlowing;
 
 @interface AppController : NSObject
 {
+    BAAudioFlowing audioIsFlowing;
+    
 	// Our scripts for controlling iTunes
 	NSAppleScript *playerState;
 	NSAppleScript *fadeIn;

@@ -42,6 +42,8 @@
 		0A89FC0F102A81BB00E1EC47 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0A89FC1C102A81DA00E1EC47 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0A90C2ED0C7CC41000599C43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A90C2EB0C7CC41000599C43 /* Localizable.strings */; };
+		0A90F018103519F7008D2E5A /* MTCoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90F017103519F7008D2E5A /* MTCoreAudio.framework */; };
+		0A90F038103519FF008D2E5A /* MTCoreAudio.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A90F017103519F7008D2E5A /* MTCoreAudio.framework */; };
 		0A9444240C736CE100171875 /* General Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9444230C736CE100171875 /* General Preferences.tiff */; };
 		0A94442F0C736D2300171875 /* Get Info.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A94442E0C736D2300171875 /* Get Info.tiff */; };
 		0A9444370C736D4C00171875 /* Terminal.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A9444360C736D4C00171875 /* Terminal.tiff */; };
@@ -78,6 +80,23 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0A90EFCE103501AA008D2E5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A9C81BF0E21CA62001B29F6;
+			remoteInfo = "AppleScript Plugin";
+		};
+		0A90EFD0103501AA008D2E5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A55C4870E36D7C200347DB7;
+			remoteInfo = "VLC Plugin";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		0A89FC2B102A820200E1EC47 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -85,6 +104,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0A90F038103519FF008D2E5A /* MTCoreAudio.framework in CopyFiles */,
 				0A89FC1C102A81DA00E1EC47 /* Sparkle.framework in CopyFiles */,
 				0AC67D880F0F2C7600196632 /* Growl.framework in CopyFiles */,
 			);
@@ -145,6 +165,7 @@
 		0A897EB30E4C12DB0043CCF3 /* AIAppleScriptPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIAppleScriptPlugin.m; sourceTree = "<group>"; };
 		0A897ECE0E4C1B520043CCF3 /* AIPluginControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPluginControllerProtocol.h; sourceTree = "<group>"; };
 		0A90C2EC0C7CC41000599C43 /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0A90F017103519F7008D2E5A /* MTCoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MTCoreAudio.framework; sourceTree = "<group>"; };
 		0A9444230C736CE100171875 /* General Preferences.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "General Preferences.tiff"; path = "images/General Preferences.tiff"; sourceTree = "<group>"; };
 		0A94442E0C736D2300171875 /* Get Info.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = "Get Info.tiff"; path = "images/Get Info.tiff"; sourceTree = "<group>"; };
 		0A9444360C736D4C00171875 /* Terminal.tiff */ = {isa = PBXFileReference; explicitFileType = image; name = Terminal.tiff; path = images/Terminal.tiff; sourceTree = "<group>"; };
@@ -210,6 +231,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				0A45732F0AFFD766007EBF43 /* CoreAudio.framework in Frameworks */,
 				0AC67D890F0F2C7600196632 /* Sparkle.framework in Frameworks */,
+				0A90F018103519F7008D2E5A /* MTCoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +355,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A90F017103519F7008D2E5A /* MTCoreAudio.framework */,
 				0AC67D860F0F2C7500196632 /* Growl.framework */,
 				0AC67D870F0F2C7600196632 /* Sparkle.framework */,
 				0A45732E0AFFD766007EBF43 /* CoreAudio.framework */,
@@ -499,6 +522,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				0A90EFCF103501AA008D2E5A /* PBXTargetDependency */,
+				0A90EFD1103501AA008D2E5A /* PBXTargetDependency */,
 			);
 			name = Breakaway;
 			productInstallPath = "$(HOME)/Applications";
@@ -629,6 +654,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0A90EFCF103501AA008D2E5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */;
+			targetProxy = 0A90EFCE103501AA008D2E5A /* PBXContainerItemProxy */;
+		};
+		0A90EFD1103501AA008D2E5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A55C4870E36D7C200347DB7 /* VLC Plugin */;
+			targetProxy = 0A90EFD0103501AA008D2E5A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -869,6 +907,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -876,15 +915,17 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-DDEBUG=0";
 				PRODUCT_NAME = Breakaway;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = "Debug (no Logs)";
 		};
@@ -915,6 +956,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -922,10 +964,12 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-DDEBUG=1";
 				PRODUCT_NAME = Breakaway;
 				WRAPPER_EXTENSION = app;
 			};
@@ -958,6 +1002,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -965,12 +1010,14 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CFLAGS = "-DDEBUG=1";
 				PRODUCT_NAME = Breakaway;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -992,6 +1039,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -999,6 +1047,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;

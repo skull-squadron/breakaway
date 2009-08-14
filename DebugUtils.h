@@ -20,7 +20,7 @@
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if MY_DEBUG_FLAG
+#if DEBUG
 #define DEBUG_OUTPUT( a )         NSLog( a )
 #define DEBUG_OUTPUT1( a, b )     NSLog( a, b )
 #else
