@@ -53,7 +53,6 @@ static AIPluginSelector *pluginController = nil;
 - (void)loadAllBundles
 {                                        
     NSMutableArray *bundlePaths;
-	NSDictionary *infoDictionary;
     NSEnumerator *pathEnum;
     NSString *currPath;
     NSBundle *currBundle;
@@ -71,7 +70,6 @@ static AIPluginSelector *pluginController = nil;
         if(currBundle)
         {
             currPrincipalClass = [currBundle principalClass];
-			infoDictionary = [currBundle infoDictionary];
             if(currPrincipalClass && ( [currPrincipalClass conformsToProtocol:@protocol(AIPluginControllerProtocol)] || [currPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]))
             {
                 currInstance = [[currPrincipalClass alloc] init]; 
@@ -133,7 +131,7 @@ static AIPluginSelector *pluginController = nil;
 	id plugin;
 	while ((plugin = [listEnum nextObject]))
 	{
-		id pluginInstance;
+		id<AIPluginProtocol, AIPluginControllerProtocol> pluginInstance;
 		NSEnumerator* instanceEnum = [[[plugin arrayController]content] objectEnumerator];
 		while ((pluginInstance = [instanceEnum nextObject])) 
 			if (([pluginInstance familyCode] & prototype) == prototype) [pluginInstance activate:prototype];

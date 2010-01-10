@@ -185,7 +185,7 @@ static PreferencesController *sharedPreferencesController = nil;
 #pragma mark View Manipulation
 - (void)toggleActivePreferenceView:(id)sender
 {
-	NSView *view;
+	NSView *view = nil;
 	
 	if ([[sender itemIdentifier] isEqualToString:GeneralToolbarItemIdentifier])
 		view = generalPreferenceView;

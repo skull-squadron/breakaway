@@ -31,17 +31,19 @@ NSString* osTypeToFourCharCode(OSType inType);
     NSThread *fadeInThread;
 }
 
-// Plugin
+- (void)awakeFromNib;
+- (BOOL)isUIElement;
+// IBActions
 - (IBAction)donate:(id)sender;
+- (IBAction)viewReadme:(id)sender;
 - (IBAction)showInMenuBar:(id)sender;
-- (IBAction)muteKeyEnable:(id)sender;
 - (IBAction)showInDock:(id)sender;
 - (IBAction)update:(id)sender;
 - (IBAction)updateCheck:(id)sender;
 - (IBAction)testFadeIn:(id)sender;
-- (IBAction)viewReadme:(id)sender;
-
-- (IBAction)sendResults:(id)sender;
 - (IBAction)startTest:(id)sender;
+- (IBAction)sendResults:(id)sender;
+// Delegates
+- (BOOL)windowShouldClose:(id)sender;
 
 @end

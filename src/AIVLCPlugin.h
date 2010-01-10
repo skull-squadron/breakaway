@@ -29,17 +29,17 @@
     IBOutlet id preferences;
 	NSArrayController* arrayController;
 	
-	bool enabled;
-	bool isPlaying;
-	bool appHit;
+	BOOL enabled;
+	BOOL isPlaying;
+	BOOL appHit;
 	
 	NSMutableString* currentStringValue;
 	NSMutableArray* instancesArray;
 }
 
--(void)playMusic;
--(void)pauseMusic;
--(BOOL)isPlaying;
+- (void)playMusic;
+- (void)pauseMusic;
+- (BOOL)isPlaying;
 - (void)setSystemVolume:(int)newVolume;
 - (int)currentSystemVolume;
 @end

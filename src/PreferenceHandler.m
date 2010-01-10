@@ -28,19 +28,27 @@
 #import "Sparkle/SUUpdater.h"
 #import "defines.h"
 
-#define UI_PLIST_LOCATION 23
 @implementation PreferenceHandler
 
 -(void)awakeFromNib
-{	
+{
+    [[NSUserDefaults standardUserDefaults] setBool:[self isUIElement] forKey:@"LSUIElement"];
 	// this is used for testing the system (startTest:)
 	done = 0;
+}
+
+- (BOOL)isUIElement
+{
+    NSString *infoPlistLocation = [NSString stringWithFormat:@"%@/Contents/Info.plist",[[NSBundle mainBundle] bundlePath]];
+    NSMutableDictionary *appPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:infoPlistLocation];
+    
+    return [[appPrefs objectForKey:@"LSUIElement"] boolValue];
 }
 
 #pragma mark IBActions
 - (IBAction)donate:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://balthamos.darkraver.net/donate.php"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:donateAddress]];
 }
 
 - (IBAction)viewReadme:(id)sender
@@ -53,19 +61,14 @@
 	[[AppController appController] showInMenuBarAct:nil];
 }
 
-- (IBAction)muteKeyEnable:(id)sender
-{
-	[[AppController appController] muteKeyEnableAct:nil];
-}
-
 - (IBAction)showInDock:(id)sender
 {
-	NSString* path = [[[NSBundle mainBundle]bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"];
-	NSMutableArray* infoContents = [[NSString stringWithContentsOfFile:path] componentsSeparatedByString:@"\n"];
-	[infoContents replaceObjectAtIndex:UI_PLIST_LOCATION withObject:[NSString stringWithFormat:@"	<string>%i</string>",![sender state]]];
-	NSString* smashedFile = [infoContents componentsJoinedByString:@"\n"];
-	[smashedFile writeToFile:path atomically:YES];
-	
+    NSString *infoPlistLocation = [NSString stringWithFormat:@"%@/Contents/Info.plist",[[NSBundle mainBundle] bundlePath]];
+    NSMutableDictionary *appPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:infoPlistLocation];
+    
+    [appPrefs setObject:[NSNumber numberWithBool:![sender state]] forKey:@"LSUIElement"];
+    [appPrefs writeToFile:infoPlistLocation atomically:YES];
+    
 	// touch the bundle so the changes are noticed by the OS
 	[[NSFileManager defaultManager] changeFileAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] atPath:[[NSBundle mainBundle] bundlePath]];
 }
@@ -313,7 +316,6 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
     }
 	
     SInt32 systemVersion=0, versionMajor=0, versionMinor=0, versionBugFix=0;
-	OSErr err = Gestalt(gestaltSystemVersion, &systemVersion);
 	unsigned main, next, bugFix;
     if (systemVersion < 0x1040)
     {
@@ -323,9 +325,9 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
     }
     else
     {
-		if ((err = Gestalt(gestaltSystemVersionMajor, &versionMajor)) != noErr) NSLog(@"y");
-        if ((err = Gestalt(gestaltSystemVersionMinor, &versionMinor)) != noErr)NSLog(@"e");
-        if ((err = Gestalt(gestaltSystemVersionBugFix, &versionBugFix)) != noErr)NSLog(@"s\n");
+		if (Gestalt(gestaltSystemVersionMajor, &versionMajor) != noErr)NSLog(@"y");
+        if (Gestalt(gestaltSystemVersionMinor, &versionMinor) != noErr)NSLog(@"e");
+        if (Gestalt(gestaltSystemVersionBugFix, &versionBugFix) != noErr)NSLog(@"s\n");
         main = versionMajor;
         next = versionMinor;
         bugFix = versionBugFix;

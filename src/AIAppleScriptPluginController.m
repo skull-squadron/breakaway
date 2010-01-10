@@ -32,7 +32,7 @@
 	return @"AppleScript Trigger";
 }
 
-- (bool)isInstantiable 
+- (BOOL)isInstantiable 
 {
 	return TRUE;
 }
@@ -87,16 +87,16 @@
  */
 -(void)awakeFromNib
 {
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:nil context:nil];
-	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:nil context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.enabled" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.name" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.nmode" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hpmode" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.mute" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.unmute" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hin" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.hout" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.script" options:NSKeyValueObservingOptionNew context:nil];
+	[arrayController addObserver:self forKeyPath:@"arrangedObjects.lod" options:NSKeyValueObservingOptionNew context:nil];
 	
 	[arrayController setContent: instancesArray];
 }

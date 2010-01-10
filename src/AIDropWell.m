@@ -73,7 +73,7 @@
 				else
 				{
 					[scriptField setTextColor:[NSColor redColor]];
-					[self setImage:@"notfoundover.png"];
+					[self setImage:[NSImage imageNamed:@"notfoundover.png"]];
 				}
 				
 			}

@@ -63,6 +63,12 @@ static AppController *appController = nil;
 	return appController;
 }
 
+- (void)dealloc
+{
+    [self killStatusItem];
+    [super dealloc];
+}
+
 - (void)awakeFromNib
 {		
 	appController = self;
@@ -70,7 +76,7 @@ static AppController *appController = nil;
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
     appHit = FALSE;
 
-	//////// Start Loading Stuff
+	// Start Loading Stuff
     [self loadListeners];
 	[self loadiTunesObservers];
     if ([userDefaults boolForKey:@"showInMenuBar"]) [self setupStatusItem];
@@ -288,6 +294,15 @@ static AppController *appController = nil;
     }
 }
 
+- (void)iTunesThreadedFadeIn
+{
+    if (!(fadeInThread && ![fadeInThread isFinished]))
+    {
+        fadeInThread = [[[NSThread alloc] initWithTarget:self selector:@selector(iTunesVolumeFadeIn) object:nil] autorelease];
+        [fadeInThread start];
+    }
+}
+
 #pragma mark iTunes launch/quit
 - (void)handleAppLaunch:(NSNotification *)notification
 {
@@ -467,14 +482,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     
     BOOL jConnect = [self jackConnected]; // TRUE if headphones in jack
     
-    /* 
-     AppHit keeps track of who started playing itunes.
-     When enabled, the user is given precedence over everything.
-     For example, say iTunes is playing through the speakers. Then the user decides to pause iTunes. Without AppHit, BA would start playing as soon as headphones are inserted into the jack. This is incorrect, as the user clearly doesn't want playing. AppHit will always try to follow suit of the user. 
-     If we don't want this feature, simply lie and say that BA always takes precedence.
-     */
-    BOOL effectiveAppHit = enableAppHit ? appHit : 1;
-
 	/* 
 	 When we modify the jack, we are always looking the properties prior to modification. For example, if we plug->unplug, we will be looking at all of plug's properties. The same happens the other way around.
 	 
@@ -537,11 +544,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             if (jConnect && muteOn == 0 && appHit == 1)
             {
                 [self iTunesPlayPause];
-                if (!(fadeInThread && ![fadeInThread isFinished]))
-                {
-                    fadeInThread = [[NSThread alloc]initWithTarget:self selector:@selector(iTunesVolumeFadeIn) object:nil];
-                    [fadeInThread start];
-                }
+                [self iTunesThreadedFadeIn];
                 appHit = 0;
             }
         }
@@ -579,11 +582,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             if (!muteOn && appHit == 1)
             {
                 [self iTunesPlayPause];
-                if (!(fadeInThread && ![fadeInThread isFinished]))
-                {
-                    fadeInThread = [[NSThread alloc]initWithTarget:self selector:@selector(iTunesVolumeFadeIn) object:nil];
-                    [fadeInThread start];
-                }
+                [self iTunesThreadedFadeIn];
                 appHit = 0;                
             }
         }

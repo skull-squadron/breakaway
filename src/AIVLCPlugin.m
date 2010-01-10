@@ -33,11 +33,10 @@
 	return @"VLC Plugin";
 }
 
-/*
- - (void)setName:(NSString*)var
+- (void)setName:(NSString*)var
 {
+    return;
 }
- */
 
 - (NSString*)name
 {
@@ -65,7 +64,7 @@
 	return arrayController;
 }
 
--(void)setEnabled:(bool)var
+-(void)setEnabled:(BOOL)var
 {
 	enabled = var;
 	[[NSUserDefaults standardUserDefaults]setBool:enabled forKey:@"AIVLCPluginEnable"];
@@ -74,11 +73,9 @@
 
 - (NSView*)preferenceView
 {
-	if(!preferences)
-	{ 
-		//Load our view 
-		[NSBundle loadNibNamed:@"VLCPlugin.nib" owner:self]; 
-	}
+    //Load our view 
+	if (!preferences) [NSBundle loadNibNamed:@"VLCPlugin.nib" owner:self];
+    
 	// link up your NSView in IB and return that outlet here. Breakaway handles loading your plugin nib for you
 	return preferences;
 }
@@ -88,15 +85,15 @@
 {
 	if (!(self = [super init])) return nil;
 	
-	// if our array, hasn't been made yet, make it and fill it up
-	if (!instancesArray)
-	{
-		instancesArray = [[NSMutableArray alloc]init];
-		arrayController = [[NSArrayController alloc]init];
-		[instancesArray addObject:self];
-		[self setEnabled:[[NSUserDefaults standardUserDefaults] boolForKey:@"AIVLCPluginEnable"]];
-		[arrayController setContent: instancesArray];
-	}
+	// if our array has been made, then we don't need to do anything
+	if (instancesArray) return self;
+    
+    instancesArray = [[NSMutableArray alloc]init];
+    arrayController = [[NSArrayController alloc]init];
+    [instancesArray addObject:self];
+    [self setEnabled:[[NSUserDefaults standardUserDefaults] boolForKey:@"AIVLCPluginEnable"]];
+    [arrayController setContent: instancesArray];
+    
 	return self;
 }
 
@@ -136,28 +133,27 @@
 
 - (void)activate:(int)prototype
 {	
-	if (enabled)
-	{	
-		/* 
-		 This dip routine works, but not as fast as we would like it. rather than disappoint people with a subpar
-		 dip, it is better to hold off on this until a better solution is found
-		// grab our orig volume if we are pulling out the headphones
-		int origVolume = 0;
-		if (((prototype & 69)==prototype)) { origVolume = [self currentSystemVolume]; [self setSystemVolume:1];}
-		 */
-		
-		// do logic
-		if ([self isPlaying])
-		{
-			// mute/hout
-			if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
-		}
-		// unmute/hin
-		else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
-		
-		// put volume back the way it was
-		//if (((prototype & 69)==prototype)) [self setSystemVolume:origVolume];
-	}
+	if (!enabled) return;
+    
+    /* 
+     This dip routine works, but not as fast as we would like it. rather than disappoint people with a subpar
+     dip, it is better to hold off on this until a better solution is found
+     // grab our orig volume if we are pulling out the headphones
+     int origVolume = 0;
+     if (((prototype & 69)==prototype)) { origVolume = [self currentSystemVolume]; [self setSystemVolume:1];}
+     */
+    
+    // do logic
+    if ([self isPlaying])
+    {
+        // mute/hout
+        if(((prototype & 79)==prototype)) { [self pauseMusic]; appHit = 1;}
+    }
+    // unmute/hin
+    else if(((prototype & 55)==prototype) && appHit) { [self pauseMusic]; appHit = 0;}
+    
+    // put volume back the way it was
+    //if (((prototype & 69)==prototype)) [self setSystemVolume:origVolume];
 }
 
 -(void)playMusic
@@ -173,9 +169,8 @@
 
 -(BOOL)isPlaying
 {
-	NSTask *statusTask = [[NSTask alloc]init];
+	NSTask *statusTask = [[[NSTask alloc] init] autorelease];
 	
-	NSString *tmp = [[NSBundle bundleForClass:@"AIVLCPlugin"]bundlePath];
 	[statusTask setLaunchPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"vlcPlaying" ofType:nil]];
 	[statusTask launch];
 	[statusTask waitUntilExit];

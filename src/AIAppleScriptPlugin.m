@@ -92,7 +92,7 @@
 #pragma mark KVC Accessors
 //{{{ KVC Functions
 
--(bool)valid
+-(BOOL)valid
 {
 	if([[NSFileManager defaultManager]fileExistsAtPath:script])
 	{
@@ -104,7 +104,7 @@
 	}
 }
 
--(bool)modeSelected
+-(BOOL)modeSelected
 {
 	int tmp = (hpmode||nmode)?1:0;
 	return tmp;
@@ -115,32 +115,32 @@
 	return name;
 }
 
--(bool)nmode
+-(BOOL)nmode
 {
 	return nmode;
 }
 
--(bool)hpmode
+-(BOOL)hpmode
 {
 	return hpmode;
 }
 
--(bool)mute
+-(BOOL)mute
 {
 	return mute;
 }
 
--(bool)unmute
+-(BOOL)unmute
 {
 	return unmute;
 }
 
--(bool)hin
+-(BOOL)hin
 {
 	return hin;
 }
 
--(bool)hout
+-(BOOL)hout
 {
 	return hout;
 }
@@ -155,7 +155,7 @@
 	return lod;
 }
 
--(bool)enabled
+-(BOOL)enabled
 {
 	return enabled;
 }
@@ -165,7 +165,7 @@
 	return familyCode;
 }
 
--(void)setModeSelected:(bool)var
+-(void)setModeSelected:(BOOL)var
 {
 	modeSelected = var;
 }
@@ -200,7 +200,7 @@
 	}
 }
 
--(void)setEnabled:(bool)var
+-(void)setEnabled:(BOOL)var
 {	
 	if([[NSFileManager defaultManager]fileExistsAtPath:script])
 	{
@@ -237,37 +237,37 @@
 	name = [var retain];
 }
 
--(void)setnMode:(bool)var
+-(void)setnMode:(BOOL)var
 {
 	nmode = var;
 	[self setFamilyCode];
 }
 
--(void)sethpMode:(bool)var
+-(void)sethpMode:(BOOL)var
 {
 	hpmode = var;
 	[self setFamilyCode];
 }
 
--(void)setMute:(bool)var
+-(void)setMute:(BOOL)var
 {
 	mute = var;
 	[self setFamilyCode];
 }
 
--(void)setUnmute:(bool)var
+-(void)setUnmute:(BOOL)var
 {
 	unmute = var;
 	[self setFamilyCode];
 }
 
--(void)setHin:(bool)var
+-(void)setHin:(BOOL)var
 {
 	hin = var;
 	[self setFamilyCode];
 }
 
--(void)setHout:(bool)var
+-(void)setHout:(BOOL)var
 {
 	hout = var;
 	[self setFamilyCode];
@@ -278,7 +278,7 @@
 	lod = var;
 }
 
--(void)setValid:(bool)var
+-(void)setValid:(BOOL)var
 {
 	valid = var;
 }

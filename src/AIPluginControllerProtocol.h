@@ -27,7 +27,7 @@
 
 // Required: if your plugin is designed to be copied more than once (like an AppleScript plugin), return TRUE. Otherwise
 // if you have a single shot plugin that does not need multiple instantiations, return FALSE.
-- (bool)isInstantiable;
+- (BOOL)isInstantiable;
 
 // Required: an array controller with instancesArray as its content
 // !!IMPORTANT NOTE!! 

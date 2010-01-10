@@ -30,18 +30,18 @@
 	NSImage* notFoundImage;
 	
     NSString* name;
-    bool nmode;
-	bool hpmode;
-	bool mute;
-	bool unmute;
-	bool hin;
-	bool hout;
+    BOOL nmode;
+	BOOL hpmode;
+	BOOL mute;
+	BOOL unmute;
+	BOOL hin;
+	BOOL hout;
     int lod;
 	int familyCode;
     NSString* script;
-	bool enabled;
-	bool valid;
-	bool modeSelected;
+	BOOL enabled;
+	BOOL valid;
+	BOOL modeSelected;
 	
 }
 
@@ -49,35 +49,35 @@
 - (NSDictionary*)export;
 - (void)compile;
 
-- (bool)modeSelected;
+- (BOOL)modeSelected;
 - (NSColor*)scriptTextColor;
 - (NSImage*)image;
 
 // KVC stuff
-- (bool)enabled;
-- (bool)hin;
-- (bool)hout;
-- (bool)hpmode;
-- (bool)mute;
-- (bool)nmode;
-- (bool)unmute;
-- (bool)valid;
+- (BOOL)enabled;
+- (BOOL)hin;
+- (BOOL)hout;
+- (BOOL)hpmode;
+- (BOOL)mute;
+- (BOOL)nmode;
+- (BOOL)unmute;
+- (BOOL)valid;
 - (NSString*)name;
 - (NSString*)script;
 - (int)familyCode;
 - (int)lod;
 
-- (void)setEnabled:(bool)var;
+- (void)setEnabled:(BOOL)var;
 - (void)setFamilyCode;
-- (void)setHin:(bool)var;
-- (void)setHout:(bool)var;
+- (void)setHin:(BOOL)var;
+- (void)setHout:(BOOL)var;
 - (void)setLod:(int)var;
-- (void)setMute:(bool)var;
+- (void)setMute:(BOOL)var;
 - (void)setName:(NSString*)var;
 - (void)setScript:(NSString*)var;
-- (void)setUnmute:(bool)var;
-- (void)setValid:(bool)var;
-- (void)sethpMode:(bool)var;
-- (void)setnMode:(bool)var;
+- (void)setUnmute:(BOOL)var;
+- (void)setValid:(BOOL)var;
+- (void)sethpMode:(BOOL)var;
+- (void)setnMode:(BOOL)var;
 
 @end

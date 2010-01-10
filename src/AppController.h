@@ -41,14 +41,8 @@ NSThread *fadeInThread;
 
 @interface AppController : NSObject
 {
- 
     iTunesApplication *iTunes;
-    
-	// Our scripts for controlling iTunes
-	NSAppleScript *playerState;
-	NSAppleScript *fadeIn;
-	BOOL isCompiled;
-	
+    	
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;
 	NSImage *conn;
@@ -60,76 +54,59 @@ NSThread *fadeInThread;
 	
 	// Preferenes (in actual order)
 	IBOutlet id prefsWindow; // the NSWindow in which the preferences reside
-	
-	// Splash
-	IBOutlet id splash; // the NSView which our splash looks like
-	NSWindow *splashWind; // what holds the NSView mentioned above
-	IBOutlet id progressWheel;
-	IBOutlet id versionString;
-	
+		
 	// Other Objects
 	IBOutlet id growlNotifier;
 	IBOutlet id sparkleController;
 	NSUserDefaults* userDefaults;
-	NSDate *then;
 }
 
++ (void)initialize;
 + (AppController*)appController;
-- (id)sparkle;
+- (void)dealloc;
 - (void)awakeFromNib;
+
+// Startup Functions
 - (void)loadListeners;
 - (void)loadiTunesObservers;
-- (void)disable;
-- (void)executeFadeIn;
-- (void)recompileFadeIn;
 
-#pragma mark-
-#pragma mark Splash
-- (void)startSplash;
-- (void)stopSplash;
-
-#pragma mark 
-#pragma mark Menu Extra
+// Status item
 - (void)setupStatusItem;
 - (void)killStatusItem;
+- (void)disable;
 
-#pragma mark 
-#pragma mark IB Button Actions
-- (IBAction)muteKeyEnableAct:(id)sender;
+// IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;
-- (IBAction)sendemail:(id)sender;
-- (IBAction)openDonate:(id)sender;
-
+- (IBAction)sendEmail:(id)sender;
 - (IBAction)openInfo:(id)sender;
 - (IBAction)openUpdater:(id)sender;
 
-#pragma mark
-#pragma mark Accessor Functions
+// Accessor (external)
+-(id)sparkle;
+
+// Accessor Functions
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
 
-#pragma mark 
-#pragma mark Queries
--(BOOL)iTunesActive;
--(BOOL)iTunesPlaying;
-- (void) handleAppLaunch:(NSNotification *)notification;
-- (void) handleAppQuit:(NSNotification *)notification;
-	
-#pragma mark 
-#pragma mark Script Manipulation
-- (void)compileScript;
-- (void)executeScript;
+// iTunes
+- (BOOL)iTunesActive;
+- (BOOL)iTunesPlaying;
+- (void)iTunesPlayPause;
+- (void)iTunesVolumeFadeIn;
+- (void)iTunesThreadedFadeIn;
 
-#pragma mark 
-#pragma mark CoreAudio Queries
+// iTunes launch/quit
+- (void)handleAppLaunch:(NSNotification *)notification;
+- (void)handleAppQuit:(NSNotification *)notification;
+
+// CoreAudio Queries
 - (void)attachListener:(AudioDevicePropertyID)adProp;
 - (void)removeListener:(AudioDevicePropertyID)adProp;
 - (BOOL)jackConnected;
-- (BOOL)audioFlowing;
 
-#pragma mark 
-#pragma mark Delegate Fns
+// Delegate Fns
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
-- (void)songChanged:(NSNotification *)aNotification;
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+- (void)songChanged:(NSNotification *)aNotification ;
 @end

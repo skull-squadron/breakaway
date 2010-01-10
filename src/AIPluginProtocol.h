@@ -35,7 +35,7 @@
 - (BOOL)enabled;
 
 // Required: Allows the user to enable/disable your plugin
-- (void)setEnabled:(bool)var;
+- (void)setEnabled:(BOOL)var;
 
 // Required: a bitfield represented as a number containing the trigger activation paramaters
 /* 
