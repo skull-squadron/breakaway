@@ -28,6 +28,9 @@
 		0A061E1E10F8593800E88056 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1710F8593800E88056 /* MainMenu.nib */; };
 		0A061E5110F85A8D00E88056 /* VLCPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E3410F859C200E88056 /* VLCPlugin.nib */; };
 		0A061E8D10F85BDB00E88056 /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E8C10F85BDB00E88056 /* Preferences.nib */; };
+		0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
+		0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
+		0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */; };
 		0A4611480DF0741B001A579C /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611470DF0741B001A579C /* Readme.rtf */; };
 		0A46114B0DF07425001A579C /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611490DF07425001A579C /* COPYING.txt */; };
 		0A46114C0DF07425001A579C /* devs log.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* devs log.txt */; };
@@ -70,25 +73,27 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */;
+			remoteGlobalIDString = 0A9C81BF0E21CA62001B29F6;
 			remoteInfo = "AppleScript Plugin";
 		};
 		0AA225BC10F98CD200401B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0A55C4870E36D7C200347DB7 /* VLC Plugin */;
+			remoteGlobalIDString = 0A55C4870E36D7C200347DB7;
 			remoteInfo = "VLC Plugin";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0A9C82200E21D1F7001B29F6 /* CopyFiles */ = {
+		0A2B1F4D10FBDB3100D28890 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolderSpec = 10;
 			files = (
+				0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */,
+				0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +134,7 @@
 		0A061E3410F859C200E88056 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = VLCPlugin.nib; path = resources/plugins/VLCPlugin.nib; sourceTree = "<group>"; };
 		0A061E8E10F85BE100E88056 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = ../French.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A061E8F10F85BED00E88056 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh_CN; path = ../zh_CN.lproj/Preferences.nib; sourceTree = "<group>"; };
+		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		0A4611470DF0741B001A579C /* Readme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Readme.rtf; path = Docs/Readme.rtf; sourceTree = "<group>"; };
 		0A4611490DF07425001A579C /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING.txt; path = Docs/COPYING.txt; sourceTree = "<group>"; };
@@ -491,6 +497,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */,
 				0AA225F510F994B300401B7A /* images */,
 				0A061E1410F8593800E88056 /* English.lproj */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -595,7 +602,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				0A9C82200E21D1F7001B29F6 /* CopyFiles */,
+				0A2B1F4D10FBDB3100D28890 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -683,6 +690,7 @@
 				0AA2263410F994B400401B7A /* Power.tiff in Resources */,
 				0AA2263510F994B400401B7A /* Remove.tiff in Resources */,
 				0AA2263710F994B400401B7A /* Users.tiff in Resources */,
+				0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

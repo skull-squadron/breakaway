@@ -58,7 +58,7 @@
 
 - (IBAction)showInMenuBar:(id)sender
 {
-	[[AppController appController] showInMenuBarAct:nil];
+	[[AppController sharedAppController] showInMenuBarAct:nil];
 }
 
 - (IBAction)showInDock:(id)sender
@@ -81,29 +81,29 @@
 	2 Daily: 86,400
 	3 Weekly:  604,800*/
 	
-	id sparkle = [[AppController appController] sparkle];
+	id sparkle = [[AppController sharedAppController] sparkle];
 	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 	int selection = [sender indexOfSelectedItem];
 	
 	switch (selection)
 	{
 		case 0: [userDefaults removeObjectForKey:@"SUScheduledCheckInterval"];
-			[sparkle scheduleCheckWithInterval:0];
+			[sparkle setUpdateCheckInterval:0];
 			[userDefaults setInteger:0 forKey:@"SUCheckAtStartup"];
 			break;
 			
 		case 1: [userDefaults removeObjectForKey:@"SUScheduledCheckInterval"];
-			[sparkle scheduleCheckWithInterval:0];
+			[sparkle setUpdateCheckInterval:0];
 			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
 			break;
 			
 		case 2: [userDefaults setFloat:86400 forKey:@"SUScheduledCheckInterval"];
-			[sparkle scheduleCheckWithInterval:86400];
+			[sparkle setUpdateCheckInterval:86400];
 			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
 			break;
 		
 		case 3: [userDefaults setFloat:604800 forKey:@"SUScheduledCheckInterval"];
-			[sparkle scheduleCheckWithInterval:604800];
+			[sparkle setUpdateCheckInterval:604800];
 			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
 			break;
 			
@@ -114,14 +114,14 @@
 
 - (IBAction)updateCheck:(id)sender
 {
-	id sparkle = [[AppController appController] sparkle];
+	id sparkle = [[AppController sharedAppController] sparkle];
 	[sparkle checkForUpdates:self];
 }
 
 - (IBAction)testFadeIn:(id)sender
 {
     if (fadeInThread && ![fadeInThread isFinished]) return;
-    fadeInThread = [[NSThread alloc]initWithTarget:[AppController appController] selector:@selector(iTunesVolumeFadeIn) object:nil];
+    fadeInThread = [[NSThread alloc]initWithTarget:[AppController sharedAppController] selector:@selector(iTunesVolumeFadeIn) object:nil];
     [fadeInThread start];
 }
 

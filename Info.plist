@@ -19,14 +19,16 @@
 	<key>CFBundleSignature</key>
 	<string>ALOC</string>
 	<key>CFBundleVersion</key>
-	<string>1.75b</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu.nib</string>
+	<string>1.8</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSMainNibFile</key>
+	<string>MainMenu.nib</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>http://balthamos.awardspace.com/appcast.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 </dict>
 </plist>

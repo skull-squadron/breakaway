@@ -27,19 +27,28 @@
 
 @implementation GrowlNotifier
 
--(void) awakeFromNib
+-(void)awakeFromNib
 {
-//	NSBundle *myBundle = [NSBundle bundleForClass:[GrowlNotifier class]];
-//	NSString *growlPath = [[myBundle privateFrameworksPath]
-//	stringByAppendingPathComponent:@"Growl.framework"];
-//	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
-//	if (growlBundle && [growlBundle load]) {
-//		// Register ourselves as a Growl delegate
-//		[GrowlApplicationBridge setGrowlDelegate:self];
-//	} else {
-//		DEBUG_OUTPUT(@"Could not load Growl.framework");
-//	}
 	[GrowlApplicationBridge setGrowlDelegate:self];
+    NSArray *acceptedNotifications = [NSArray arrayWithObjects:
+                                      NSLocalizedString(@"Jack Connected", @""),
+                                      NSLocalizedString(@"Jack Disconnected", @""),
+                                      NSLocalizedString(@"Disabled", @""),
+                                      NSLocalizedString(@"Enabled",@""),
+                                      nil];
+	
+	NSArray *defaultNotifications = [NSArray arrayWithObjects:
+                                     NSLocalizedString(@"Jack Connected", @""),
+                                     NSLocalizedString(@"Jack Disconnected", @""),
+                                     NSLocalizedString(@"Disabled", @""),
+                                     nil];
+	
+	registrationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                              acceptedNotifications, GROWL_NOTIFICATIONS_ALL,
+                              defaultNotifications, GROWL_NOTIFICATIONS_DEFAULT,
+                              @"Breakaway", GROWL_APP_NAME,
+                              [NSNumber numberWithInt:1], GROWL_TICKET_VERSION,
+                              nil];    
 }
 
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
@@ -53,30 +62,12 @@
 							   clickContext:nil];
 }
 
-- (NSDictionary *) registrationDictionaryForGrowl
+- (NSDictionary *)registrationDictionaryForGrowl
 {
-	NSArray *acceptedNotifications = [NSArray arrayWithObjects:
-		NSLocalizedString(@"Jack Connected", @""),
-		NSLocalizedString(@"Jack Disconnected", @""),
-		NSLocalizedString(@"Disabled", @""),
-		NSLocalizedString(@"Enabled",@""),
-		nil];
-	
-	NSArray *defaultNotifications = [NSArray arrayWithObjects:
-		NSLocalizedString(@"Jack Connected", @""),
-		NSLocalizedString(@"Jack Disconnected", @""),
-		NSLocalizedString(@"Disabled", @""),
-		nil];
-	
-	NSDictionary *myDict = [NSDictionary dictionaryWithObjectsAndKeys:
-		acceptedNotifications, GROWL_NOTIFICATIONS_ALL,
-		defaultNotifications, GROWL_NOTIFICATIONS_DEFAULT,
-		 @"Breakaway", GROWL_APP_NAME,
-		nil];
-	return myDict;
+	return registrationDictionary;
 }
 
-- (NSString *) applicationNameForGrowl
+- (NSString *)applicationNameForGrowl
 {
 	return @"Breakaway";
 }

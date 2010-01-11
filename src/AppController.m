@@ -31,9 +31,15 @@
 #import "defines.h"
 #import "AIPluginSelector.h"
 
+static AppController *sharedAppController = nil;
+
 @implementation AppController
 
-static AppController *appController = nil;  
++ (AppController *)sharedAppController
+{
+    if (!sharedAppController) sharedAppController = self;
+    return sharedAppController;
+}
 
 // Cool thing about +initialize is that it runs before any other method gets called
 + (void)initialize
@@ -58,11 +64,6 @@ static AppController *appController = nil;
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
 }
 
-+ (AppController*)appController
-{
-	return appController;
-}
-
 - (void)dealloc
 {
     [self killStatusItem];
@@ -71,7 +72,6 @@ static AppController *appController = nil;
 
 - (void)awakeFromNib
 {		
-	appController = self;
 	userDefaults = [NSUserDefaults standardUserDefaults];
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
     appHit = FALSE;
@@ -236,7 +236,7 @@ static AppController *appController = nil;
  AppController.m (self) - Just to act as a portal for everyone else ()
  PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithInterval:)
  */
--(id)sparkle
+- (id)sparkle
 {
 	return sparkleController;
 }

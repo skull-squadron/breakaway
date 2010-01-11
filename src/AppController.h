@@ -61,8 +61,8 @@ NSThread *fadeInThread;
 	NSUserDefaults* userDefaults;
 }
 
++ (AppController*)sharedAppController;
 + (void)initialize;
-+ (AppController*)appController;
 - (void)dealloc;
 - (void)awakeFromNib;
 
@@ -83,7 +83,7 @@ NSThread *fadeInThread;
 - (IBAction)openUpdater:(id)sender;
 
 // Accessor (external)
--(id)sparkle;
+- (id)sparkle;
 
 // Accessor Functions
 - (IBAction)disable:(id)sender;

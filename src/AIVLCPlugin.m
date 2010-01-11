@@ -109,8 +109,8 @@
 																		 returnID:kAutoGenerateReturnID 
 																	transactionID:kAnyTransactionID];
 	NSAppleEventDescriptor* reply = [NSAppleEventDescriptor nullDescriptor];
-	// ignore this warning; we got it right
-	AESendMessage([ae aeDesc], [reply aeDesc], kAEWaitReply | kAECanInteract, kAEDefaultTimeout);
+
+	AESendMessage([ae aeDesc], (AppleEvent *)[reply aeDesc], kAEWaitReply | kAECanInteract, kAEDefaultTimeout);
 	int origVolume = [[[reply descriptorAtIndex:1]descriptorAtIndex:1]int32Value];
 	return origVolume;
 }
