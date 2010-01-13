@@ -21,26 +21,44 @@
  */
 
 #import <Cocoa/Cocoa.h>
-
+@class SUUpdater, SUAppcast;
 NSString* osTypeToFourCharCode(OSType inType);
+
 @interface PreferenceHandler : NSObject
 {
-	int done;
-	IBOutlet id drawer;
+    IBOutlet id loginItem;
+   	IBOutlet id drawer;
+    // Sparkle
+    IBOutlet id lastCheck;
+    // Test
+	BOOL done;
 	IBOutlet id testResultBox;
-    NSThread *fadeInThread;
+    IBOutlet id userConcernRadioButton;
 }
 
 - (void)awakeFromNib;
+// Login item
+- (IBAction)addAsLoginItem:(id)sender;
+- (BOOL)isLoginItem;
+// UI Element
+- (IBAction)showInDock:(id)sender;
 - (BOOL)isUIElement;
-// IBActions
+// Misc Actions
+- (IBAction)showInMenuBar:(id)sender;
 - (IBAction)donate:(id)sender;
 - (IBAction)viewReadme:(id)sender;
-- (IBAction)showInMenuBar:(id)sender;
-- (IBAction)showInDock:(id)sender;
-- (IBAction)update:(id)sender;
-- (IBAction)updateCheck:(id)sender;
 - (IBAction)testFadeIn:(id)sender;
+// Sparkle
+- (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast;
+- (IBAction)checkForUpdates:(id)sender;
+- (void)setSendsSystemProfile:(BOOL)sendsSystemProfile;
+- (void)setAutomaticallyDownloadsUpdates:(BOOL)automaticallyDownloadsUpdates;
+- (void)setAutomaticallyChecksForUpdates:(BOOL)automaticallyChecks;
+- (BOOL)sendsSystemProfile;
+- (BOOL)automaticallyDownloadsUpdates;
+- (BOOL)automaticallyChecksForUpdates;
+// Test
+- (void)logTestResultForProperty:(NSString *)property withReturn:(OSStatus)returnStatus andData:(UInt32)dataSource;
 - (IBAction)startTest:(id)sender;
 - (IBAction)sendResults:(id)sender;
 // Delegates

@@ -71,10 +71,12 @@ static AppController *sharedAppController = nil;
 }
 
 - (void)awakeFromNib
-{		
+{
+    sharedAppController = self;
 	userDefaults = [NSUserDefaults standardUserDefaults];
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
     appHit = FALSE;
+    inFadeIn = FALSE;
 
 	// Start Loading Stuff
     [self loadListeners];
@@ -207,13 +209,8 @@ static AppController *sharedAppController = nil;
 
 - (IBAction)openPrefs:(id)sender
 {
-	[[PreferencesController sharedPreferencesController]showWindow:nil];
+	[[PreferencesController sharedPreferencesController] showWindow:nil];
     [NSApp activateIgnoringOtherApps:YES];
-}
-
-- (IBAction)sendEmail:(id)sender
-{
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@?subject=%@",emailAddress,emailSubject]]];
 }
 
 - (IBAction)openInfo:(id)sender
@@ -224,21 +221,8 @@ static AppController *sharedAppController = nil;
 
 - (IBAction)openUpdater:(id)sender
 {
-	[[self sparkle] checkForUpdates:nil];
+	[[SUUpdater sharedUpdater] checkForUpdates:nil];
 	[NSApp activateIgnoringOtherApps:YES];
-}
-
-#pragma mark
-#pragma mark Accessor (external)
-/* List of other files accessing this function and why
- FileAccessorCalledFrom.m - Reason of accessing (-functionCalledUsingAccessor:)
- 
- AppController.m (self) - Just to act as a portal for everyone else ()
- PreferenceHandler.m - For changing auto update preferences (-scheduleCheckWithInterval:)
- */
-- (id)sparkle
-{
-	return sparkleController;
 }
 
 #pragma mark
@@ -283,24 +267,25 @@ static AppController *sharedAppController = nil;
 {
     @synchronized(self)
     {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        inFadeIn = TRUE;
         DEBUG_OUTPUT(@"Executing fade in...");
         int x = 0;
         while (x < 101)
         {
             [iTunes setValue:[NSNumber numberWithInt:x] forKey:@"soundVolume"];
+            usleep(BASE_FADE_IN_DELAY*[userDefaults integerForKey:@"fadeInTime"]);
             x += 1;
         } 
         //if ([userDefaults floatForKey:@"fadeInTime"]) [fadeIn executeAndReturnError:nil];
+        inFadeIn = FALSE;
+        [pool release];
     }
 }
 
 - (void)iTunesThreadedFadeIn
 {
-    if (!(fadeInThread && ![fadeInThread isFinished]))
-    {
-        fadeInThread = [[[NSThread alloc] initWithTarget:self selector:@selector(iTunesVolumeFadeIn) object:nil] autorelease];
-        [fadeInThread start];
-    }
+    if (!inFadeIn && [userDefaults integerForKey:@"fadeInTime"]) [NSThread detachNewThreadSelector:@selector(iTunesVolumeFadeIn) toTarget:self withObject:nil];
 }
 
 #pragma mark iTunes launch/quit

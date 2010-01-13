@@ -31,9 +31,12 @@
 		0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */; };
+		0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1FFA10FC5B8E00D28890 /* update.tiff */; };
 		0A4611480DF0741B001A579C /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611470DF0741B001A579C /* Readme.rtf */; };
 		0A46114B0DF07425001A579C /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611490DF07425001A579C /* COPYING.txt */; };
 		0A46114C0DF07425001A579C /* devs log.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* devs log.txt */; };
+		0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE410FE735E00850E00 /* SUHost.h */; };
+		0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */; };
 		0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */; };
 		0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0AA225BE10F98CFE00401B7A /* AIAppleScriptPluginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */; };
@@ -135,10 +138,13 @@
 		0A061E8E10F85BE100E88056 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = ../French.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A061E8F10F85BED00E88056 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh_CN; path = ../zh_CN.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		0A4611470DF0741B001A579C /* Readme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Readme.rtf; path = Docs/Readme.rtf; sourceTree = "<group>"; };
 		0A4611490DF07425001A579C /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING.txt; path = Docs/COPYING.txt; sourceTree = "<group>"; };
 		0A46114A0DF07425001A579C /* devs log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "devs log.txt"; path = "Docs/devs log.txt"; sourceTree = "<group>"; };
+		0A4D7FE410FE735E00850E00 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUHost.h; path = src/SUHost.h; sourceTree = "<group>"; };
+		0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUSystemProfiler.h; path = src/SUSystemProfiler.h; sourceTree = "<group>"; };
 		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = AppleScriptPlugin.nib; path = resources/plugins/AppleScriptPlugin.nib; sourceTree = "<group>"; };
 		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +221,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0A4D7FE310FE728700850E00 /* Private Sparkle Headers */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				0A061BCD10F7CCD900E88056 /* iTunesBridge.h */,
 				0A061D6510F855DC00E88056 /* defines.h */,
@@ -250,6 +257,15 @@
 			);
 			name = English.lproj;
 			path = resources/English.lproj;
+			sourceTree = "<group>";
+		};
+		0A4D7FE310FE728700850E00 /* Private Sparkle Headers */ = {
+			isa = PBXGroup;
+			children = (
+				0A4D7FE410FE735E00850E00 /* SUHost.h */,
+				0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */,
+			);
+			name = "Private Sparkle Headers";
 			sourceTree = "<group>";
 		};
 		0A55C4770E36D77400347DB7 /* VLC Plugin */ = {
@@ -339,6 +355,7 @@
 		0AA225FE10F994B400401B7A /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				0A2B1FFA10FC5B8E00D28890 /* update.tiff */,
 				0AA225FF10F994B400401B7A /* 15BreakawayIcon.icns */,
 				0AA2260010F994B400401B7A /* Add.tiff */,
 				0AA2260110F994B400401B7A /* General Preferences.tiff */,
@@ -552,6 +569,8 @@
 				0A061D9C10F8580B00E88056 /* PreferenceHandler.h in Headers */,
 				0A061D9E10F8580B00E88056 /* PreferencesController.h in Headers */,
 				0AA225CC10F98D8D00401B7A /* DebugUtils.h in Headers */,
+				0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */,
+				0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +710,7 @@
 				0AA2263510F994B400401B7A /* Remove.tiff in Resources */,
 				0AA2263710F994B400401B7A /* Users.tiff in Resources */,
 				0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */,
+				0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +814,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "VLC Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -816,6 +837,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "VLC Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -840,6 +862,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "VLC Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = NO;
 			};
@@ -862,6 +885,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "VLC Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -887,6 +911,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "AppleScript Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -909,6 +934,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "AppleScript Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -933,6 +959,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "AppleScript Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = NO;
 			};
@@ -955,6 +982,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "AppleScript Plugin";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = plugin;
 				ZERO_LINK = YES;
 			};
@@ -993,6 +1021,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=0";
 				PRODUCT_NAME = Breakaway;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -1041,6 +1070,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=1";
 				PRODUCT_NAME = Breakaway;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1094,6 +1124,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=1";
 				PRODUCT_NAME = Breakaway;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -1129,6 +1160,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Breakaway;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				WRAPPER_EXTENSION = app;
 			};

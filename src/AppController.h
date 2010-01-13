@@ -51,62 +51,50 @@ NSThread *fadeInThread;
 	IBOutlet id statusItemMenu;
 	IBOutlet id disableMI;
 	
+    BOOL inFadeIn;
 	
 	// Preferenes (in actual order)
 	IBOutlet id prefsWindow; // the NSWindow in which the preferences reside
 		
 	// Other Objects
 	IBOutlet id growlNotifier;
-	IBOutlet id sparkleController;
 	NSUserDefaults* userDefaults;
 }
 
-+ (AppController*)sharedAppController;
++ (AppController *)sharedAppController;
 + (void)initialize;
 - (void)dealloc;
 - (void)awakeFromNib;
-
 // Startup Functions
 - (void)loadListeners;
 - (void)loadiTunesObservers;
-
 // Status item
 - (void)setupStatusItem;
 - (void)killStatusItem;
 - (void)disable;
-
 // IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;
-- (IBAction)sendEmail:(id)sender;
 - (IBAction)openInfo:(id)sender;
 - (IBAction)openUpdater:(id)sender;
-
-// Accessor (external)
-- (id)sparkle;
-
 // Accessor Functions
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
-
 // iTunes
 - (BOOL)iTunesActive;
 - (BOOL)iTunesPlaying;
 - (void)iTunesPlayPause;
 - (void)iTunesVolumeFadeIn;
 - (void)iTunesThreadedFadeIn;
-
 // iTunes launch/quit
 - (void)handleAppLaunch:(NSNotification *)notification;
-- (void)handleAppQuit:(NSNotification *)notification;
-
+- (void) handleAppQuit:(NSNotification *)notification;
 // CoreAudio Queries
 - (void)attachListener:(AudioDevicePropertyID)adProp;
 - (void)removeListener:(AudioDevicePropertyID)adProp;
 - (BOOL)jackConnected;
-
 // Delegate Fns
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-- (void)songChanged:(NSNotification *)aNotification ;
+- (void)songChanged:(NSNotification *)aNotification;
 @end

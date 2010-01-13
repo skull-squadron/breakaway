@@ -45,7 +45,8 @@ static PreferencesController *sharedPreferencesController = nil;
 	PluginsToolbarItemIdentifier				= NSLocalizedString(@"Plugins",nil);
 	DonateToolbarItemIdentifier				    = NSLocalizedString(@"Donate",nil);
 	AboutToolbarItemIdentifier  				= NSLocalizedString(@"About",nil);
-	ExpandBreakawayToolbarItemIdentifier  		= NSLocalizedString(@"Expand",nil);
+	UpdateToolbarItemIdentifier                 = NSLocalizedString(@"Update",nil);
+	ExpandBreakawayToolbarItemIdentifier        = NSLocalizedString(@"Expand Breakaway",nil);
 	QuitToolbarItemIdentifier     				= NSLocalizedString(@"Quit",nil);
 
 	// hide our window when we are done with it. if we didn't put this in, the preferences would be showing when done loading
@@ -94,9 +95,9 @@ static PreferencesController *sharedPreferencesController = nil;
 		PluginsToolbarItemIdentifier,
 		NSToolbarFlexibleSpaceItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
+		UpdateToolbarItemIdentifier,
 		NSToolbarSeparatorItemIdentifier,
 		DonateToolbarItemIdentifier,
-		AboutToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,
 		nil];
 }
@@ -107,6 +108,7 @@ static PreferencesController *sharedPreferencesController = nil;
 		GeneralToolbarItemIdentifier,
 		PluginsToolbarItemIdentifier,
 		AboutToolbarItemIdentifier,
+		UpdateToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
 		DonateToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,
@@ -122,6 +124,7 @@ static PreferencesController *sharedPreferencesController = nil;
 		GeneralToolbarItemIdentifier,
 		PluginsToolbarItemIdentifier,
 		DonateToolbarItemIdentifier,
+		UpdateToolbarItemIdentifier,
 		ExpandBreakawayToolbarItemIdentifier,
 		/*AboutToolbarItemIdentifier,
 		QuitToolbarItemIdentifier,*/
@@ -146,6 +149,13 @@ static PreferencesController *sharedPreferencesController = nil;
 		[item setTarget:self];
 		[item setAction:@selector(toggleActivePreferenceView:)];
 	}
+	else if ([identifier isEqualToString:UpdateToolbarItemIdentifier])
+	{
+		[item setLabel:UpdateToolbarItemIdentifier];
+		[item setImage:[NSImage imageNamed:@"update"]];
+		[item setTarget:self];
+		[item setAction:@selector(toggleActivePreferenceView:)];
+	} 
 	else if ([identifier isEqualToString:ExpandBreakawayToolbarItemIdentifier])
 	{
 		[item setLabel:ExpandBreakawayToolbarItemIdentifier];
@@ -191,6 +201,8 @@ static PreferencesController *sharedPreferencesController = nil;
 		view = generalPreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:PluginsToolbarItemIdentifier])
 		view = pluginsPreferenceView;
+	else if ([[sender itemIdentifier] isEqualToString:UpdateToolbarItemIdentifier])
+		view = updatePreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:ExpandBreakawayToolbarItemIdentifier])
 		view = expandBreakawayPreferenceView;
 	else if ([[sender itemIdentifier] isEqualToString:DonateToolbarItemIdentifier])

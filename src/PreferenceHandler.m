@@ -22,45 +22,68 @@
 
 #import "PreferenceHandler.h"
 
-#import <sys/sysctl.h>
-
+#import "defines.h"
 #import "AppController.h"
 #import "Sparkle/SUUpdater.h"
-#import "defines.h"
+#import "SUHost.h"
+#import "SUSystemProfiler.h"
 
 @implementation PreferenceHandler
 
--(void)awakeFromNib
+- (void)awakeFromNib
 {
+    [[SUUpdater sharedUpdater] setDelegate:self];
+    [lastCheck setObjectValue:[[SUUpdater sharedUpdater] lastUpdateCheckDate]];
     [[NSUserDefaults standardUserDefaults] setBool:[self isUIElement] forKey:@"LSUIElement"];
-	// this is used for testing the system (startTest:)
-	done = 0;
-}
-
-- (BOOL)isUIElement
-{
-    NSString *infoPlistLocation = [NSString stringWithFormat:@"%@/Contents/Info.plist",[[NSBundle mainBundle] bundlePath]];
-    NSMutableDictionary *appPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:infoPlistLocation];
+    [testResultBox setFont:[NSFont fontWithName:@"Monaco" size:10]];
+    [loginItem setState:[self isLoginItem]?1:0];
     
-    return [[appPrefs objectForKey:@"LSUIElement"] boolValue];
+	// this is used for testing the system (startTest:)
+	done = NO;
 }
 
-#pragma mark IBActions
-- (IBAction)donate:(id)sender
+#pragma mark Login item
+- (IBAction)addAsLoginItem:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:donateAddress]];
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems,NULL);
+    NSString *applicationPath = [[NSBundle mainBundle] bundlePath];
+    CFURLRef applicationURL = (CFURLRef)[NSURL fileURLWithPath:applicationPath];
+    
+    if ([sender state])
+    {
+        LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, applicationURL, NULL, NULL);		
+        if (item) CFRelease(item);    
+    }
+    else
+    {
+        UInt32 seedValue;
+        
+        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        for (id item in loginItemsArray)
+        {		
+            if (LSSharedFileListItemResolve((LSSharedFileListItemRef)item, 0, (CFURLRef*)&applicationURL, NULL) == noErr && [[(NSURL *)applicationURL path] hasPrefix:applicationPath])
+                LSSharedFileListItemRemove(loginItems, (LSSharedFileListItemRef)item); // Remove startup item
+        }
+        [loginItemsArray release];        
+    }
 }
 
-- (IBAction)viewReadme:(id)sender
+- (BOOL)isLoginItem
 {
-	[[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:@"Readme.rtf"]];
+    BOOL isLoginItem = NO;
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,kLSSharedFileListSessionLoginItems,NULL);
+    NSString *applicationPath = [[NSBundle mainBundle] bundlePath];
+    CFURLRef applicationURL = (CFURLRef)[NSURL fileURLWithPath:applicationPath];
+    UInt32 seedValue;
+    NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+    for (id item in loginItemsArray)
+        if (LSSharedFileListItemResolve((LSSharedFileListItemRef)item, 0, (CFURLRef*)&applicationURL, NULL) == noErr && [[(NSURL *)applicationURL path] hasPrefix:applicationPath])
+            isLoginItem = YES;
+    [loginItemsArray release];
+    return isLoginItem;
 }
 
-- (IBAction)showInMenuBar:(id)sender
-{
-	[[AppController sharedAppController] showInMenuBarAct:nil];
-}
-
+#pragma mark UI Element
 - (IBAction)showInDock:(id)sender
 {
     NSString *infoPlistLocation = [NSString stringWithFormat:@"%@/Contents/Info.plist",[[NSBundle mainBundle] bundlePath]];
@@ -73,270 +96,181 @@
 	[[NSFileManager defaultManager] changeFileAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] atPath:[[NSBundle mainBundle] bundlePath]];
 }
 
-- (IBAction)update:(id)sender
+- (BOOL)isUIElement
 {
-	/* Selections
-	0 Never
-	1 On Launch
-	2 Daily: 86,400
-	3 Weekly:  604,800*/
-	
-	id sparkle = [[AppController sharedAppController] sparkle];
-	NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-	int selection = [sender indexOfSelectedItem];
-	
-	switch (selection)
-	{
-		case 0: [userDefaults removeObjectForKey:@"SUScheduledCheckInterval"];
-			[sparkle setUpdateCheckInterval:0];
-			[userDefaults setInteger:0 forKey:@"SUCheckAtStartup"];
-			break;
-			
-		case 1: [userDefaults removeObjectForKey:@"SUScheduledCheckInterval"];
-			[sparkle setUpdateCheckInterval:0];
-			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
-			break;
-			
-		case 2: [userDefaults setFloat:86400 forKey:@"SUScheduledCheckInterval"];
-			[sparkle setUpdateCheckInterval:86400];
-			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
-			break;
-		
-		case 3: [userDefaults setFloat:604800 forKey:@"SUScheduledCheckInterval"];
-			[sparkle setUpdateCheckInterval:604800];
-			[userDefaults setInteger:1 forKey:@"SUCheckAtStartup"];
-			break;
-			
-	}
-	[userDefaults setInteger:selection forKey:@"SUUpdate"];
-	
+    NSString *infoPlistLocation = [NSString stringWithFormat:@"%@/Contents/Info.plist",[[NSBundle mainBundle] bundlePath]];
+    NSMutableDictionary *appPrefs = [NSMutableDictionary dictionaryWithContentsOfFile:infoPlistLocation];
+    
+    return [[appPrefs objectForKey:@"LSUIElement"] boolValue];
 }
 
-- (IBAction)updateCheck:(id)sender
+#pragma mark Misc Actions
+- (IBAction)showInMenuBar:(id)sender
 {
-	id sparkle = [[AppController sharedAppController] sparkle];
-	[sparkle checkForUpdates:self];
+	[[AppController sharedAppController] showInMenuBarAct:nil];
+}
+
+- (IBAction)donate:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:donateAddress]];
+}
+
+- (IBAction)viewReadme:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Readme.rtf"]];
 }
 
 - (IBAction)testFadeIn:(id)sender
 {
-    if (fadeInThread && ![fadeInThread isFinished]) return;
-    fadeInThread = [[NSThread alloc]initWithTarget:[AppController sharedAppController] selector:@selector(iTunesVolumeFadeIn) object:nil];
-    [fadeInThread start];
+    [[AppController sharedAppController] iTunesThreadedFadeIn];
 }
 
+#pragma mark Sparkle
+- (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
+{
+    [lastCheck setObjectValue:[[SUUpdater sharedUpdater] lastUpdateCheckDate]];
+}
+
+- (IBAction)checkForUpdates:(id)sender
+{
+	[[SUUpdater sharedUpdater] checkForUpdates:sender];
+}
+
+- (void)setSendsSystemProfile:(BOOL)sendsSystemProfile
+{
+    [[SUUpdater sharedUpdater] setSendsSystemProfile:sendsSystemProfile];
+}
+
+- (void)setAutomaticallyDownloadsUpdates:(BOOL)automaticallyDownloadsUpdates
+{
+    [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:automaticallyDownloadsUpdates];
+}
+
+- (void)setAutomaticallyChecksForUpdates:(BOOL)automaticallyChecks
+{
+    [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:automaticallyChecks];
+}
+
+- (BOOL)sendsSystemProfile
+{
+    return [[SUUpdater sharedUpdater] sendsSystemProfile];
+}
+
+- (BOOL)automaticallyDownloadsUpdates
+{
+    return [[SUUpdater sharedUpdater] automaticallyDownloadsUpdates];
+}
+
+- (BOOL)automaticallyChecksForUpdates
+{
+    return [[SUUpdater sharedUpdater] automaticallyChecksForUpdates];
+}
+
+#pragma mark Test
 NSString* osTypeToFourCharCode(OSType inType) {
 return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (unsigned char)(inType >> 16 ), (unsigned char)(inType >> 8), (unsigned char)inType];
 }
 
+- (void)logTestResultForProperty:(NSString *)property withReturn:(OSStatus)returnStatus andData:(UInt32)dataSource
+{
+    NSMutableString *resultString = nil;
+    resultString = [NSMutableString stringWithFormat:@"%@ %@", (returnStatus != noErr) ? @"[ERROR]" : @"   [OK]", property];
+    [resultString appendString:[NSString stringWithFormat:@": '%@'\n", ((returnStatus != noErr) ? osTypeToFourCharCode(returnStatus) : osTypeToFourCharCode(dataSource))]];
+	[testResultBox insertText:resultString];
+}
 
 - (IBAction)startTest:(id)sender
 {	
-	//====================================================================================
-	// get a device up
     AudioDeviceID device;
-    
-    // set up our buffer and data size so we may recieve it
     UInt32 size = sizeof device;
-    
-    // These need to be declared up here to make the compiler happy
     UInt32 outt = 3;	
-	NSString *fccString;
-	
-	UInt32 dataSource;
-	UInt32 dataSourceBuff = sizeof(outt);
-	
-    // find out what the main output device is (assuming it's built in audio)
-    OSStatus err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,
-                                            &size, &device);
-	if (err != noErr) [testResultBox insertText:@"Could not get main output device\n"];
-	else [testResultBox insertText:@"Successfully retrieved main output device\n"];
-	
-	[testResultBox insertText:@"======================================================\n"];
-	
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   0,
-										   kAudioDevicePropertyJackIsConnected,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected ('%@')\n",fccString]];
+	UInt32 dataSource, dataSourceBuff;
+    OSStatus err;
 
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   0,
-										   kAudioDevicePropertyDataSources,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources ('%@')\n",fccString]];
+    if (!done) [testResultBox insertText:@"=================== Headphones Unplugged ===================\n"];
+    else [testResultBox insertText:@"==================== Headphones Plugged ====================\n"];
+    
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice, &size, &device);
+    [self logTestResultForProperty:@"kAudioHardwarePropertyDefaultOutputDevice" withReturn:err andData:device];
+    
+    int i;
+    for (i = 0; i < 3; i++)
+    {
+        dataSourceBuff = sizeof(outt);
+        err = AudioDeviceGetProperty(device, 0, i, kAudioDevicePropertyJackIsConnected, &dataSourceBuff, &dataSource);
+        [self logTestResultForProperty:[NSString stringWithFormat:@"(chan %i) kAudioDevicePropertyJackIsConnected", i] withReturn:err andData:dataSource];
+        
+        dataSourceBuff = sizeof(outt);
+        err = AudioDeviceGetProperty(device, 0, i, kAudioDevicePropertyDataSources, &dataSourceBuff, &dataSource);
+        [self logTestResultForProperty:[NSString stringWithFormat:@"(chan %i) kAudioDevicePropertyDataSources", i] withReturn:err andData:dataSource];
+        
+        dataSourceBuff = sizeof(outt);
+        err = AudioDeviceGetProperty(device, 0, i, kAudioDevicePropertyDataSource, &dataSourceBuff, &dataSource);
+        [self logTestResultForProperty:[NSString stringWithFormat:@"(chan %i) kAudioDevicePropertyDataSource", i] withReturn:err andData:dataSource];
+	}
 
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   0,
-										   kAudioDevicePropertyDataSource,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	
-	//////////////////////////////////////////////////////////// CHAN 1
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   1,
-										   kAudioDevicePropertyJackIsConnected,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 1) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   1,
-										   kAudioDevicePropertyDataSources,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 1) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   1,
-										   kAudioDevicePropertyDataSource,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 1) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 1) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	
-	//////////////////////////////////////////////////////////// CHAN 2
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   2,
-										   kAudioDevicePropertyJackIsConnected,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyJackIsConnected(chan 2) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   2,
-										   kAudioDevicePropertyDataSources,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSources(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSources(chan 2) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	err = AudioDeviceGetProperty( device,
-										   0,
-										   2,
-										   kAudioDevicePropertyDataSource,
-										   &dataSourceBuff,
-										   &dataSource);
-	
-	fccString = osTypeToFourCharCode(dataSource);
-	if (err != noErr) [testResultBox insertText:[NSString stringWithFormat:@"Error getting property kAudioDevicePropertyDataSource(chan 2) ('%@')\n", osTypeToFourCharCode(err)]];
-	else [testResultBox insertText:[NSString stringWithFormat:@"Successfully retrieved property kAudioDevicePropertyDataSource(chan 2) ('%@')\n",fccString]];
-	
-	dataSourceBuff = sizeof(outt);
-	
-	if (done) 
-	{
-		[testResultBox insertText:@"\n\n"];
-		[testResultBox insertText:NSLocalizedString(@"You are done! Click the sumbit results button. Thank you for making Breakaway better.",nil)];
+    
+	if (!done) 
+    {
 		[testResultBox insertText:@"\n"];
-		done=0;
-	}
-	else
-	{
-		[testResultBox insertText:@"\n\n"];
-		[testResultBox insertText:NSLocalizedString(@"Please connect headphones now and click on the button again",nil)];
+        [testResultBox insertText:@"========================== STEP 3 ==========================\n"];
+		[testResultBox insertText:NSLocalizedString(@"Please connect headphones now and click on the button again", nil)];
 		[testResultBox insertText:@"\n"];
-		done=1;
+		done = YES;
 	}
+    else
+	{
+		[testResultBox insertText:@"\n"];
+        [testResultBox insertText:@"====================== TEST COMPLETE =======================\n"];
+		[testResultBox insertText:NSLocalizedString(@"You are done! Click the sumbit results button. Thank you for making Breakaway better.", nil)];
+		[testResultBox insertText:@"\n"];
+        // If we wanted to run another test
+		done = NO;
+	}	
 }
 
 - (IBAction)sendResults:(id)sender
-{
-	static NSString *hardwareModel = nil;
-    if (!hardwareModel) {
-        char buffer[128];
-        size_t length = sizeof(buffer);
-        if (sysctlbyname("hw.model", &buffer, &length, NULL, 0) == 0) {
-            hardwareModel = [[NSString allocWithZone:NULL] initWithCString:buffer encoding:NSASCIIStringEncoding];
-        }
-        if (!hardwareModel || [hardwareModel length] == 0) {
-            hardwareModel = @"Unknown";
-        }
-    }
-	
-	static NSString *computerModel = nil;
-    if (!computerModel) {
-        NSString *path;
-        if ((path = [[NSBundle mainBundle] pathForResource:@"Macintosh" ofType:@"dict"])) {
-            computerModel = [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:hardwareModel] copy];
-        }
-        if (!computerModel) {
-            char buffer[128];
-            size_t length = sizeof(buffer);
-            if (sysctlbyname("hw.machine", &buffer, &length, NULL, 0) == 0) {
-                computerModel = [[NSString allocWithZone:NULL] initWithCString:buffer encoding:NSASCIIStringEncoding];
-            }
-        }
-        if (!computerModel || [computerModel length] == 0) {
-            computerModel = [[NSString allocWithZone:NULL] initWithFormat:@"%@ computer model", hardwareModel];
-        }
-    }
-	
-    SInt32 systemVersion=0, versionMajor=0, versionMinor=0, versionBugFix=0;
-	unsigned main, next, bugFix;
-    if (systemVersion < 0x1040)
+{    
+	NSMutableString *mailtoURL = [NSMutableString string];
+	[mailtoURL appendFormat:@"mailto:%@?subject=%@&body=", resultsEmailAddress, resultsEmailSubject];
+    
+    SUHost *host = [[SUHost alloc] initWithBundle:nil];
+    NSMutableArray *systemProfile = [[SUSystemProfiler sharedSystemProfiler] systemProfileArrayForHost:host];
+
+    int i;
+    for (i = 0; i < [systemProfile count]; i++)
     {
-        main = ((systemVersion & 0xF000) >> 12) * 10 + ((systemVersion & 0x0F00) >> 8);
-        next = (systemVersion & 0x00F0) >> 4;
-        bugFix = (systemVersion & 0x000F);
+        switch (i)
+        {
+            case 5:
+            case 6:
+            case 7:
+            case 9:
+            case 10:
+                break;
+            default:
+                [mailtoURL appendFormat:@"%@: %@ [%@]\n", [[systemProfile objectAtIndex:i] objectForKey:@"displayKey"], [[systemProfile objectAtIndex:i] objectForKey:@"displayValue"], [[systemProfile objectAtIndex:i] objectForKey:@"value"]];
+                break;
+        }
     }
-    else
+    [mailtoURL appendFormat:@"\n%@",[testResultBox string]];
+    
+    NSString *messageString = nil;
+    switch ([userConcernRadioButton selectedRow])
     {
-		if (Gestalt(gestaltSystemVersionMajor, &versionMajor) != noErr)NSLog(@"y");
-        if (Gestalt(gestaltSystemVersionMinor, &versionMinor) != noErr)NSLog(@"e");
-        if (Gestalt(gestaltSystemVersionBugFix, &versionBugFix) != noErr)NSLog(@"s\n");
-        main = versionMajor;
-        next = versionMinor;
-        bugFix = versionBugFix;
+        case APP_BROKEN_ROW:
+            messageString = NSLocalizedString(@"Please state what part of the application is not working. Please have these statements in English, if possible.", nil);
+            break;
+        case APP_WORKING_ROW:
+            messageString = NSLocalizedString(@"Thank you for helping make Breakaway better.", nil);
+            break;
+        default:
+            messageString = NSLocalizedString(@"*NOTE* You (the user) have not specified if the application is working or not. Please go back and choose an option or state here. Note, \"42\" is not a valid answer.", nil);
+            break;
     }
-	NSString *url = [NSString string];
-	url = [url stringByAppendingString:[NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@ | OS %u.%u.%u | v %@\n\n%@\n\n",resultsEmailAddress, resultsEmailSubject, computerModel,main, next, bugFix, [[[NSBundle mainBundle]infoDictionary]valueForKey:@"CFBundleVersion"] ,[testResultBox string]]];
-	url = [url stringByAppendingString:NSLocalizedString(@"Please state what part of the application is not working. Please have these statements in English, if possible.",nil)];
-	
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    [mailtoURL appendFormat:@"\n\n%@", messageString];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[mailtoURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    [host release];
 }
 
 #pragma mark Delegates

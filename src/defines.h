@@ -39,6 +39,11 @@ enum {
     BAHeadphonesJackOutMask = 1 << 6
 };
 
+#define APP_WORKING_ROW 0
+#define APP_BROKEN_ROW 1
+
+#define BASE_FADE_IN_DELAY 10000
+
 #define HEADPHONES_MODE 0
 #define NORMAL_MODE 1
 

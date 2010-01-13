@@ -157,7 +157,7 @@
 }
 
 -(void)playMusic
-{
+{    
 	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/curl" arguments:[NSArray arrayWithObjects:@"http://localhost:8080/requests/status.xml?command=pl_play", nil]];
 }
 

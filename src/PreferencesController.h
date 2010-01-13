@@ -28,6 +28,7 @@
 	NSString *PluginsToolbarItemIdentifier;
 	NSString *AboutToolbarItemIdentifier;
 	NSString *QuitToolbarItemIdentifier;
+	NSString *UpdateToolbarItemIdentifier;
 	NSString *ExpandBreakawayToolbarItemIdentifier;
 	NSString *DonateToolbarItemIdentifier;
 	
@@ -36,6 +37,7 @@
     IBOutlet id generalPreferenceView;
     IBOutlet id pluginsPreferenceView;
 	IBOutlet id donatePreferenceView;
+	IBOutlet id updatePreferenceView;
 	IBOutlet id expandBreakawayPreferenceView;
 	
 	IBOutlet id preferenceHandler;
