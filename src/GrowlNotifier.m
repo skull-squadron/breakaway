@@ -29,18 +29,21 @@
 
 -(void)awakeFromNib
 {
-	[GrowlApplicationBridge setGrowlDelegate:self];
     NSArray *acceptedNotifications = [NSArray arrayWithObjects:
                                       NSLocalizedString(@"Jack Connected", @""),
                                       NSLocalizedString(@"Jack Disconnected", @""),
-                                      NSLocalizedString(@"Disabled", @""),
-                                      NSLocalizedString(@"Enabled",@""),
+                                      NSLocalizedString(@"Breakaway Disabled", @""),
+                                      NSLocalizedString(@"Breakaway Enabled",@""),
+                                      NSLocalizedString(@"iTunes SmartPlay",@""),
+                                      NSLocalizedString(@"iTunes SmartPause",@""),
                                       nil];
 	
 	NSArray *defaultNotifications = [NSArray arrayWithObjects:
                                      NSLocalizedString(@"Jack Connected", @""),
                                      NSLocalizedString(@"Jack Disconnected", @""),
-                                     NSLocalizedString(@"Disabled", @""),
+                                     NSLocalizedString(@"Breakaway Disabled", @""),
+                                     NSLocalizedString(@"iTunes SmartPlay",@""),
+                                     NSLocalizedString(@"iTunes SmartPause",@""),
                                      nil];
 	
 	registrationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -48,7 +51,9 @@
                               defaultNotifications, GROWL_NOTIFICATIONS_DEFAULT,
                               @"Breakaway", GROWL_APP_NAME,
                               [NSNumber numberWithInt:1], GROWL_TICKET_VERSION,
-                              nil];    
+                              nil];
+    
+    [GrowlApplicationBridge setGrowlDelegate:self];
 }
 
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description

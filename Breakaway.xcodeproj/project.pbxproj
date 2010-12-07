@@ -24,15 +24,11 @@
 		0A061D9D10F8580B00E88056 /* PreferenceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D8310F8580B00E88056 /* PreferenceHandler.m */; };
 		0A061D9E10F8580B00E88056 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D8410F8580B00E88056 /* PreferencesController.h */; };
 		0A061D9F10F8580B00E88056 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D8510F8580B00E88056 /* PreferencesController.m */; };
-		0A061E1D10F8593800E88056 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1510F8593800E88056 /* InfoPlist.strings */; };
-		0A061E1E10F8593800E88056 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1710F8593800E88056 /* MainMenu.nib */; };
 		0A061E5110F85A8D00E88056 /* VLCPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E3410F859C200E88056 /* VLCPlugin.nib */; };
-		0A061E8D10F85BDB00E88056 /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E8C10F85BDB00E88056 /* Preferences.nib */; };
 		0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */; };
 		0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1FFA10FC5B8E00D28890 /* update.tiff */; };
-		0A4611480DF0741B001A579C /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611470DF0741B001A579C /* Readme.rtf */; };
 		0A46114B0DF07425001A579C /* COPYING.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A4611490DF07425001A579C /* COPYING.txt */; };
 		0A46114C0DF07425001A579C /* devs log.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* devs log.txt */; };
 		0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE410FE735E00850E00 /* SUHost.h */; };
@@ -68,6 +64,12 @@
 		0AA2263410F994B400401B7A /* Power.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261910F994B400401B7A /* Power.tiff */; };
 		0AA2263510F994B400401B7A /* Remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261A10F994B400401B7A /* Remove.tiff */; };
 		0AA2263710F994B400401B7A /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261C10F994B400401B7A /* Users.tiff */; };
+		0AC652EF11432FA20065C46E /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0AC652EE11432FA20065C46E /* Readme.txt */; };
+		0AC652F3114330300065C46E /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1810F8593800E88056 /* MainMenu.nib */; };
+		0AC652F41143303F0065C46E /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1C10F8593800E88056 /* Preferences.nib */; };
+		0AC65316114331720065C46E /* VLC Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */; };
+		0AC65317114331720065C46E /* AppleScript Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
+		0AC6533F114331CE0065C46E /* AppleScript Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
 		0AF44E380B1229D0007163FE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* Credits.rtf */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0AC65349114331DD0065C46E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0AC6533F114331CE0065C46E /* AppleScript Plugin.plugin in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -129,14 +141,11 @@
 		0A061D8310F8580B00E88056 /* PreferenceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferenceHandler.m; path = src/PreferenceHandler.m; sourceTree = "<group>"; };
 		0A061D8410F8580B00E88056 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = src/PreferencesController.h; sourceTree = "<group>"; };
 		0A061D8510F8580B00E88056 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesController.m; path = src/PreferencesController.m; sourceTree = "<group>"; };
-		0A061E1610F8593800E88056 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
-		0A061E1810F8593800E88056 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = MainMenu.nib; sourceTree = "<group>"; };
-		0A061E1C10F8593800E88056 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = Preferences.nib; sourceTree = "<group>"; };
+		0A061E1810F8593800E88056 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = MainMenu.nib; path = ../MainMenu.nib; sourceTree = "<group>"; };
+		0A061E1C10F8593800E88056 /* Preferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Preferences.nib; path = ../Preferences.nib; sourceTree = "<group>"; };
 		0A061E3210F859C200E88056 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC Plugin-Info.plist"; path = "resources/plugins/VLC Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A061E3310F859C200E88056 /* vlcPlaying */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = vlcPlaying; path = resources/plugins/vlcPlaying; sourceTree = "<group>"; };
 		0A061E3410F859C200E88056 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = VLCPlugin.nib; path = resources/plugins/VLCPlugin.nib; sourceTree = "<group>"; };
-		0A061E8E10F85BE100E88056 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = ../French.lproj/Preferences.nib; sourceTree = "<group>"; };
-		0A061E8F10F85BED00E88056 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = zh_CN; path = ../zh_CN.lproj/Preferences.nib; sourceTree = "<group>"; };
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -176,6 +185,7 @@
 		0AA2261A10F994B400401B7A /* Remove.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Remove.tiff; sourceTree = "<group>"; };
 		0AA2261B10F994B400401B7A /* Terminal.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Terminal.tiff; sourceTree = "<group>"; };
 		0AA2261C10F994B400401B7A /* Users.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Users.tiff; sourceTree = "<group>"; };
+		0AC652EE11432FA20065C46E /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Readme.txt; path = Docs/Readme.txt; sourceTree = "<group>"; };
 		0AC67D860F0F2C7500196632 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		0AC67D870F0F2C7600196632 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		0ACA9C320B0D297F00610F2A /* DebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugUtils.h; path = src/DebugUtils.h; sourceTree = "<group>"; };
@@ -251,9 +261,8 @@
 		0A061E1410F8593800E88056 /* English.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				0A061E1510F8593800E88056 /* InfoPlist.strings */,
-				0A061E1710F8593800E88056 /* MainMenu.nib */,
-				0A061E8C10F85BDB00E88056 /* Preferences.nib */,
+				0A061E1810F8593800E88056 /* MainMenu.nib */,
+				0A061E1C10F8593800E88056 /* Preferences.nib */,
 			);
 			name = English.lproj;
 			path = resources/English.lproj;
@@ -449,6 +458,7 @@
 		0AD0B2910B183C790021CC15 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
+				0AC652EE11432FA20065C46E /* Readme.txt */,
 				0A46114A0DF07425001A579C /* devs log.txt */,
 				0A4611470DF0741B001A579C /* Readme.rtf */,
 				0AF44E370B1229D0007163FE /* Credits.rtf */,
@@ -622,6 +632,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				0A2B1F4D10FBDB3100D28890 /* CopyFiles */,
+				0AC65349114331DD0065C46E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -645,6 +656,7 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Breakaway" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -690,12 +702,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AF44E380B1229D0007163FE /* Credits.rtf in Resources */,
-				0A4611480DF0741B001A579C /* Readme.rtf in Resources */,
 				0A46114B0DF07425001A579C /* COPYING.txt in Resources */,
 				0A46114C0DF07425001A579C /* devs log.txt in Resources */,
-				0A061E1D10F8593800E88056 /* InfoPlist.strings in Resources */,
-				0A061E1E10F8593800E88056 /* MainMenu.nib in Resources */,
-				0A061E8D10F85BDB00E88056 /* Preferences.nib in Resources */,
+				0AC652F3114330300065C46E /* MainMenu.nib in Resources */,
+				0AC652F41143303F0065C46E /* Preferences.nib in Resources */,
 				0AA2261D10F994B400401B7A /* connected.png in Resources */,
 				0AA2261E10F994B400401B7A /* disabled.png in Resources */,
 				0AA2261F10F994B400401B7A /* disconnected.png in Resources */,
@@ -711,6 +721,9 @@
 				0AA2263710F994B400401B7A /* Users.tiff in Resources */,
 				0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */,
 				0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */,
+				0AC652EF11432FA20065C46E /* Readme.txt in Resources */,
+				0AC65316114331720065C46E /* VLC Plugin.plugin in Resources */,
+				0AC65317114331720065C46E /* AppleScript Plugin.plugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,35 +776,6 @@
 			targetProxy = 0AA225BC10F98CD200401B7A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		0A061E1510F8593800E88056 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A061E1610F8593800E88056 /* English */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		0A061E1710F8593800E88056 /* MainMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A061E1810F8593800E88056 /* English */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		0A061E8C10F85BDB00E88056 /* Preferences.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A061E1C10F8593800E88056 /* English */,
-				0A061E8E10F85BE100E88056 /* French */,
-				0A061E8F10F85BED00E88056 /* zh_CN */,
-			);
-			name = Preferences.nib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0A55C48A0E36D7C300347DB7 /* Debug */ = {

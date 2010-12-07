@@ -171,11 +171,8 @@ static AppController *sharedAppController = nil;
 		DEBUG_OUTPUT(@"Disabling...");
 		
 		[self removeListener:kAudioDevicePropertyDataSource];
-        if ([userDefaults boolForKey:@"mute watch"])
-        {
-            [self removeListener:kAudioDevicePropertyMute];
-            [self removeListener:kAudioDevicePropertyVolumeScalar];
-        }
+        [self removeListener:kAudioDevicePropertyMute];
+        [self removeListener:kAudioDevicePropertyVolumeScalar];
         
         [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
         [statusItem setImage:disabled];
@@ -185,12 +182,8 @@ static AppController *sharedAppController = nil;
 		DEBUG_OUTPUT(@"Enabling...");
         
 		[self attachListener:kAudioDevicePropertyDataSource];
-		if ([userDefaults boolForKey:@"mute watch"])
-		{
-			[self attachListener:kAudioDevicePropertyMute];
-			[self attachListener:kAudioDevicePropertyVolumeScalar];
-		}
-        
+        [self attachListener:kAudioDevicePropertyMute];
+        [self attachListener:kAudioDevicePropertyVolumeScalar];
 		[disableMI setTitle:NSLocalizedString(@"Disable",nil)];
 		[self jackConnected];
     }
@@ -377,13 +370,13 @@ static AppController *sharedAppController = nil;
     else if (dataSource == 'hdpn')
 	{
         DEBUG_OUTPUT(@"Jack: Connected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && ![[statusItem image] isEqualTo:disabled]) [statusItem setImage:conn];
+        if ([userDefaults boolForKey:@"showInMenuBar"] && [[disableMI title] isEqual:NSLocalizedString(@"Disable",nil)]) [statusItem setImage:conn];
         jackConnected = TRUE;
     }
     else
 	{
         DEBUG_OUTPUT(@"Jack: Disconnected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && ![[statusItem image] isEqualTo:disabled]) [statusItem setImage:disconn];
+        if ([userDefaults boolForKey:@"showInMenuBar"] && [[disableMI title] isEqual:NSLocalizedString(@"Disable",nil)]) [statusItem setImage:disconn];
         jackConnected = FALSE;
     }
     

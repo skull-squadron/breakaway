@@ -26,7 +26,8 @@
 @interface GrowlNotifier : NSObject <GrowlApplicationBridgeDelegate>
 {
     NSDictionary *registrationDictionary;
-	//Other objects
+    
+	// Other objects
 	IBOutlet id appController;
 }
 - (NSDictionary *)registrationDictionaryForGrowl;

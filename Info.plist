@@ -6,10 +6,12 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>Breakaway</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2009-2010 MutableCode</string>
 	<key>CFBundleIconFile</key>
 	<string>15BreakawayIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.AllocInit.Breakaway</string>
+	<string>com.mutablecode.breakaway</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -17,17 +19,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>ALOC</string>
+	<string>MCOD</string>
 	<key>CFBundleVersion</key>
 	<string>1.8</string>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSMainNibFile</key>
-	<string>MainMenu.nib</string>
+	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUEnableSystemProfiling</key>
-	<true/>
+	<false/>
 	<key>SUFeedURL</key>
 	<string>http://mutablecode.com/sparkleData/profileInfo.php</string>
 	<key>SUPublicDSAKeyFile</key>

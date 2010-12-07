@@ -1,5 +1,5 @@
 Developer's Log
-Balthamos | April 2008
+Kevin Nygaard | March 2010
 
 0.1: Proof of concept through Apple's HALLab
      Programming commences
@@ -108,5 +108,18 @@ Balthamos | April 2008
 	   [Change] Triggers replaced with Plugins
 	   [Change] iTunes playpause calls now significantly faster
 	   [Change] Preferences rearranged
+
+1.8: [NEW] Optional anonymous system profiling via Sparkle
+	 [FIX] Much more reliable in general
+	 [FIX] Fade-in works better
+	 [FIX] Fixed error where the status bar image would change when breakaway is in disabled mode
+	 [FIX] Show dock icon works better now
+	 [CHANGE] Mute key always watched now
+	 [CHANGE] "Guess mode" option always on
+	 [CHANGE] "SmartPlay" option always on
+	 [CHANGE] Preferences redesigned
+	 [CHANGE] Spalsh image removed
+	 [CHANGE] "Force open" option removed
+	 [CHANGE] "Audio flowing" feature removed
 
 ===========================================================================
