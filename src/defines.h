@@ -39,6 +39,7 @@ enum {
     BAHeadphonesJackOutMask = 1 << 6
 };
 
+// Defines
 #define APP_WORKING_ROW 0
 #define APP_BROKEN_ROW 1
 
