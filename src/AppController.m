@@ -161,7 +161,7 @@ static AppController *sharedAppController = nil;
     [disabled release];
     
     // Display a notification via Growl to tell the user that Breakaway is still active
-    [self growlNotify:NSLocalizedString(@"Disabled",nil) andDescription:NSLocalizedString(@"The menu extra has sucessfully been disabled. Breakaway is still running.",nil)];
+    [self growlNotify:NSLocalizedString(@"Breakaway Disabled",nil) andDescription:NSLocalizedString(@"The menu extra has sucessfully been disabled. Breakaway is still running.",nil)];
 }
 
 - (void)disable
@@ -258,27 +258,45 @@ static AppController *sharedAppController = nil;
 // Will wake iTunes
 - (void)iTunesVolumeFadeIn
 {
-    @synchronized(self)
+    DEBUG_OUTPUT(@"Executing fade in...");
+    inFadeIn = TRUE;
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    float fadeInSpeed = [userDefaults floatForKey:@"fadeInTime"];
+    
+    [self fadeInUsingTimer:[NSTimer scheduledTimerWithTimeInterval:0.5*fadeInSpeed target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES]];
+    
+    [pool release];
+    inFadeIn = FALSE;
+}
+
+- (void)fadeInUsingTimer:(NSTimer*)timer
+{
+    static int maxVolume = 100;
+    static int x = 0;
+    if (x == 0) maxVolume = [iTunes soundVolume];
+    
+    [iTunes setValue:[NSNumber numberWithInt:x] forKey:@"soundVolume"];
+    x++;
+    
+    if (x > maxVolume)
     {
-        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-        inFadeIn = TRUE;
-        DEBUG_OUTPUT(@"Executing fade in...");
-        int x = 0;
-        while (x < 101)
-        {
-            [iTunes setValue:[NSNumber numberWithInt:x] forKey:@"soundVolume"];
-            usleep(BASE_FADE_IN_DELAY*[userDefaults integerForKey:@"fadeInTime"]);
-            x += 1;
-        } 
-        //if ([userDefaults floatForKey:@"fadeInTime"]) [fadeIn executeAndReturnError:nil];
+        [timer invalidate]; // base case
+        x = 0;
         inFadeIn = FALSE;
-        [pool release];
     }
 }
 
 - (void)iTunesThreadedFadeIn
 {
-    if (!inFadeIn && [userDefaults integerForKey:@"fadeInTime"]) [NSThread detachNewThreadSelector:@selector(iTunesVolumeFadeIn) toTarget:self withObject:nil];
+    if (inFadeIn || ![userDefaults boolForKey:@"fadeInEnable"]) return;
+    
+    int fadeInSpeed = [userDefaults integerForKey:@"fadeInTime"];
+    fadeInSpeed = (100 - fadeInSpeed); // gives multiplier between 0 -- 100
+    float interval = (float)fadeInSpeed/10 + 1;
+    
+    inFadeIn = TRUE;
+    [NSTimer scheduledTimerWithTimeInterval:BASE_FADE_IN_DELAY*interval target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES];
 }
 
 #pragma mark iTunes launch/quit

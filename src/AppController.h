@@ -60,7 +60,7 @@ NSThread *fadeInThread;
 	IBOutlet id growlNotifier;
 	NSUserDefaults* userDefaults;
 }
-
+- (void)fadeInUsingTimer:(NSTimer*)timer;
 + (AppController *)sharedAppController;
 + (void)initialize;
 - (void)dealloc;

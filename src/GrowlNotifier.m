@@ -32,8 +32,8 @@
     NSArray *acceptedNotifications = [NSArray arrayWithObjects:
                                       NSLocalizedString(@"Jack Connected", @""),
                                       NSLocalizedString(@"Jack Disconnected", @""),
-                                      NSLocalizedString(@"Breakaway Disabled", @""),
                                       NSLocalizedString(@"Breakaway Enabled",@""),
+                                      NSLocalizedString(@"Breakaway Disabled", @""),
                                       NSLocalizedString(@"iTunes SmartPlay",@""),
                                       NSLocalizedString(@"iTunes SmartPause",@""),
                                       nil];
