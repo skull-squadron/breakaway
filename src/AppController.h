@@ -66,12 +66,13 @@ NSThread *fadeInThread;
 - (void)dealloc;
 - (void)awakeFromNib;
 // Startup Functions
-- (void)loadListeners;
-- (void)loadiTunesObservers;
+- (void)loadObservers;
+- (void)removeObservers;
 // Status item
-- (void)setupStatusItem;
+- (void)setStatusItem:(BOOL)enable;
 - (void)killStatusItem;
-- (void)disable;
+- (void)setEnabled:(BOOL)enable;
+- (BOOL)isDisabled;
 // IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;

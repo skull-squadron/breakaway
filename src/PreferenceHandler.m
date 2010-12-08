@@ -125,6 +125,11 @@
     [[AppController sharedAppController] iTunesThreadedFadeIn];
 }
 
+- (IBAction)enableBreakaway:(id)sender
+{
+    [[AppController sharedAppController] setEnabled:(BOOL)[sender state]];
+}
+
 #pragma mark Sparkle
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
 {

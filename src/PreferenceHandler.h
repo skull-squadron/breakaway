@@ -48,6 +48,7 @@ NSString* osTypeToFourCharCode(OSType inType);
 - (IBAction)donate:(id)sender;
 - (IBAction)viewReadme:(id)sender;
 - (IBAction)testFadeIn:(id)sender;
+- (IBAction)enableBreakaway:(id)sender;
 // Sparkle
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast;
 - (IBAction)checkForUpdates:(id)sender;

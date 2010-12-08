@@ -52,6 +52,8 @@ static AppController *sharedAppController = nil;
                 [NSNumber numberWithBool:1], @"headphonesMode",
                                 
                 [NSNumber numberWithBool:1], @"showInMenuBar",
+                [NSNumber numberWithBool:1], @"enableBreakaway",
+                
                 [NSNumber numberWithBool:0], @"showIcon",                
                 [NSNumber numberWithInt:2], @"SUUpdate",
                 
@@ -66,7 +68,9 @@ static AppController *sharedAppController = nil;
 
 - (void)dealloc
 {
-    [self killStatusItem];
+    [self removeObservers];
+    [self setStatusItem:NO];
+    [self setEnabled:NO];
     [super dealloc];
 }
 
@@ -79,11 +83,12 @@ static AppController *sharedAppController = nil;
     inFadeIn = FALSE;
 
 	// Start Loading Stuff
-    [self loadListeners];
-	[self loadiTunesObservers];
-    if ([userDefaults boolForKey:@"showInMenuBar"]) [self setupStatusItem];
+	[self loadObservers];
     
-	isActive = [self iTunesActive];	
+    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
+    [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
+    
+	isActive = [self iTunesActive];
     isPlaying = isActive ? [self iTunesPlaying] : FALSE;
     hpMode = [userDefaults boolForKey:@"headphonesMode"];
     enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
@@ -95,109 +100,115 @@ static AppController *sharedAppController = nil;
 
 #pragma mark-
 #pragma mark Startup Functions
-- (void)loadListeners
+- (void)loadObservers
 {
-    // Audio
-    [self attachListener:kAudioDevicePropertyDataSource];
-    [self attachListener:kAudioDevicePropertyMute];
-    [self attachListener:kAudioDevicePropertyVolumeScalar];
-    
     // Backend
     [userDefaults addObserver:self forKeyPath:@"headphonesMode" options:NSKeyValueObservingOptionNew context:NULL];
     [userDefaults addObserver:self forKeyPath:@"enableAppHit" options:NSKeyValueObservingOptionNew context:NULL];
-}
-
-- (void)loadiTunesObservers
-{
+    
 	// Installing this observer will proc songChanged: every time iTunes is stop/started
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(songChanged:) name:@"com.apple.iTunes.playerInfo" object:nil];
     
     // Installing these observers will proc their respective functions when iTunes opens/closes
-    [[[NSWorkspace sharedWorkspace]notificationCenter]addObserver:self selector:@selector(handleAppLaunch:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
-    [[[NSWorkspace sharedWorkspace]notificationCenter]addObserver:self selector:@selector(handleAppQuit:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
-	
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(handleAppLaunch:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(handleAppQuit:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 }
+
+- (void)removeObservers
+{
+    // Backend
+    [userDefaults removeObserver:self forKeyPath:@"headphonesMode"];
+    [userDefaults removeObserver:self forKeyPath:@"enableAppHit"];
+    
+    // iTunes
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
+}
+
 
 #pragma mark 
 #pragma mark Status item
-- (void)setupStatusItem
+- (void)setStatusItem:(BOOL)enable
 {	
-    // get the images for the status item set up
-    conn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"connected" ofType:@"png"]];
-    [conn setScalesWhenResized:TRUE];
-    [conn setSize:NSMakeSize(10,10)];
-    
-    disconn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disconnected" ofType:@"png"]];
-    [disconn setScalesWhenResized:TRUE];
-    [disconn setSize:NSMakeSize(10,10)];
-    
-    disabled = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"png"]];
-    
-    //Status bar stuff
-    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem retain];
-    
-    [statusItem setMenu:statusItemMenu];
-    [statusItem setEnabled:YES];
-    [statusItem setHighlightMode:YES];
-    
-    // Notify the user whats going on
-    [self growlNotify:NSLocalizedString(@"Enabled",nil) andDescription:NSLocalizedString(@"The menu extra has sucessfully been enabled.",nil)];
-    
-    // run this so we can get a correct state on our menu extra
-    [self jackConnected];
-}
-
-- (void)killStatusItem
-{
-    [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-    
-    // Release our status item
-    [statusItem release];
-    
-    // Release our images that the status item used
-    [conn release];
-    [disconn release];
-    [disabled release];
-    
-    // Display a notification via Growl to tell the user that Breakaway is still active
-    [self growlNotify:NSLocalizedString(@"Breakaway Disabled",nil) andDescription:NSLocalizedString(@"The menu extra has sucessfully been disabled. Breakaway is still running.",nil)];
-}
-
-- (void)disable
-{	
-    if ([[disableMI title] isEqual: NSLocalizedString(@"Disable",nil)])
+    if (enable)
     {
-		DEBUG_OUTPUT(@"Disabling...");
-		
-		[self removeListener:kAudioDevicePropertyDataSource];
-        [self removeListener:kAudioDevicePropertyMute];
-        [self removeListener:kAudioDevicePropertyVolumeScalar];
+        // get the images for the status item set up
+        conn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"connected" ofType:@"png"]];
+        [conn setScalesWhenResized:TRUE];
+        [conn setSize:NSMakeSize(10,10)];
         
-        [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
-        [statusItem setImage:disabled];
-    }
-    else if ([[disableMI title] isEqual: NSLocalizedString(@"Enable",nil)])
-    {
-		DEBUG_OUTPUT(@"Enabling...");
+        disconn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disconnected" ofType:@"png"]];
+        [disconn setScalesWhenResized:TRUE];
+        [disconn setSize:NSMakeSize(10,10)];
         
-		[self attachListener:kAudioDevicePropertyDataSource];
-        [self attachListener:kAudioDevicePropertyMute];
-        [self attachListener:kAudioDevicePropertyVolumeScalar];
-		[disableMI setTitle:NSLocalizedString(@"Disable",nil)];
-		[self jackConnected];
+        disabled = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"png"]];
+        [disabled setScalesWhenResized:TRUE];
+        [disabled setSize:NSMakeSize(10,10)];
+        
+        //Status bar stuff
+        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+        [statusItem retain];
+        
+        [statusItem setMenu:statusItemMenu];
+        [statusItem setEnabled:YES];
+        [statusItem setHighlightMode:YES];
+        
+        // run this so we can get a correct state on our menu extra
+        [self jackConnected];
     }
     else
     {
-        NSLog(@"An error has occured while trying to disable Breakaway. Please notify the developer.");
+        if (statusItem) [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+        
+        // Release our status item
+        [statusItem release];
+        
+        // Release our images that the status item used
+        if (conn) [conn release];
+        if (disconn) [disconn release];
+        if (disabled) [disabled release];
     }
     
 }
+
+- (void)setEnabled:(BOOL)enable
+{	
+    [userDefaults setBool:enable forKey:@"enableBreakaway"];
+    if (!enable)
+    {
+		DEBUG_OUTPUT(@"Disabling...");
+		
+        [self removeListener:kAudioDevicePropertyDataSource];
+        [self removeListener:kAudioDevicePropertyMute];
+        [self removeListener:kAudioDevicePropertyVolumeScalar];
+        
+        if (statusItem)
+        {
+            [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
+            [statusItem setImage:disabled];
+        }
+    }
+    else
+    {
+		DEBUG_OUTPUT(@"Enabling...");
+        
+        [self attachListener:kAudioDevicePropertyDataSource];
+        [self attachListener:kAudioDevicePropertyMute];
+        [self attachListener:kAudioDevicePropertyVolumeScalar];
+        
+        if (statusItem)
+        {
+            [disableMI setTitle:NSLocalizedString(@"Disable",nil)];
+            [self jackConnected];
+        }
+    }
+}
+
 #pragma mark 
 #pragma mark IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender
 {
-    [userDefaults boolForKey:@"showInMenuBar"] ? [self setupStatusItem]:[self killStatusItem];
+    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
 }
 
 - (IBAction)openPrefs:(id)sender
@@ -222,7 +233,9 @@ static AppController *sharedAppController = nil;
 #pragma mark Accessor Functions
 - (IBAction)disable:(id)sender
 {
-    [self disable];
+    BOOL disable = NO;
+    if ([[disableMI title] isEqual: NSLocalizedString(@"Disable",nil)]) disable = YES;
+    [self setEnabled:!disable];
 }
 
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
@@ -388,13 +401,13 @@ static AppController *sharedAppController = nil;
     else if (dataSource == 'hdpn')
 	{
         DEBUG_OUTPUT(@"Jack: Connected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && [[disableMI title] isEqual:NSLocalizedString(@"Disable",nil)]) [statusItem setImage:conn];
+        if ([userDefaults boolForKey:@"showInMenuBar"] && [userDefaults boolForKey:@"enableBreakaway"]) [statusItem setImage:conn];
         jackConnected = TRUE;
     }
     else
 	{
         DEBUG_OUTPUT(@"Jack: Disconnected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && [[disableMI title] isEqual:NSLocalizedString(@"Disable",nil)]) [statusItem setImage:disconn];
+        if ([userDefaults boolForKey:@"showInMenuBar"] && [userDefaults boolForKey:@"enableBreakaway"]) [statusItem setImage:disconn];
         jackConnected = FALSE;
     }
     
@@ -524,14 +537,10 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
         DEBUG_OUTPUT(@"Headphones Mode");
         if (isPlaying)
         {
-            if (!jConnect)
+            if (!jConnect || muteOn == 1)
             {
                 [self iTunesPlayPause];
-                appHit = 1;
-            }
-            else if (muteOn == 1)
-            {
-                [self iTunesPlayPause];
+                [self growlNotify:NSLocalizedString(@"iTunes SmartPause",@"") andDescription:@""];
                 appHit = 1;
             }
         }
@@ -541,6 +550,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
+                [self growlNotify:NSLocalizedString(@"iTunes SmartPlay",@"") andDescription:@""];
                 appHit = 0;
             }
         }
@@ -569,6 +579,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             if (muteOn == 1)
             {
                 [self iTunesPlayPause];
+                [self growlNotify:NSLocalizedString(@"iTunes SmartPause",@"") andDescription:@""];
                 appHit = 1;
             }
             else if (jConnect) [userDefaults setBool:TRUE forKey:@"headphonesMode"];
@@ -579,6 +590,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
+                [self growlNotify:NSLocalizedString(@"iTunes SmartPlay",@"") andDescription:@""];
                 appHit = 0;                
             }
         }
@@ -590,7 +602,8 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             else [[AIPluginSelector pluginController] executeTriggers:19];
         }			 
     }
-        
+    
+    DEBUG_OUTPUT(@"\n\n");
     [pool release];
     return noErr;
 }
