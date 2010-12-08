@@ -34,16 +34,16 @@
                                       NSLocalizedString(@"Jack Disconnected", @""),
                                       NSLocalizedString(@"Breakaway Enabled",@""),
                                       NSLocalizedString(@"Breakaway Disabled", @""),
-                                      NSLocalizedString(@"iTunes SmartPlay",@""),
-                                      NSLocalizedString(@"iTunes SmartPause",@""),
+                                      NSLocalizedString(@"SmartPlay",@""),
+                                      NSLocalizedString(@"SmartPause",@""),
                                       nil];
 	
 	NSArray *defaultNotifications = [NSArray arrayWithObjects:
                                      NSLocalizedString(@"Jack Connected", @""),
                                      NSLocalizedString(@"Jack Disconnected", @""),
                                      NSLocalizedString(@"Breakaway Disabled", @""),
-                                     NSLocalizedString(@"iTunes SmartPlay",@""),
-                                     NSLocalizedString(@"iTunes SmartPause",@""),
+                                     NSLocalizedString(@"SmartPlay",@""),
+                                     NSLocalizedString(@"SmartPause",@""),
                                      nil];
 	
 	registrationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:

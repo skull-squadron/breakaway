@@ -71,6 +71,9 @@ static AppController *sharedAppController = nil;
     [self removeObservers];
     [self setStatusItem:NO];
     [self setEnabled:NO];
+    
+    [iTunes release];
+    [VLC release];
     [super dealloc];
 }
 
@@ -79,6 +82,8 @@ static AppController *sharedAppController = nil;
     sharedAppController = self;
 	userDefaults = [NSUserDefaults standardUserDefaults];
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
+    VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
+    
     appHit = FALSE;
     inFadeIn = FALSE;
 
@@ -247,11 +252,7 @@ static AppController *sharedAppController = nil;
 #pragma mark iTunes
 -(BOOL)iTunesActive
 {
-    //*DEPRECIATED* Used only once for the initial status of iTunes. Further queries of iTunes status are handled by handleAppLaunch/Quit:
-    BOOL iTunesUp = [[[[NSWorkspace sharedWorkspace] launchedApplications] valueForKey:@"NSApplicationName"] containsObject:@"iTunes"];
-    
-    if (iTunesUp) return YES;
-    return NO;
+    return [iTunes isRunning];
 }
 
 // Will wake iTunes
@@ -266,21 +267,6 @@ static AppController *sharedAppController = nil;
 - (void)iTunesPlayPause
 {
     [iTunes playpause];
-}
-
-// Will wake iTunes
-- (void)iTunesVolumeFadeIn
-{
-    DEBUG_OUTPUT(@"Executing fade in...");
-    inFadeIn = TRUE;
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    float fadeInSpeed = [userDefaults floatForKey:@"fadeInTime"];
-    
-    [self fadeInUsingTimer:[NSTimer scheduledTimerWithTimeInterval:0.5*fadeInSpeed target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES]];
-    
-    [pool release];
-    inFadeIn = FALSE;
 }
 
 - (void)fadeInUsingTimer:(NSTimer*)timer
@@ -321,6 +307,18 @@ static AppController *sharedAppController = nil;
 - (void) handleAppQuit:(NSNotification *)notification
 {
     if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = FALSE;
+}
+
+#pragma mark VLC
+-(BOOL)VLCActive
+{
+    return [VLC isRunning];
+}
+
+- (void)VLCPlayPause
+{
+    VLCDocument *doc = [[[VLC windows] objectAtIndex:0] document];
+    [doc play];
 }
 
 #pragma mark 
@@ -448,6 +446,29 @@ static AppController *sharedAppController = nil;
 	}
 }
 
+#pragma mark AD Prop Fetches
+Float32 systemVolumeLevel(AudioDeviceID inDevice)
+{
+    // Getting the volume | this solves the problem coming out of mute, or when the user does some freaky stuff with the mute button
+    Float32 volLevel = 0;
+    UInt32 volLevelSize = sizeof volLevel;
+    OSStatus err = AudioDeviceGetProperty(inDevice,1,0,kAudioDevicePropertyVolumeScalar,&volLevelSize,&volLevel);
+    if (err != noErr) DEBUG_OUTPUT(@"ERROR: Volume property fetch bad");
+	DEBUG_OUTPUT1(@"Volume Level: %f",volLevel);
+    return volLevel;
+}
+
+UInt32 muteStatus(AudioDeviceID inDevice)
+{
+    // Getting the mute button status 
+    UInt32 muteOn = 0;
+    UInt32 muteOnSize = sizeof muteOn;
+    OSStatus err = AudioDeviceGetProperty(inDevice,[[NSUserDefaults standardUserDefaults] integerForKey:@"multichannelMute"],0,kAudioDevicePropertyMute,&muteOnSize,&muteOn);
+    if (err != noErr) DEBUG_OUTPUT(@"ERROR: Mute property fetch bad");
+    DEBUG_OUTPUT1(@"Mute On: %i",muteOn);
+    return muteOn;
+}
+
 #pragma mark-
 // Fn run when proc'ed by the listener
 inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
@@ -461,32 +482,20 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 
+    DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
+    
     // we don't know who self is, so we passed it in as a parameter. how clever!
     id self = (id)inClientData;
     
-    DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
     
-    // Getting the volume | this solves the problem coming out of mute, or when the user does some freaky stuff with the mute button
-    Float32 volLevel;
-    UInt32 volLevelSize = sizeof volLevel;
-    OSStatus err = AudioDeviceGetProperty(inDevice,1,0,kAudioDevicePropertyVolumeScalar,&volLevelSize,&volLevel);
-    if (err != noErr) DEBUG_OUTPUT(@"ERROR: Volume property fetch bad");
-	DEBUG_OUTPUT1(@"Volume Level: %f",volLevel);
-    
+    Float32 volLevel = systemVolumeLevel(inDevice);
+
     // Here's what happens. Since we are set up to listen for the volume trigger AND (potentially) the mute trigger, when the volume is put to 0, we get put here for 0 volume and mute (because Apple likes 0 volume == mute). To counter this, we will just blow off 0 volume trigger and then wait for our mute, as it is much easier that way. The only purpose it serves is to tell us if the volume is hit to zero
     if (inPropertyID == kAudioDevicePropertyVolumeScalar && volLevel == 0.0) return noErr;
     
-    // Getting the mute button status 
-    UInt32 muteOn;
-    UInt32 muteOnSize = sizeof muteOn;
-    OSStatus err2 = AudioDeviceGetProperty(inDevice,[[NSUserDefaults standardUserDefaults] integerForKey:@"multichannelMute"],0,kAudioDevicePropertyMute,&muteOnSize,&muteOn);
-    if (err2 != noErr) DEBUG_OUTPUT(@"ERROR: Mute property fetch bad");
-    DEBUG_OUTPUT1(@"Mute On: %i",muteOn);
+    UInt32 muteOn = muteStatus(inDevice);
     
-    /*
-     If we have 0 volume and our mute is labeled as off, act as if it was on.	 
-     Actually, there may be a faint sound, but if you have 0 sound and hit mute, chances are, you don't want sound.
-     */
+     //If we have 0 volume and our mute is labeled as off, act as if it was on. Actually, there may be a faint sound, but if you have 0 sound and hit mute, chances are, you don't want sound.
     if (muteOn == 0 && volLevel == 0.0) muteOn = 1;
     
     BOOL jConnect = [self jackConnected]; // TRUE if headphones in jack
@@ -540,7 +549,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             if (!jConnect || muteOn == 1)
             {
                 [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"iTunes SmartPause",@"") andDescription:@""];
+                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
                 appHit = 1;
             }
         }
@@ -550,7 +559,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"iTunes SmartPlay",@"") andDescription:@""];
+                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
                 appHit = 0;
             }
         }
@@ -579,7 +588,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             if (muteOn == 1)
             {
                 [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"iTunes SmartPause",@"") andDescription:@""];
+                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
                 appHit = 1;
             }
             else if (jConnect) [userDefaults setBool:TRUE forKey:@"headphonesMode"];
@@ -590,7 +599,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"iTunes SmartPlay",@"") andDescription:@""];
+                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
                 appHit = 0;                
             }
         }

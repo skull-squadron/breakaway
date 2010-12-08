@@ -25,6 +25,7 @@
 		0A061D9E10F8580B00E88056 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D8410F8580B00E88056 /* PreferencesController.h */; };
 		0A061D9F10F8580B00E88056 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D8510F8580B00E88056 /* PreferencesController.m */; };
 		0A061E5110F85A8D00E88056 /* VLCPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E3410F859C200E88056 /* VLCPlugin.nib */; };
+		0A12438512B03D0800A0CC48 /* VLCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A12438412B03D0800A0CC48 /* VLCBridge.h */; };
 		0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */; };
@@ -146,6 +147,7 @@
 		0A061E3210F859C200E88056 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC Plugin-Info.plist"; path = "resources/plugins/VLC Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A061E3310F859C200E88056 /* vlcPlaying */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = vlcPlaying; path = resources/plugins/vlcPlaying; sourceTree = "<group>"; };
 		0A061E3410F859C200E88056 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = VLCPlugin.nib; path = resources/plugins/VLCPlugin.nib; sourceTree = "<group>"; };
+		0A12438412B03D0800A0CC48 /* VLCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBridge.h; path = Projects/files/breakaway/VLCBridge.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -234,6 +236,7 @@
 				0A4D7FE310FE728700850E00 /* Private Sparkle Headers */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				0A061BCD10F7CCD900E88056 /* iTunesBridge.h */,
+				0A12438412B03D0800A0CC48 /* VLCBridge.h */,
 				0A061D6510F855DC00E88056 /* defines.h */,
 				0A061D7D10F8580B00E88056 /* defines.m */,
 				0A061D7810F8580B00E88056 /* AppController.h */,
@@ -581,6 +584,7 @@
 				0AA225CC10F98D8D00401B7A /* DebugUtils.h in Headers */,
 				0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */,
 				0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */,
+				0A12438512B03D0800A0CC48 /* VLCBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,8 +23,9 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreAudio/CoreAudio.h>
 #import "iTunesBridge.h"
+#import "VLCBridge.h"
 
-@class iTunesApplication;
+@class iTunesApplication,VLCApplication;
 
 // our proc method; this is the main workhorse of the app
 inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
@@ -42,6 +43,7 @@ NSThread *fadeInThread;
 @interface AppController : NSObject
 {
     iTunesApplication *iTunes;
+    VLCApplication *VLC;
     	
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;
@@ -70,9 +72,7 @@ NSThread *fadeInThread;
 - (void)removeObservers;
 // Status item
 - (void)setStatusItem:(BOOL)enable;
-- (void)killStatusItem;
 - (void)setEnabled:(BOOL)enable;
-- (BOOL)isDisabled;
 // IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;
