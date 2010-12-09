@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>MCOD</string>
 	<key>CFBundleVersion</key>
-	<string>1.9</string>
+	<string>1.9.1</string>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
