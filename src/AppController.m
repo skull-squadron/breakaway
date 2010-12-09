@@ -73,7 +73,7 @@ static AppController *sharedAppController = nil;
     [self setEnabled:NO];
     
     [iTunes release];
-    [VLC release];
+    //[VLC release];
     [super dealloc];
 }
 
@@ -82,7 +82,7 @@ static AppController *sharedAppController = nil;
     sharedAppController = self;
 	userDefaults = [NSUserDefaults standardUserDefaults];
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
-    VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
+    //VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
     
     appHit = FALSE;
     inFadeIn = FALSE;
