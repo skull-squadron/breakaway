@@ -85,7 +85,6 @@ NSThread *fadeInThread;
 - (BOOL)iTunesActive;
 - (BOOL)iTunesPlaying;
 - (void)iTunesPlayPause;
-- (void)iTunesVolumeFadeIn;
 - (void)iTunesThreadedFadeIn;
 // iTunes launch/quit
 - (void)handleAppLaunch:(NSNotification *)notification;

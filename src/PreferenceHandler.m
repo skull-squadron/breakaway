@@ -117,7 +117,15 @@
 
 - (IBAction)viewReadme:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Readme.rtf"]];
+	[[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Readme.txt"]];
+}
+
+- (IBAction)sendEmail:(id)sender
+{
+    NSMutableString *mailtoURL = [NSMutableString string];
+	[mailtoURL appendFormat:@"mailto:%@?subject=Breakaway Feedback", emailAddress];
+
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[mailtoURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (IBAction)testFadeIn:(id)sender
@@ -186,6 +194,12 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 
 - (IBAction)startTest:(id)sender
 {	
+    if ([userConcernRadioButton selectedRow] == -1)
+    {
+        [[NSAlert alertWithMessageText:@"You missed a step" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Please make a selection in Step 1."] runModal];
+        return;
+    }
+    
     AudioDeviceID device;
     UInt32 size = sizeof device;
     UInt32 outt = 3;	
@@ -218,7 +232,7 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
 	if (!done) 
     {
 		[testResultBox insertText:@"\n"];
-        [testResultBox insertText:@"========================== STEP 3 ==========================\n"];
+        [testResultBox insertText:@"========================== STEP 4 ==========================\n"];
 		[testResultBox insertText:NSLocalizedString(@"Please connect headphones now and click on the button again", nil)];
 		[testResultBox insertText:@"\n"];
 		done = YES;
@@ -264,7 +278,7 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
     switch ([userConcernRadioButton selectedRow])
     {
         case APP_BROKEN_ROW:
-            messageString = NSLocalizedString(@"Please state what part of the application is not working. Please have these statements in English, if possible.", nil);
+            messageString = NSLocalizedString(@"\n\n\n\n***** Please state what part of the application is not working *****\n", nil);
             break;
         case APP_WORKING_ROW:
             messageString = NSLocalizedString(@"Thank you for helping make Breakaway better.", nil);

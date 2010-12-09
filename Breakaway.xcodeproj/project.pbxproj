@@ -151,7 +151,6 @@
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
-		0A4611470DF0741B001A579C /* Readme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Readme.rtf; path = Docs/Readme.rtf; sourceTree = "<group>"; };
 		0A4611490DF07425001A579C /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING.txt; path = Docs/COPYING.txt; sourceTree = "<group>"; };
 		0A46114A0DF07425001A579C /* devs log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "devs log.txt"; path = "Docs/devs log.txt"; sourceTree = "<group>"; };
 		0A4D7FE410FE735E00850E00 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUHost.h; path = src/SUHost.h; sourceTree = "<group>"; };
@@ -463,7 +462,6 @@
 			children = (
 				0AC652EE11432FA20065C46E /* Readme.txt */,
 				0A46114A0DF07425001A579C /* devs log.txt */,
-				0A4611470DF0741B001A579C /* Readme.rtf */,
 				0AF44E370B1229D0007163FE /* Credits.rtf */,
 				0A4611490DF07425001A579C /* COPYING.txt */,
 			);
@@ -1144,7 +1142,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
+				GCC_MODEL_TUNING = "";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Breakaway;

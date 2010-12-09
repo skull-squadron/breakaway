@@ -19,7 +19,7 @@ mkdir $BAF
 #cp $DEVDIR/Docs/Readme\ \(Chinese\).rtf $BAF/
 #cp $DEVDIR/Docs/devs\ log.txt $BAF/
 cp -R $DEVDIR/build/Release/Breakaway.app $BAF/
-ln -s $BAF/Breakaway.app/Contents/Resources/Readme.rtf $BAF/
+ln -s $BAF/Breakaway.app/Contents/Resources/Readme.rtfd $BAF/
 ln -s $BAF/Breakaway.app/Contents/Resources/devs\ log.txt $BAF/
 #cp -R $DEVDIR/Premade\ Scripts $BAF/
 

@@ -122,4 +122,10 @@ Kevin Nygaard | March 2010
 	 [CHANGE] "Force open" option removed
 	 [CHANGE] "Audio flowing" feature removed
 
+1.9: [FIX] Menu item status icon bug fixed
+     [FIX] Corrected a few errors regarding Advanced Diagnostics
+     [FIX] General stability and efficiency fixes
+     [CHANGE] Breakaway respects iTunes volume now during fade-in
+     [CHANGE] Fade-in preferences redesigned
+
 ===========================================================================

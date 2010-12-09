@@ -43,8 +43,8 @@ static PreferencesController *sharedPreferencesController = nil;
 {
 	GeneralToolbarItemIdentifier				= NSLocalizedString(@"General",nil);
 	PluginsToolbarItemIdentifier				= NSLocalizedString(@"Plugins",nil);
-	DonateToolbarItemIdentifier				    = NSLocalizedString(@"Donate",nil);
-	AboutToolbarItemIdentifier  				= NSLocalizedString(@"About",nil);
+	DonateToolbarItemIdentifier				    = NSLocalizedString(@"About",nil);
+	AboutToolbarItemIdentifier  				= NSLocalizedString(@"Info",nil);
 	UpdateToolbarItemIdentifier                 = NSLocalizedString(@"Update",nil);
 	ExpandBreakawayToolbarItemIdentifier        = NSLocalizedString(@"Expand Breakaway",nil);
 	QuitToolbarItemIdentifier     				= NSLocalizedString(@"Quit",nil);

@@ -6,8 +6,6 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>Breakaway</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>© 2009-2010 MutableCode</string>
 	<key>CFBundleIconFile</key>
 	<string>15BreakawayIcon</string>
 	<key>CFBundleIdentifier</key>
@@ -21,9 +19,11 @@
 	<key>CFBundleSignature</key>
 	<string>MCOD</string>
 	<key>CFBundleVersion</key>
-	<string>1.8</string>
+	<string>1.9</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2009-2010 MutableCode</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
