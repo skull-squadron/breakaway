@@ -46,8 +46,6 @@
 		0AA225C910F98D3100401B7A /* AIAppleScriptPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D6F10F8580B00E88056 /* AIAppleScriptPluginController.m */; };
 		0AA225CA10F98D3100401B7A /* AIDropWell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7010F8580B00E88056 /* AIDropWell.h */; };
 		0AA225CC10F98D8D00401B7A /* DebugUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ACA9C320B0D297F00610F2A /* DebugUtils.h */; };
-		0AA225E210F98E5800401B7A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
-		0AA225E310F98E5B00401B7A /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AA225E610F98E6100401B7A /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0AA225E710F98E6200401B7A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0AA225E810F98E6300401B7A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45732E0AFFD766007EBF43 /* CoreAudio.framework */; };
@@ -70,6 +68,8 @@
 		0AC65316114331720065C46E /* VLC Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */; };
 		0AC65317114331720065C46E /* AppleScript Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
 		0AC6533F114331CE0065C46E /* AppleScript Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
+		0AE1AF15136AFFB80085D686 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
+		0AE1AF16136AFFB80085D686 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0AF44E380B1229D0007163FE /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* COPYING */; };
 /* End PBXBuildFile section */
 
@@ -146,7 +146,7 @@
 		0A061E3210F859C200E88056 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC Plugin-Info.plist"; path = "resources/plugins/VLC Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A061E3310F859C200E88056 /* vlcPlaying */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = vlcPlaying; path = resources/plugins/vlcPlaying; sourceTree = "<group>"; };
 		0A061E3410F859C200E88056 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = VLCPlugin.nib; path = resources/plugins/VLCPlugin.nib; sourceTree = "<group>"; };
-		0A12438412B03D0800A0CC48 /* VLCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBridge.h; path = Projects/files/breakaway/VLCBridge.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A12438412B03D0800A0CC48 /* VLCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBridge.h; path = Projects/files/breakaway/src/VLCBridge.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
 		0A45732E0AFFD766007EBF43 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -216,11 +216,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AA225E210F98E5800401B7A /* Sparkle.framework in Frameworks */,
-				0AA225E310F98E5B00401B7A /* Growl.framework in Frameworks */,
 				0AA225E610F98E6100401B7A /* ScriptingBridge.framework in Frameworks */,
 				0AA225E710F98E6200401B7A /* Cocoa.framework in Frameworks */,
 				0AA225E810F98E6300401B7A /* CoreAudio.framework in Frameworks */,
+				0AE1AF15136AFFB80085D686 /* Growl.framework in Frameworks */,
+				0AE1AF16136AFFB80085D686 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,6 +986,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -995,6 +996,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1037,6 +1039,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1046,6 +1049,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = resources/Info.plist;
@@ -1089,6 +1093,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1098,6 +1103,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = "";
@@ -1128,6 +1134,7 @@
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1137,6 +1144,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				INFOPLIST_FILE = resources/Info.plist;
