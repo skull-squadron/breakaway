@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A061BCE10F7CCD900E88056 /* iTunesBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061BCD10F7CCD900E88056 /* iTunesBridge.h */; };
 		0A061D6610F855DC00E88056 /* defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6510F855DC00E88056 /* defines.h */; };
-		0A061D8C10F8580B00E88056 /* AIPluginControllerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7210F8580B00E88056 /* AIPluginControllerProtocol.h */; };
 		0A061D8D10F8580B00E88056 /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7310F8580B00E88056 /* AIPluginProtocol.h */; };
 		0A061D8E10F8580B00E88056 /* AIPluginSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7410F8580B00E88056 /* AIPluginSelector.h */; };
 		0A061D8F10F8580B00E88056 /* AIPluginSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7510F8580B00E88056 /* AIPluginSelector.m */; };
@@ -65,28 +64,22 @@
 		0AC652EF11432FA20065C46E /* README in Resources */ = {isa = PBXBuildFile; fileRef = 0AC652EE11432FA20065C46E /* README */; };
 		0AC652F3114330300065C46E /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1810F8593800E88056 /* MainMenu.nib */; };
 		0AC652F41143303F0065C46E /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1C10F8593800E88056 /* Preferences.nib */; };
-		0AC65316114331720065C46E /* VLC Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */; };
-		0AC65317114331720065C46E /* AppleScript Plugin.plugin in Resources */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
-		0AC6533F114331CE0065C46E /* AppleScript Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
+		0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */; };
+		0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
+		0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */; };
+		0ADE981A136CCC480045CCB5 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AE1AF15136AFFB80085D686 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AE1AF16136AFFB80085D686 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0AF44E380B1229D0007163FE /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* COPYING */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0AA225BA10F98CCD00401B7A /* PBXContainerItemProxy */ = {
+		0ADE96D9136BEE9F0045CCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0A9C81BF0E21CA62001B29F6;
-			remoteInfo = "AppleScript Plugin";
-		};
-		0AA225BC10F98CD200401B7A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0A55C4870E36D7C200347DB7;
-			remoteInfo = "VLC Plugin";
+			remoteGlobalIDString = 0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */;
+			remoteInfo = "iTunes Plugin";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -108,7 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0AC6533F114331CE0065C46E /* AppleScript Plugin.plugin in CopyFiles */,
+				0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +181,10 @@
 		0AC67D860F0F2C7500196632 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = frameworks/Growl.framework; sourceTree = "<group>"; };
 		0AC67D870F0F2C7600196632 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		0ACA9C320B0D297F00610F2A /* DebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugUtils.h; path = src/DebugUtils.h; sourceTree = "<group>"; };
+		0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIiTunesPlugin.h; path = Projects/files/breakaway/src/AIiTunesPlugin.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIiTunesPlugin.m; path = Projects/files/breakaway/src/AIiTunesPlugin.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iTunes Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ADE95E6136BE34C0045CCB5 /* iTunes Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iTunes Plugin-Info.plist"; path = "Projects/files/breakaway/resources/plugins/iTunes Plugin-Info.plist"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AF44E370B1229D0007163FE /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -209,6 +206,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0ADE95E3136BE34C0045CCB5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */,
+				0ADE981A136CCC480045CCB5 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +300,7 @@
 			children = (
 				0A061D7210F8580B00E88056 /* AIPluginControllerProtocol.h */,
 				0A061D7310F8580B00E88056 /* AIPluginProtocol.h */,
+				0ADE95D8136BE2D70045CCB5 /* iTunes Plugin */,
 				0A55C4770E36D77400347DB7 /* VLC Plugin */,
 				0A9C81B70E21C87D001B29F6 /* AppleScript Plugin */,
 			);
@@ -465,6 +472,16 @@
 			name = doc;
 			sourceTree = "<group>";
 		};
+		0ADE95D8136BE2D70045CCB5 /* iTunes Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				0ADE95E6136BE34C0045CCB5 /* iTunes Plugin-Info.plist */,
+				0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */,
+				0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */,
+			);
+			name = "iTunes Plugin";
+			sourceTree = "<group>";
+		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +509,7 @@
 				8D1107320486CEB800E47090 /* Breakaway.app */,
 				0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */,
 				0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */,
+				0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -568,7 +586,6 @@
 			files = (
 				0A061BCE10F7CCD900E88056 /* iTunesBridge.h in Headers */,
 				0A061D6610F855DC00E88056 /* defines.h in Headers */,
-				0A061D8C10F8580B00E88056 /* AIPluginControllerProtocol.h in Headers */,
 				0A061D8D10F8580B00E88056 /* AIPluginProtocol.h in Headers */,
 				0A061D8E10F8580B00E88056 /* AIPluginSelector.h in Headers */,
 				0A061D9210F8580B00E88056 /* AppController.h in Headers */,
@@ -622,6 +639,23 @@
 			productReference = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0ADE95EB136BE34D0045CCB5 /* Build configuration list for PBXNativeTarget "iTunes Plugin" */;
+			buildPhases = (
+				0ADE95E1136BE34C0045CCB5 /* Resources */,
+				0ADE95E2136BE34C0045CCB5 /* Sources */,
+				0ADE95E3136BE34C0045CCB5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iTunes Plugin";
+			productName = "iTunes Plugin";
+			productReference = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* Breakaway */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Breakaway" */;
@@ -636,8 +670,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				0AA225BB10F98CCD00401B7A /* PBXTargetDependency */,
-				0AA225BD10F98CD200401B7A /* PBXTargetDependency */,
+				0ADE96DA136BEE9F0045CCB5 /* PBXTargetDependency */,
 			);
 			name = Breakaway;
 			productInstallPath = "$(HOME)/Applications";
@@ -675,6 +708,7 @@
 				8D1107260486CEB800E47090 /* Breakaway */,
 				0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */,
 				0A55C4870E36D7C200347DB7 /* VLC Plugin */,
+				0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -693,6 +727,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0ADE95E1136BE34C0045CCB5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,8 +761,6 @@
 				0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */,
 				0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */,
 				0AC652EF11432FA20065C46E /* README in Resources */,
-				0AC65316114331720065C46E /* VLC Plugin.plugin in Resources */,
-				0AC65317114331720065C46E /* AppleScript Plugin.plugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,6 +785,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0ADE95E2136BE34C0045CCB5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -763,15 +810,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0AA225BB10F98CCD00401B7A /* PBXTargetDependency */ = {
+		0ADE96DA136BEE9F0045CCB5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */;
-			targetProxy = 0AA225BA10F98CCD00401B7A /* PBXContainerItemProxy */;
-		};
-		0AA225BD10F98CD200401B7A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0A55C4870E36D7C200347DB7 /* VLC Plugin */;
-			targetProxy = 0AA225BC10F98CD200401B7A /* PBXContainerItemProxy */;
+			target = 0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */;
+			targetProxy = 0ADE96D9136BEE9F0045CCB5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1077,6 +1119,120 @@
 			};
 			name = "Release (Logs)";
 		};
+		0ADE95E7136BE34D0045CCB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "resources/plugins/iTunes Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "iTunes Plugin";
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = Debug;
+		};
+		0ADE95E8136BE34D0045CCB5 /* Debug (no Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "resources/plugins/iTunes Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "iTunes Plugin";
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = "Debug (no Logs)";
+		};
+		0ADE95E9136BE34D0045CCB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "resources/plugins/iTunes Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "iTunes Plugin";
+				WRAPPER_EXTENSION = plugin;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		0ADE95EA136BE34D0045CCB5 /* Release (Logs) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "resources/plugins/iTunes Plugin-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "iTunes Plugin";
+				WRAPPER_EXTENSION = plugin;
+			};
+			name = "Release (Logs)";
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1203,6 +1359,17 @@
 				0A9C81C30E21CA62001B29F6 /* Debug (no Logs) */,
 				0A9C81C40E21CA62001B29F6 /* Release */,
 				0A9C81C50E21CA62001B29F6 /* Release (Logs) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0ADE95EB136BE34D0045CCB5 /* Build configuration list for PBXNativeTarget "iTunes Plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0ADE95E7136BE34D0045CCB5 /* Debug */,
+				0ADE95E8136BE34D0045CCB5 /* Debug (no Logs) */,
+				0ADE95E9136BE34D0045CCB5 /* Release */,
+				0ADE95EA136BE34D0045CCB5 /* Release (Logs) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

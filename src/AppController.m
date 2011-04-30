@@ -30,6 +30,7 @@
 #import "DebugUtils.h"
 #import "defines.h"
 #import "AIPluginSelector.h"
+#import "AIPluginProtocol.h"
 
 static AppController *sharedAppController = nil;
 
@@ -48,9 +49,6 @@ static AppController *sharedAppController = nil;
     NSDictionary *defaults;
     defaults = [NSDictionary dictionaryWithObjectsAndKeys: 
                 // General
-                [NSNumber numberWithBool:1], @"guessMode",
-                [NSNumber numberWithBool:1], @"headphonesMode",
-                                
                 [NSNumber numberWithBool:1], @"showInMenuBar",
                 [NSNumber numberWithBool:1], @"enableBreakaway",
                 
@@ -72,7 +70,6 @@ static AppController *sharedAppController = nil;
     [self setStatusItem:NO];
     [self setEnabled:NO];
     
-    [iTunes release];
     //[VLC release];
     [super dealloc];
 }
@@ -81,7 +78,6 @@ static AppController *sharedAppController = nil;
 {
     sharedAppController = self;
 	userDefaults = [NSUserDefaults standardUserDefaults];
-    iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
     //VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
     
     appHit = FALSE;
@@ -93,9 +89,6 @@ static AppController *sharedAppController = nil;
     [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
     [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
     
-	isActive = [self iTunesActive];
-    isPlaying = isActive ? [self iTunesPlaying] : FALSE;
-    hpMode = [userDefaults boolForKey:@"headphonesMode"];
     enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
 	
 	// calls our controller to load our preference window, including all our plugins
@@ -108,26 +101,14 @@ static AppController *sharedAppController = nil;
 - (void)loadObservers
 {
     // Backend
-    [userDefaults addObserver:self forKeyPath:@"headphonesMode" options:NSKeyValueObservingOptionNew context:NULL];
     [userDefaults addObserver:self forKeyPath:@"enableAppHit" options:NSKeyValueObservingOptionNew context:NULL];
-    
-	// Installing this observer will proc songChanged: every time iTunes is stop/started
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(songChanged:) name:@"com.apple.iTunes.playerInfo" object:nil];
-    
-    // Installing these observers will proc their respective functions when iTunes opens/closes
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(handleAppLaunch:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
-    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(handleAppQuit:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 }
 
 - (void)removeObservers
 {
     // Backend
-    [userDefaults removeObserver:self forKeyPath:@"headphonesMode"];
     [userDefaults removeObserver:self forKeyPath:@"enableAppHit"];
     
-    // iTunes
-    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
-    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 }
 
 
@@ -137,20 +118,24 @@ static AppController *sharedAppController = nil;
 {	
     if (enable)
     {
+        // Access these images using the enums
+        if (images) [images release];
+        images = [[NSArray arrayWithObjects: 
+            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"connected" ofType:@"png"]] autorelease],
+            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"png"]] autorelease],
+            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disconnected" ofType:@"png"]] autorelease],
+             nil] retain];
+
         // get the images for the status item set up
-        conn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"connected" ofType:@"png"]];
-        [conn setScalesWhenResized:TRUE];
-        [conn setSize:NSMakeSize(10,10)];
+        for (NSImage *img in images)
+        {
+            if (!img) continue; // if we don't have an image to work with, don't fret
+            [img setScalesWhenResized:TRUE];
+            [img setSize:NSMakeSize(10,10)];
+        }
         
-        disconn = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disconnected" ofType:@"png"]];
-        [disconn setScalesWhenResized:TRUE];
-        [disconn setSize:NSMakeSize(10,10)];
-        
-        disabled = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"png"]];
-        [disabled setScalesWhenResized:TRUE];
-        [disabled setSize:NSMakeSize(10,10)];
-        
-        //Status bar stuff
+        // Status bar stuff
+        if (statusItem) [statusItem release];
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
         [statusItem retain];
         
@@ -159,21 +144,40 @@ static AppController *sharedAppController = nil;
         [statusItem setHighlightMode:YES];
         
         // run this so we can get a correct state on our menu extra
-        [self jackConnected];
+        [self updateStatusItem];
     }
     else
     {
-        if (statusItem) [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-        
         // Release our status item
-        [statusItem release];
-        
-        // Release our images that the status item used
-        if (conn) [conn release];
-        if (disconn) [disconn release];
-        if (disabled) [disabled release];
+        if (statusItem)
+        {
+            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
+            [statusItem release];
+        }
+
+        if (images) [images release];
     }
-    
+}
+
+- (void)updateStatusItem
+{
+    if (!statusItem) return;
+
+    // Disabled
+    if (![userDefaults boolForKey:@"enableBreakaway"])
+    {
+        [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
+        [statusItem setImage:[images objectAtIndex:kDisabledImg]];
+    }
+    // Enabled
+    else
+    {
+        [disableMI setTitle:NSLocalizedString(@"Disable",nil)];
+
+        // Status image
+        if (jackConnected()) [statusItem setImage:[images objectAtIndex:kConnectedImg]];
+        else [statusItem setImage:[images objectAtIndex:kDisconnectedImg]];
+    }
 }
 
 - (void)setEnabled:(BOOL)enable
@@ -185,13 +189,7 @@ static AppController *sharedAppController = nil;
 		
         [self removeListener:kAudioDevicePropertyDataSource];
         [self removeListener:kAudioDevicePropertyMute];
-        [self removeListener:kAudioDevicePropertyVolumeScalar];
-        
-        if (statusItem)
-        {
-            [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
-            [statusItem setImage:disabled];
-        }
+        //[self removeListener:kAudioDevicePropertyVolumeScalar];
     }
     else
     {
@@ -199,14 +197,10 @@ static AppController *sharedAppController = nil;
         
         [self attachListener:kAudioDevicePropertyDataSource];
         [self attachListener:kAudioDevicePropertyMute];
-        [self attachListener:kAudioDevicePropertyVolumeScalar];
-        
-        if (statusItem)
-        {
-            [disableMI setTitle:NSLocalizedString(@"Disable",nil)];
-            [self jackConnected];
-        }
+        //[self attachListener:kAudioDevicePropertyVolumeScalar];
     }
+
+    [self updateStatusItem];
 }
 
 #pragma mark 
@@ -248,66 +242,6 @@ static AppController *sharedAppController = nil;
     [growlNotifier growlNotify:title andDescription:description];
 }
 
-#pragma mark 
-#pragma mark iTunes
--(BOOL)iTunesActive
-{
-    return [iTunes isRunning];
-}
-
-// Will wake iTunes
--(BOOL)iTunesPlaying
-{
-    int state = [iTunes playerState];
-    if (state == iTunesEPlSPlaying) return TRUE;
-    return FALSE;     
-}
-
-// Will wake iTunes
-- (void)iTunesPlayPause
-{
-    [iTunes playpause];
-}
-
-- (void)fadeInUsingTimer:(NSTimer*)timer
-{
-    static int maxVolume = 100;
-    static int x = 0;
-    if (x == 0) maxVolume = [iTunes soundVolume];
-    
-    [iTunes setValue:[NSNumber numberWithInt:x] forKey:@"soundVolume"];
-    x++;
-    
-    if (x > maxVolume)
-    {
-        [timer invalidate]; // base case
-        x = 0;
-        inFadeIn = FALSE;
-    }
-}
-
-- (void)iTunesThreadedFadeIn
-{
-    if (inFadeIn || ![userDefaults boolForKey:@"fadeInEnable"]) return;
-    
-    int fadeInSpeed = [userDefaults integerForKey:@"fadeInTime"];
-    fadeInSpeed = (100 - fadeInSpeed); // gives multiplier between 0 -- 100
-    float interval = (float)fadeInSpeed/10 + 1;
-    
-    inFadeIn = TRUE;
-    [NSTimer scheduledTimerWithTimeInterval:BASE_FADE_IN_DELAY*interval target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES];
-}
-
-#pragma mark iTunes launch/quit
-- (void)handleAppLaunch:(NSNotification *)notification
-{
-    if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = TRUE;    
-}
-
-- (void) handleAppQuit:(NSNotification *)notification
-{
-    if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = FALSE;
-}
 
 #pragma mark VLC
 -(BOOL)VLCActive
@@ -381,38 +315,6 @@ static AppController *sharedAppController = nil;
     else NSLog(@"Listener Removed '%@'",osTypeToFourCharCode(adProp));
 }
 
-- (BOOL)jackConnected
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
-    
-    AudioDeviceID defaultDevice;
-    UInt32 audioDeviceSize = sizeof defaultDevice;
-    OSStatus err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
-	
-	UInt32 dataSource;
-	UInt32 dataSourceSize = sizeof dataSource;
-	OSStatus err2 = AudioDeviceGetProperty(defaultDevice,0,0,kAudioDevicePropertyDataSource,&dataSourceSize,&dataSource);
-    
-    BOOL jackConnected = FALSE;
-
-    if (err != noErr || err2 != noErr) NSLog(@"ERROR: Trying to get jack status");	
-    else if (dataSource == 'hdpn')
-	{
-        DEBUG_OUTPUT(@"Jack: Connected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && [userDefaults boolForKey:@"enableBreakaway"]) [statusItem setImage:conn];
-        jackConnected = TRUE;
-    }
-    else
-	{
-        DEBUG_OUTPUT(@"Jack: Disconnected");
-        if ([userDefaults boolForKey:@"showInMenuBar"] && [userDefaults boolForKey:@"enableBreakaway"]) [statusItem setImage:disconn];
-        jackConnected = FALSE;
-    }
-    
-    [pool release];
-    return jackConnected;
-}
-
 #pragma mark 
 #pragma mark Delegate Fns
 
@@ -426,27 +328,27 @@ static AppController *sharedAppController = nil;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     // Keep these ivars updated so the proc method doesn't have to call these methods
-    if ([keyPath isEqualToString:@"headphonesMode"]) hpMode = [userDefaults boolForKey:@"headphonesMode"];
-    else if ([keyPath isEqualToString:@"enableAppHit"]) enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
-}
-
-- (void)songChanged:(NSNotification *)aNotification 
-{
-    NSString *pState = nil;
-    isPlaying = NO;
-
-    pState = [[aNotification userInfo] objectForKey:@"Player State"];    
-	if ([pState isEqualToString:@"Playing"]) isPlaying = YES;
-
-	// Gussing the right mode
-    if (isPlaying)
-	{
-		BOOL connected = [self jackConnected];
-		[userDefaults setBool:connected forKey:@"headphonesMode"];
-	}
+    if ([keyPath isEqualToString:@"enableAppHit"]) enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
 }
 
 #pragma mark AD Prop Fetches
+// returns true if jack is connected. false otherwise
+bool jackConnected(void)
+{
+    AudioDeviceID defaultDevice;
+    OSStatus err;
+    UInt32 audioDeviceSize = sizeof defaultDevice;
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
+    if (err != noErr) return false;
+	
+	UInt32 dataSource;
+	UInt32 dataSourceSize = sizeof dataSource;
+	err = AudioDeviceGetProperty(defaultDevice,0,0,kAudioDevicePropertyDataSource,&dataSourceSize,&dataSource);
+    if (err != noErr) return false;
+
+    return (dataSource == 'hdpn');
+}
+
 Float32 systemVolumeLevel(AudioDeviceID inDevice)
 {
     // Getting the volume | this solves the problem coming out of mute, or when the user does some freaky stuff with the mute button
@@ -458,7 +360,7 @@ Float32 systemVolumeLevel(AudioDeviceID inDevice)
     return volLevel;
 }
 
-UInt32 muteStatus(AudioDeviceID inDevice)
+bool muteStatus(AudioDeviceID inDevice)
 {
     // Getting the mute button status 
     UInt32 muteOn = 0;
@@ -477,70 +379,51 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
                                        AudioDevicePropertyID   inPropertyID,
                                        void*                   inClientData)
 {
-    // Create a pool for our Cocoa objects to dump into. Otherwise we get lots of leaks.
-	// this thread is running off the main thread, therefore it has no automatic autorelease pool
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
+    // see large comment below
+    static bool hpMuteStatus = false;
+    static bool ispkMuteStatus = false;
+
+    id self = (id)inClientData; // for obj-c calls
+
+    // Create a pool for our Cocoa objects to dump into. Otherwise we get lots of leaks. this thread is running off the main thread, therefore it has no automatic autorelease pool
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 
     DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
     
-    // we don't know who self is, so we passed it in as a parameter. how clever!
-    id self = (id)inClientData;
+    bool muteOn = muteStatus(inDevice); // true if mute is on
+    bool jConnect = jackConnected(); // true if headphones in jack
     
-    
-    Float32 volLevel = systemVolumeLevel(inDevice);
-
-    // Here's what happens. Since we are set up to listen for the volume trigger AND (potentially) the mute trigger, when the volume is put to 0, we get put here for 0 volume and mute (because Apple likes 0 volume == mute). To counter this, we will just blow off 0 volume trigger and then wait for our mute, as it is much easier that way. The only purpose it serves is to tell us if the volume is hit to zero
-    if (inPropertyID == kAudioDevicePropertyVolumeScalar && volLevel == 0.0) return noErr;
-    
-    UInt32 muteOn = muteStatus(inDevice);
-    
-     //If we have 0 volume and our mute is labeled as off, act as if it was on. Actually, there may be a faint sound, but if you have 0 sound and hit mute, chances are, you don't want sound.
-    if (muteOn == 0 && volLevel == 0.0) muteOn = 1;
-    
-    BOOL jConnect = [self jackConnected]; // TRUE if headphones in jack
-    
-	/* 
-	 When we modify the jack, we are always looking the properties prior to modification. For example, if we plug->unplug, we will be looking at all of plug's properties. The same happens the other way around.
-	 
-	 This may not seem like an immediate problem, but consider the following situation-
-	 
-	 ispk mute:0
-	 hdpn mute:0
-	 
-	 user is using hdpn
-	 user mutes
-	 breakaway correctly registers and cuts off sound
-	 user pulls hdpn (moving to ispk)
-	 breakaway does not start itunes again
-	 
-	 now, we have this situation
-	 
-	 ispk mute:0
-	 hdpn mute:1
-	 
-	 if the user were to plug in, then breakaway would read that the mute is off, because
-	 we are moving from ispk->hdpn, thus, it would be reading ispk instead of hdpn, registering mute as off
-	 
-	 as such, breakaway will start itunes with the system muted
-	 
-	 this line stores the last known state of the mute in question
-	 */
+    // save mute data
+    // we are changing audio sources. Mute data is old (we get the previous audio source's mute status)
 	if (inPropertyID == kAudioDevicePropertyDataSource || inPropertyID == kAudioDevicePropertyDataSources)
 	{
-		if (jConnect) [[NSUserDefaults standardUserDefaults] setBool:muteOn forKey:@"ispkMuteOn"];
-		else if (!jConnect) [[NSUserDefaults standardUserDefaults] setBool:muteOn forKey:@"hdpnMuteOn"];
-		muteOn = [[NSUserDefaults standardUserDefaults] boolForKey:(jConnect?@"hdpnMuteOn":@"ispkMuteOn")];
+        // Store old mute data
+		if (jConnect) muteOn = ispkMuteStatus;
+		else muteOn = hpMuteStatus;
+
+        // Grab correct mute data
+		muteOn = jConnect ? hpMuteStatus : ispkMuteStatus;
 	}
+    // mute triggers are always correct
 	else
 	{
-		if (jConnect) [[NSUserDefaults standardUserDefaults] setBool:muteOn forKey:@"hdpnMuteOn"];
-		else if (!jConnect) [[NSUserDefaults standardUserDefaults] setBool:muteOn forKey:@"ispkMuteOn"];
+        // update our status
+		if (jConnect) hpMuteStatus = muteOn;
+		else ispkMuteStatus = muteOn;
 	}
-	
-    // We have no further reason to continue. Goodbye!
-    if (!isActive) {[pool release]; return noErr;}
+
+    // send data to plugins
+    kTriggerMask triggerMask = 0;
     
+    triggerMask |= muteOn ? kTriggerMute : 0;
+    triggerMask |= jConnect ? kTriggerJackStatus : 0;
+    triggerMask |= (inPropertyID != kAudioDevicePropertyMute) ? kTriggerInt : 0;
+    [[AIPluginSelector pluginController] executeTriggers:triggerMask];
+
+    // TODO: Growl notifications go here
+    
+#if 0
     if (hpMode)
     {
         DEBUG_OUTPUT(@"Headphones Mode");
@@ -613,6 +496,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     }
     
     DEBUG_OUTPUT(@"\n\n");
+#endif
     [pool release];
     return noErr;
 }

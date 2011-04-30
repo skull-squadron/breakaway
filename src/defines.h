@@ -28,17 +28,6 @@ extern NSString * const emailSubject;
 extern NSString * const resultsEmailAddress;
 extern NSString * const resultsEmailSubject;
 
-
-enum {
-    BATriggerEnabledMask = 1 << 0,
-    BANormalModeMask = 1 << 1,
-    BAHeadphonesModeMask = 1 << 2,
-    BAMuteMask = 1 << 3,
-    BAUnmuteMask = 1 << 4,
-    BAHeadphonesJackInMask = 1 << 5,
-    BAHeadphonesJackOutMask = 1 << 6
-};
-
 // Defines
 #define APP_WORKING_ROW 0
 #define APP_BROKEN_ROW 1

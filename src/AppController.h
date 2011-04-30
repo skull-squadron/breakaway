@@ -33,23 +33,28 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 									   Boolean                 isInput,
 									   AudioDevicePropertyID   inPropertyID,
 									   void*                   inClientData);
-BOOL isPlaying;
-BOOL isActive;
+bool jackConnected(void);
 BOOL hpMode;
 BOOL enableAppHit;
 BOOL appHit;
 NSThread *fadeInThread;
 
+typedef enum {
+    kConnectedImg,
+    kDisconnectedImg,
+    kDisabledImg
+} tImageType;
+
 @interface AppController : NSObject
 {
-    iTunesApplication *iTunes;
     VLCApplication *VLC;
     	
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;
-	NSImage *conn;
-	NSImage *disconn;
-	NSImage *disabled;
+    NSArray *images;
+	//NSImage *conn;
+	//NSImage *disconn;
+	//NSImage *disabled;
 	IBOutlet id statusItemMenu;
 	IBOutlet id disableMI;
 	
@@ -92,7 +97,6 @@ NSThread *fadeInThread;
 // CoreAudio Queries
 - (void)attachListener:(AudioDevicePropertyID)adProp;
 - (void)removeListener:(AudioDevicePropertyID)adProp;
-- (BOOL)jackConnected;
 // Delegate Fns
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;

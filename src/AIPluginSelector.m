@@ -21,7 +21,6 @@
  */
 
 #import "AIPluginSelector.h"
-#import "AIPluginControllerProtocol.h"
 #import "AIPluginProtocol.h"
 
 static AIPluginSelector *pluginController = nil;
@@ -31,6 +30,7 @@ static AIPluginSelector *pluginController = nil;
 -(void)awakeFromNib
 {
 	pluginController = self;
+
 	// Setting up these for plugin stuff
 	pluginInstances = [[NSMutableArray alloc] init];
 		
@@ -52,95 +52,51 @@ static AIPluginSelector *pluginController = nil;
 
 - (void)loadAllBundles
 {                                        
-    NSMutableArray *bundlePaths;
-    NSEnumerator *pathEnum;
-    NSString *currPath;
-    NSBundle *currBundle;
-    Class currPrincipalClass;
-    id currInstance;
-	
-    bundlePaths = [NSMutableArray array];
-	
-    [bundlePaths addObjectsFromArray:[self allBundles]];               
-	
-    pathEnum = [bundlePaths objectEnumerator];
-    while(currPath = [pathEnum nextObject])
+    NSBundle *curBundle;
+    Class curPrincipalClass;
+    id curInstance;
+
+    for (NSString *curPath in [self allBundles])
     {
-        currBundle = [NSBundle bundleWithPath:currPath];               
-        if(currBundle)
-        {
-            currPrincipalClass = [currBundle principalClass];
-            if(currPrincipalClass && ( [currPrincipalClass conformsToProtocol:@protocol(AIPluginControllerProtocol)] || [currPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]))
-            {
-                currInstance = [[currPrincipalClass alloc] init]; 
-                if(currInstance)
-                {
-                    [pluginInstances addObject:[currInstance autorelease]];
-                }
-            }
-        }
+        curBundle = [NSBundle bundleWithPath:curPath];               
+        if (!curBundle) continue;
+        [curBundle load];
+
+        curPrincipalClass = [curBundle principalClass];
+        if (!curPrincipalClass || ![curPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]) continue;
+
+        curInstance = [[curPrincipalClass alloc] init]; 
+        if(!curInstance) continue;
+
+        [pluginInstances addObject:[curInstance autorelease]];
     }
 }
 
-- (NSMutableArray *)allBundles
+- (NSMutableArray*)allBundles
 {
-    NSArray *librarySearchPaths;
-    NSEnumerator *searchPathEnum;
-    NSString *currPath;
-    NSMutableArray *bundleSearchPaths = [NSMutableArray array];
     NSMutableArray *allBundles = [NSMutableArray array];
-	
-    librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-	
-    searchPathEnum = [librarySearchPaths objectEnumerator];
-	while(currPath = [searchPathEnum nextObject])
+    NSString *curPath = [[NSBundle mainBundle] builtInPlugInsPath];
+    
+    for (NSString *curBundlePath in [[NSFileManager defaultManager] enumeratorAtPath:curPath])
     {
-        [bundleSearchPaths addObject:
-		 [currPath stringByAppendingPathComponent:@"Application Support/Breakaway/PlugIn"]];
+        if([[curBundlePath pathExtension] isEqualToString:@"plugin"])
+            [allBundles addObject:[curPath stringByAppendingPathComponent:curBundlePath]];
     }
-    [bundleSearchPaths addObject:
-	 [[NSBundle mainBundle] builtInPlugInsPath]];
-	
-    searchPathEnum = [bundleSearchPaths objectEnumerator];
-    while(currPath = [searchPathEnum nextObject])
-    {
-        NSDirectoryEnumerator *bundleEnum;
-        NSString *currBundlePath;
-        bundleEnum = [[NSFileManager defaultManager]
-					  enumeratorAtPath:currPath];
-        if(bundleEnum)
-        {
-            while(currBundlePath = [bundleEnum nextObject])
-            {
-                if([[currBundlePath pathExtension] isEqualToString:@"plugin"])
-                {
-					[allBundles addObject:[currPath stringByAppendingPathComponent:currBundlePath]];
-                }
-            }
-        }
-    }
-	
+    
     return allBundles;
 }
 
 #pragma mark 
 #pragma mark Plugin Management
-- (void)executeTriggers:(int)prototype
+- (void)executeTriggers:(kTriggerMask)triggerMask
 {	
-	NSEnumerator* listEnum = [pluginInstances objectEnumerator];
-	id plugin;
-	while ((plugin = [listEnum nextObject]))
-	{
-		id<AIPluginProtocol, AIPluginControllerProtocol> pluginInstance;
-		NSEnumerator* instanceEnum = [[[plugin arrayController]content] objectEnumerator];
-		while ((pluginInstance = [instanceEnum nextObject])) 
-			if (([pluginInstance familyCode] & prototype) == prototype) [pluginInstance activate:prototype];
-	}
+	for (id<AIPluginProtocol> plugin in pluginInstances)
+        [plugin activate: triggerMask];
 }
 
 - (IBAction)openPluginFolder:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] builtInPlugInsPath]  inFileViewerRootedAtPath:@""];
+	[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] builtInPlugInsPath] inFileViewerRootedAtPath:@""];
 }
 
 #pragma mark Delegate
