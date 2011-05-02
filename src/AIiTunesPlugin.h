@@ -6,14 +6,17 @@
 //  Copyright 2011 MutableCode. All rights reserved.
 //
 
+#ifndef __AIITUNESPLUGIN_H__
+#define __AIITUNESPLUGIN_H__
+
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
 #import "AIPluginProtocol.h"
+
 @class iTunesApplication;
+@class AppController;
 
 
-
-@interface AIiTunesPlugin : NSObject<AIPluginProtocol, GrowlApplicationBridgeDelegate> {
+@interface AIiTunesPlugin : NSObject<AIPluginProtocol> {
 
     BOOL enabled;
 
@@ -22,10 +25,9 @@
     BOOL isActive;
 
     BOOL hpMode;
-    BOOL appHit;
 
     iTunesApplication *iTunes;
-	NSUserDefaults *userDefaults;
+	AppController *appController;
 
 }
 @property (assign) BOOL enabled;
@@ -41,3 +43,6 @@
 
 
 @end
+
+#endif /* __AIITUNESPLUGIN_H__ */
+

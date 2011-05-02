@@ -78,7 +78,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */;
+			remoteGlobalIDString = 0ADE95E4136BE34C0045CCB5;
 			remoteInfo = "iTunes Plugin";
 		};
 /* End PBXContainerItemProxy section */

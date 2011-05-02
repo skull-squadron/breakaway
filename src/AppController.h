@@ -19,13 +19,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef __APPCONTROLLER_H__
+#define __APPCONTROLLER_H__
 
 #import <Cocoa/Cocoa.h>
 #import <CoreAudio/CoreAudio.h>
 #import "iTunesBridge.h"
 #import "VLCBridge.h"
 
-@class iTunesApplication,VLCApplication;
+@class VLCApplication;
 
 // our proc method; this is the main workhorse of the app
 inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
@@ -34,9 +36,8 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 									   AudioDevicePropertyID   inPropertyID,
 									   void*                   inClientData);
 bool jackConnected(void);
-BOOL hpMode;
-BOOL enableAppHit;
-BOOL appHit;
+bool multichanMute;
+
 NSThread *fadeInThread;
 
 typedef enum {
@@ -52,12 +53,9 @@ typedef enum {
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;
     NSArray *images;
-	//NSImage *conn;
-	//NSImage *disconn;
-	//NSImage *disabled;
 	IBOutlet id statusItemMenu;
 	IBOutlet id disableMI;
-	
+
     BOOL inFadeIn;
 	
 	// Preferenes (in actual order)
@@ -67,6 +65,9 @@ typedef enum {
 	IBOutlet id growlNotifier;
 	NSUserDefaults* userDefaults;
 }
+@property (assign) NSUserDefaults *userDefaults;
+
+- (BOOL)jackConnected;
 - (void)fadeInUsingTimer:(NSTimer*)timer;
 + (AppController *)sharedAppController;
 + (void)initialize;
@@ -102,3 +103,5 @@ typedef enum {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 - (void)songChanged:(NSNotification *)aNotification;
 @end
+
+#endif /* __APPCONTROLLER_H__ */

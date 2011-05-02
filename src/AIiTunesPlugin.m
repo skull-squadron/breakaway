@@ -9,6 +9,7 @@
 #import "defines.h"
 #import "debugUtils.h"
 #import "iTunesBridge.h"
+#import "AppController.h"
 #import "AIiTunesPlugin.h"
 
 
@@ -16,25 +17,35 @@
 
 @synthesize enabled;
 
-// Required: name of unique plugin
+/******************************************************************************
+ * name
+ *
+ * Required by protocol
+ * The name of the plugin
+ *****************************************************************************/
 - (NSString*)name
 {
     return @"iTunes Plugin";
 }
 
-// Initilizer for the plugin. Sets up global variables
-- (id)init
+/******************************************************************************
+ * initWithController:
+ *
+ * Initializer for the plugin. Called upon instantiation.
+ * Sets up global variables
+ * The controller is the main Breakaway instance (AppController). You can call
+ * Growl functions, and operate call CA functions
+ *****************************************************************************/
+- (id)initWithController:(id)controller
 {
 	if (!(self = [super init])) return nil;
 	
-	userDefaults = [NSUserDefaults standardUserDefaults];
+    appController = controller;
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
 	isActive = [self iTunesActive];
     isPlaying = isActive ? [self iTunesPlaying] : FALSE;
 
     [self loadObservers];
-
-    [GrowlApplicationBridge setGrowlDelegate:self];
 
     NSLog(@"iTunes plugin successfully loaded");
 
@@ -42,7 +53,11 @@
 	return self;
 }
 
-// Run when plugin is destroyed. Clean up
+/******************************************************************************
+ * dealloc
+ *
+ * Called when plugin is destroyed. Cleans up
+ *****************************************************************************/
 - (void)dealloc
 {
     [iTunes release];
@@ -51,7 +66,11 @@
     [super dealloc];
 }
 
-// Loads observers to see when iTunes changes playstates
+/******************************************************************************
+ * loadObservers
+ *
+ * Loads observers to to monitor iTunes launching and playstate changes
+ *****************************************************************************/
 - (void)loadObservers
 {
 	// Installing this observer will proc songChanged: every time iTunes is stop/started
@@ -62,33 +81,58 @@
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(handleAppQuit:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 }
 
-// Removes iTunes observers
+/******************************************************************************
+ * removeObservers
+ *
+ * Removes iTunes observers
+ *****************************************************************************/
 - (void)removeObservers
 {
-    // iTunes
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 }
 
+/******************************************************************************
+ * songChanged:
+ *
+ * Called whenever a song is changed/played/paused
+ * Used to dynamically keep track of when iTunes is playing/paused
+ * Also used for auto-determining headphones/normal mode
+ *****************************************************************************/
 - (void)songChanged:(NSNotification *)aNotification 
 {
     NSString *pState = nil;
-    isPlaying = NO;
-
+    BOOL jConnect = FALSE;
+    jConnect = [appController jackConnected];
+    
     pState = [[aNotification userInfo] objectForKey:@"Player State"];    
-	if ([pState isEqualToString:@"Playing"]) isPlaying = YES;
+	if ([pState isEqualToString:@"Playing"])
+    {
+        isPlaying = YES;
+        if (!jConnect) hpMode = FALSE;
+        else hpMode = TRUE;
+    }
+    else isPlaying = NO;
 }
 
 #pragma mark 
 #pragma mark iTunes
-// returns true if iTunes is running
+/******************************************************************************
+ * iTunesActive
+ *
+ * Returns TRUE if iTunes is running. FALSE otherwise
+ *****************************************************************************/
 -(BOOL)iTunesActive
 {
     return [iTunes isRunning];
 }
 
-// returns true if iTunes is playing a song currently
-// Note: Will wake iTunes
+/******************************************************************************
+ * iTunesPlaying
+ *
+ * Returns TRUE if iTunes is playing a song
+ * NOTE: this will activate iTunes, if iTunes wasn't running
+ *****************************************************************************/
 -(BOOL)iTunesPlaying
 {
     int state = [iTunes playerState];
@@ -96,13 +140,24 @@
     return FALSE;     
 }
 
-// pauses iTunes if it is playing, and vice versa
-// Note: Will wake iTunes
+/******************************************************************************
+ * iTunesPlayPause
+ *
+ * Pauses iTunes if it is playing, and vice versa
+ * NOTE: this will activate iTunes, if iTunes wasn't running
+ *****************************************************************************/
 - (void)iTunesPlayPause
 {
     [iTunes playpause];
 }
 
+/******************************************************************************
+ * fadeInUsingTimer:
+ *
+ * Slowly raises the iTunes volume for a fade in effect
+ * The current iTunes volume is saved, and then the fadein effect occurs up to
+ * that point
+ *****************************************************************************/
 - (void)fadeInUsingTimer:(NSTimer*)timer
 {
     static int maxVolume = 100;
@@ -120,11 +175,18 @@
     }
 }
 
+/******************************************************************************
+ * iTunesThreadedFadeIn
+ *
+ * Creates a thread which runs fadeInUsingTimer
+ * This function is essentially mutex'd, so you don't need to worry about
+ * calling it too often, as successive calls will be thrown away
+ *****************************************************************************/
 - (void)iTunesThreadedFadeIn
 {
-    if (inFadeIn || ![userDefaults boolForKey:@"fadeInEnable"]) return;
+    if (inFadeIn || ![[appController userDefaults] boolForKey:@"fadeInEnable"]) return;
     
-    int fadeInSpeed = [userDefaults integerForKey:@"fadeInTime"];
+    int fadeInSpeed = [[appController userDefaults] integerForKey:@"fadeInTime"];
     fadeInSpeed = (100 - fadeInSpeed); // gives multiplier between 0 -- 100
     float interval = (float)fadeInSpeed/10 + 1;
     
@@ -133,21 +195,46 @@
 }
 
 #pragma mark iTunes launch/quit
+/******************************************************************************
+ * handleAppLaunch:
+ *
+ * Called when iTunes is launched
+ * Used to dynamically keep track of the run status of iTunes
+ *****************************************************************************/
 - (void)handleAppLaunch:(NSNotification *)notification
 {
-    if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = TRUE;    
+    if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = TRUE;
 }
 
-- (void) handleAppQuit:(NSNotification *)notification
+/******************************************************************************
+ * handleAppQuit:
+ *
+ * Called when iTunes is launched
+ * Used to dynamically keep track of the run status of iTunes
+ *****************************************************************************/
+- (void)handleAppQuit:(NSNotification *)notification
 {
     if ([@"com.apple.iTunes" caseInsensitiveCompare:[[notification userInfo] objectForKey:@"NSApplicationBundleIdentifier"]] == NSOrderedSame) isActive = FALSE;
 }
 
-// Required: sends the interrupt mask (jack/mute status)
+/******************************************************************************
+ * activate:
+ *
+ * Required by the protocol
+ * Called during a CoreAudio interrupt. triggerMask contains the interrupt mask,
+ * which is the jack status, mute status, and reason for interrupt (either mute
+ * or data source change)
+ *****************************************************************************/
 - (void)activate:(kTriggerMask)triggerMask
 {
-    bool jConnect = triggerMask & kTriggerJackStatus;
-    bool muteOn = triggerMask & kTriggerMute;
+    static bool appHit = false;
+    bool jConnect, muteOn;
+
+    // Don't need to do anything if iTunes is not running
+    if (!isActive) return;
+
+    jConnect = triggerMask & kTriggerJackStatus;
+    muteOn = triggerMask & kTriggerMute;
 
     if (hpMode)
     {
@@ -157,17 +244,17 @@
             if (!jConnect || muteOn)
             {
                 [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
+                [appController growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
                 appHit = true;
             }
         }
         else // if (!playing)
         {
-            if (jConnect && muteOn && appHit)
+            if (jConnect && !muteOn && appHit)
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
+                [appController growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
                 appHit = false;
             }
         }
@@ -180,7 +267,7 @@
             if (muteOn)
             {
                 [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
+                [appController growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
                 appHit = true;
             }
             else if (jConnect) hpMode = true;
@@ -191,7 +278,7 @@
             {
                 [self iTunesPlayPause];
                 [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
+                [appController growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
                 appHit = false;                
             }
         }
@@ -199,6 +286,15 @@
     DEBUG_OUTPUT(@"\n\n");
 }
 
+/******************************************************************************
+ * growlNotify
+ *
+ * Required by the protocol
+ * Called during a CoreAudio interrupt. triggerMask contains the interrupt mask,
+ * which is the jack status, mute status, and reason for interrupt (either mute
+ * or data source change)
+ *****************************************************************************/
+/*
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
 {
 	[GrowlApplicationBridge notifyWithTitle:title
@@ -225,4 +321,5 @@
                               nil];
 
 }
+*/
 @end

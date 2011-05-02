@@ -22,6 +22,7 @@
 
 #import "AIPluginSelector.h"
 #import "AIPluginProtocol.h"
+#import "AppController.h"
 
 static AIPluginSelector *pluginController = nil;
 
@@ -65,7 +66,7 @@ static AIPluginSelector *pluginController = nil;
         curPrincipalClass = [curBundle principalClass];
         if (!curPrincipalClass || ![curPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]) continue;
 
-        curInstance = [[curPrincipalClass alloc] init]; 
+        curInstance = [[curPrincipalClass alloc] initWithController:[AppController sharedAppController]]; 
         if(!curInstance) continue;
 
         [pluginInstances addObject:[curInstance autorelease]];

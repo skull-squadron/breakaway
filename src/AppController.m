@@ -36,6 +36,8 @@ static AppController *sharedAppController = nil;
 
 @implementation AppController
 
+@synthesize userDefaults;
+
 + (AppController *)sharedAppController
 {
     if (!sharedAppController) sharedAppController = self;
@@ -57,8 +59,6 @@ static AppController *sharedAppController = nil;
                 
                 [NSNumber numberWithFloat:0], @"fadeInTime",
                 [NSNumber numberWithBool:1], @"keepVol",                
-                // Advanced
-                [NSNumber numberWithBool:1], @"enableAppHit", // hidden
                 nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
@@ -80,7 +80,6 @@ static AppController *sharedAppController = nil;
 	userDefaults = [NSUserDefaults standardUserDefaults];
     //VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
     
-    appHit = FALSE;
     inFadeIn = FALSE;
 
 	// Start Loading Stuff
@@ -89,7 +88,6 @@ static AppController *sharedAppController = nil;
     [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
     [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
     
-    enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
 	
 	// calls our controller to load our preference window, including all our plugins
 	[PreferencesController sharedPreferencesController];
@@ -100,15 +98,10 @@ static AppController *sharedAppController = nil;
 #pragma mark Startup Functions
 - (void)loadObservers
 {
-    // Backend
-    [userDefaults addObserver:self forKeyPath:@"enableAppHit" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)removeObservers
 {
-    // Backend
-    [userDefaults removeObserver:self forKeyPath:@"enableAppHit"];
-    
 }
 
 
@@ -277,13 +270,13 @@ static AppController *sharedAppController = nil;
         if (err2 == noErr)
         {
             DEBUG_OUTPUT(@"Mute is multichanneled");
-            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"multichannelMute"];
+            multichanMute = TRUE;
             channel = 1;
         }
         else 
         {
             DEBUG_OUTPUT(@"Mute is not multichanneled");
-            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"multichannelMute"];
+            multichanMute = FALSE;
             channel = 0;
         }
     }
@@ -306,7 +299,7 @@ static AppController *sharedAppController = nil;
     int channel = 0;
     
     // If we have a multichannel mute and we are trying to take it off, make sure we take it off the right channel
-    if(adProp == kAudioDevicePropertyMute && [[NSUserDefaults standardUserDefaults] boolForKey:@"multichannelMute"]) channel = 1;
+    if(adProp == kAudioDevicePropertyMute && multichanMute) channel = 1;
 	else if (adProp == kAudioDevicePropertyVolumeScalar) channel = 1;
 	
     OSStatus err2 = AudioDeviceRemovePropertyListener(defaultDevice,channel,0,adProp,(AudioDevicePropertyListenerProc)AHPropertyListenerProc);
@@ -327,11 +320,14 @@ static AppController *sharedAppController = nil;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    // Keep these ivars updated so the proc method doesn't have to call these methods
-    if ([keyPath isEqualToString:@"enableAppHit"]) enableAppHit = [userDefaults boolForKey:@"enableAppHit"];
 }
 
 #pragma mark AD Prop Fetches
+- (BOOL)jackConnected
+{
+    jackConnected();
+}
+
 // returns true if jack is connected. false otherwise
 bool jackConnected(void)
 {
@@ -365,7 +361,7 @@ bool muteStatus(AudioDeviceID inDevice)
     // Getting the mute button status 
     UInt32 muteOn = 0;
     UInt32 muteOnSize = sizeof muteOn;
-    OSStatus err = AudioDeviceGetProperty(inDevice,[[NSUserDefaults standardUserDefaults] integerForKey:@"multichannelMute"],0,kAudioDevicePropertyMute,&muteOnSize,&muteOn);
+    OSStatus err = AudioDeviceGetProperty(inDevice, (int)multichanMute, 0, kAudioDevicePropertyMute, &muteOnSize, &muteOn);
     if (err != noErr) DEBUG_OUTPUT(@"ERROR: Mute property fetch bad");
     DEBUG_OUTPUT1(@"Mute On: %i",muteOn);
     return muteOn;
@@ -387,7 +383,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 
     // Create a pool for our Cocoa objects to dump into. Otherwise we get lots of leaks. this thread is running off the main thread, therefore it has no automatic autorelease pool
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 
     DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
     
@@ -423,80 +418,6 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 
     // TODO: Growl notifications go here
     
-#if 0
-    if (hpMode)
-    {
-        DEBUG_OUTPUT(@"Headphones Mode");
-        if (isPlaying)
-        {
-            if (!jConnect || muteOn == 1)
-            {
-                [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
-                appHit = 1;
-            }
-        }
-        else // if (!playing)
-        {
-            if (jConnect && muteOn == 0 && appHit == 1)
-            {
-                [self iTunesPlayPause];
-                [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
-                appHit = 0;
-            }
-        }
-        
-        // User Triggers
-        if (inPropertyID == kAudioDevicePropertyMute)
-        {
-            if (muteOn) [[AIPluginSelector pluginController] executeTriggers:13];
-            else [[AIPluginSelector pluginController] executeTriggers:21];
-        }
-        // we iced scalar volume trigger, so if it's not mute, it has to be jack
-        else if (inPropertyID == kAudioDevicePropertyDataSource || inPropertyID == kAudioDevicePropertyDataSources)
-        {
-            if (jConnect) [[AIPluginSelector pluginController] executeTriggers:37];
-            else [[AIPluginSelector pluginController] executeTriggers:69];
-        }			 
-        
-        // Printing our Growl notifications
-        if ((inPropertyID != kAudioDevicePropertyMute) && (inPropertyID != kAudioDevicePropertyVolumeScalar)) jConnect ? [self growlNotify:NSLocalizedString(@"Jack Connected",@"") andDescription:@""] : [self growlNotify:NSLocalizedString(@"Jack Disconnected",@"") andDescription:@""];
-    } // end hpmode
-    else //if (!hpmode)
-    {        
-        DEBUG_OUTPUT(@"Normal Mode");
-        if (isPlaying)
-        {
-            if (muteOn == 1)
-            {
-                [self iTunesPlayPause];
-                [self growlNotify:NSLocalizedString(@"SmartPause",@"") andDescription:@""];
-                appHit = 1;
-            }
-            else if (jConnect) [userDefaults setBool:TRUE forKey:@"headphonesMode"];
-        }
-        else // if (!playing)
-        {
-            if (!muteOn && appHit == 1)
-            {
-                [self iTunesPlayPause];
-                [self iTunesThreadedFadeIn];
-                [self growlNotify:NSLocalizedString(@"SmartPlay",@"") andDescription:@""];
-                appHit = 0;                
-            }
-        }
-        
-        // User Triggers
-        if (inPropertyID == kAudioDevicePropertyMute)
-        {
-            if (muteOn)  [[AIPluginSelector pluginController] executeTriggers:11];
-            else [[AIPluginSelector pluginController] executeTriggers:19];
-        }			 
-    }
-    
-    DEBUG_OUTPUT(@"\n\n");
-#endif
     [pool release];
     return noErr;
 }
