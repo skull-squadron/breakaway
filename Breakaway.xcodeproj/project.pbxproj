@@ -23,7 +23,6 @@
 		0A061D9D10F8580B00E88056 /* PreferenceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D8310F8580B00E88056 /* PreferenceHandler.m */; };
 		0A061D9E10F8580B00E88056 /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D8410F8580B00E88056 /* PreferencesController.h */; };
 		0A061D9F10F8580B00E88056 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D8510F8580B00E88056 /* PreferencesController.m */; };
-		0A061E5110F85A8D00E88056 /* VLCPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E3410F859C200E88056 /* VLCPlugin.nib */; };
 		0A12438512B03D0800A0CC48 /* VLCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A12438412B03D0800A0CC48 /* VLCBridge.h */; };
 		0A2B1F4A10FBDB2D00D28890 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0A2B1F5010FBDBDB00D28890 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
@@ -32,7 +31,6 @@
 		0A46114C0DF07425001A579C /* ChangeLog in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* ChangeLog */; };
 		0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE410FE735E00850E00 /* SUHost.h */; };
 		0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */; };
-		0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */; };
 		0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0AA225BE10F98CFE00401B7A /* AIAppleScriptPluginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */; };
 		0AA225BF10F98D0100401B7A /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7310F8580B00E88056 /* AIPluginProtocol.h */; };
@@ -62,8 +60,6 @@
 		0AA2263510F994B400401B7A /* Remove.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261A10F994B400401B7A /* Remove.tiff */; };
 		0AA2263710F994B400401B7A /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261C10F994B400401B7A /* Users.tiff */; };
 		0AC652EF11432FA20065C46E /* README in Resources */ = {isa = PBXBuildFile; fileRef = 0AC652EE11432FA20065C46E /* README */; };
-		0AC652F3114330300065C46E /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1810F8593800E88056 /* MainMenu.nib */; };
-		0AC652F41143303F0065C46E /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0A061E1C10F8593800E88056 /* Preferences.nib */; };
 		0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */; };
 		0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */; };
@@ -79,6 +75,10 @@
 		0AF2D341137782E600BB5865 /* iTunes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D340137782E600BB5865 /* iTunes.png */; };
 		0AF2D38C13778A8100BB5865 /* NSTextFieldCell+VertCentering.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF2D38A13778A8100BB5865 /* NSTextFieldCell+VertCentering.h */; };
 		0AF2D3A313778B1500BB5865 /* NSTextFieldCell+VertCentering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2D38B13778A8100BB5865 /* NSTextFieldCell+VertCentering.m */; };
+		0AF2D3AD1377959100BB5865 /* VLCPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D3AC1377959100BB5865 /* VLCPlugin.xib */; };
+		0AF2D3B0137795AB00BB5865 /* AppleScriptPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D3AF137795AB00BB5865 /* AppleScriptPlugin.xib */; };
+		0AF2D3B4137795BC00BB5865 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D3B2137795BC00BB5865 /* MainMenu.xib */; };
+		0AF2D3B8137795C800BB5865 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D3B6137795C800BB5865 /* Preferences.xib */; };
 		0AF44E380B1229D0007163FE /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* COPYING */; };
 /* End PBXBuildFile section */
 
@@ -143,11 +143,8 @@
 		0A061D8310F8580B00E88056 /* PreferenceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferenceHandler.m; path = src/PreferenceHandler.m; sourceTree = "<group>"; };
 		0A061D8410F8580B00E88056 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = src/PreferencesController.h; sourceTree = "<group>"; };
 		0A061D8510F8580B00E88056 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesController.m; path = src/PreferencesController.m; sourceTree = "<group>"; };
-		0A061E1810F8593800E88056 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
-		0A061E1C10F8593800E88056 /* Preferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Preferences.nib; sourceTree = "<group>"; };
 		0A061E3210F859C200E88056 /* VLC Plugin-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "VLC Plugin-Info.plist"; path = "resources/plugins/VLC Plugin-Info.plist"; sourceTree = "<group>"; };
 		0A061E3310F859C200E88056 /* vlcPlaying */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = vlcPlaying; path = resources/plugins/vlcPlaying; sourceTree = "<group>"; };
-		0A061E3410F859C200E88056 /* VLCPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = VLCPlugin.nib; path = resources/plugins/VLCPlugin.nib; sourceTree = "<group>"; };
 		0A12438412B03D0800A0CC48 /* VLCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCBridge.h; path = Projects/files/breakaway/src/VLCBridge.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A2B1F5410FBDC6800D28890 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		0A2B1FFA10FC5B8E00D28890 /* update.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = update.tiff; sourceTree = "<group>"; };
@@ -156,7 +153,6 @@
 		0A4D7FE410FE735E00850E00 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUHost.h; path = src/SUHost.h; sourceTree = "<group>"; };
 		0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUSystemProfiler.h; path = src/SUSystemProfiler.h; sourceTree = "<group>"; };
 		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = AppleScriptPlugin.nib; path = resources/plugins/AppleScriptPlugin.nib; sourceTree = "<group>"; };
 		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AppleScript Plugin-Info.plist"; path = "resources/plugins/AppleScript Plugin-Info.plist"; sourceTree = "<group>"; };
 		0AA225F810F994B300401B7A /* connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connected.png; sourceTree = "<group>"; };
@@ -203,6 +199,10 @@
 		0AF2D340137782E600BB5865 /* iTunes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunes.png; path = Projects/files/breakaway/resources/plugins/iTunes.png; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AF2D38A13778A8100BB5865 /* NSTextFieldCell+VertCentering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextFieldCell+VertCentering.h"; path = "Projects/files/breakaway/src/NSTextFieldCell+VertCentering.h"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AF2D38B13778A8100BB5865 /* NSTextFieldCell+VertCentering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextFieldCell+VertCentering.m"; path = "Projects/files/breakaway/src/NSTextFieldCell+VertCentering.m"; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D3AC1377959100BB5865 /* VLCPlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VLCPlugin.xib; path = Projects/files/breakaway/resources/plugins/VLCPlugin.xib; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D3AF137795AB00BB5865 /* AppleScriptPlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AppleScriptPlugin.xib; path = Projects/files/breakaway/resources/plugins/AppleScriptPlugin.xib; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D3B3137795BC00BB5865 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Projects/files/breakaway/resources/English.lproj/MainMenu.xib; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D3B7137795C800BB5865 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Projects/files/breakaway/resources/English.lproj/Preferences.xib; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AF44E370B1229D0007163FE /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -293,8 +293,8 @@
 		0A061E1410F8593800E88056 /* English.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				0A061E1810F8593800E88056 /* MainMenu.nib */,
-				0A061E1C10F8593800E88056 /* Preferences.nib */,
+				0AF2D3B2137795BC00BB5865 /* MainMenu.xib */,
+				0AF2D3B6137795C800BB5865 /* Preferences.xib */,
 			);
 			name = English.lproj;
 			path = resources/English.lproj;
@@ -314,7 +314,7 @@
 			children = (
 				0A061E3310F859C200E88056 /* vlcPlaying */,
 				0A061E3210F859C200E88056 /* VLC Plugin-Info.plist */,
-				0A061E3410F859C200E88056 /* VLCPlugin.nib */,
+				0AF2D3AC1377959100BB5865 /* VLCPlugin.xib */,
 				0A061D7610F8580B00E88056 /* AIVLCPlugin.h */,
 				0A061D7710F8580B00E88056 /* AIVLCPlugin.m */,
 			);
@@ -337,7 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
-				0A841A480E22DF2400ECF64A /* AppleScriptPlugin.nib */,
+				0AF2D3AF137795AB00BB5865 /* AppleScriptPlugin.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -749,7 +749,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A061E5110F85A8D00E88056 /* VLCPlugin.nib in Resources */,
+				0AF2D3AD1377959100BB5865 /* VLCPlugin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,7 +757,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A841A490E22DF2400ECF64A /* AppleScriptPlugin.nib in Resources */,
+				0AF2D3B0137795AB00BB5865 /* AppleScriptPlugin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,8 +774,6 @@
 			files = (
 				0AF44E380B1229D0007163FE /* COPYING in Resources */,
 				0A46114C0DF07425001A579C /* ChangeLog in Resources */,
-				0AC652F3114330300065C46E /* MainMenu.nib in Resources */,
-				0AC652F41143303F0065C46E /* Preferences.nib in Resources */,
 				0AA2261D10F994B400401B7A /* connected.png in Resources */,
 				0AA2261E10F994B400401B7A /* disabled.png in Resources */,
 				0AA2261F10F994B400401B7A /* disconnected.png in Resources */,
@@ -793,6 +791,8 @@
 				0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */,
 				0AC652EF11432FA20065C46E /* README in Resources */,
 				0AF2D341137782E600BB5865 /* iTunes.png in Resources */,
+				0AF2D3B4137795BC00BB5865 /* MainMenu.xib in Resources */,
+				0AF2D3B8137795C800BB5865 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +852,27 @@
 			targetProxy = 0ADE96D9136BEE9F0045CCB5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0AF2D3B2137795BC00BB5865 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AF2D3B3137795BC00BB5865 /* English */,
+			);
+			name = MainMenu.xib;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		0AF2D3B6137795C800BB5865 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0AF2D3B7137795C800BB5865 /* English */,
+			);
+			name = Preferences.xib;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0A55C48A0E36D7C300347DB7 /* Debug */ = {
