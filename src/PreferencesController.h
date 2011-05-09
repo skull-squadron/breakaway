@@ -23,30 +23,15 @@
 #import <Cocoa/Cocoa.h>
 
 @interface PreferencesController : NSWindowController
-{
-	NSString *GeneralToolbarItemIdentifier;
-	NSString *PluginsToolbarItemIdentifier;
-	NSString *AboutToolbarItemIdentifier;
-	NSString *QuitToolbarItemIdentifier;
-	NSString *UpdateToolbarItemIdentifier;
-	NSString *ExpandBreakawayToolbarItemIdentifier;
-	NSString *DonateToolbarItemIdentifier;
-	
+{	
+    IBOutlet id toolbar;
     IBOutlet id activeContentView;
-    IBOutlet id chatStatusRollout;
-    IBOutlet id generalPreferenceView;
-    IBOutlet id pluginsPreferenceView;
-	IBOutlet id donatePreferenceView;
-	IBOutlet id updatePreferenceView;
-	IBOutlet id expandBreakawayPreferenceView;
-	
+    
+    IBOutlet id defaultToolbarItemSelection;	
 	IBOutlet id preferenceHandler;
-	IBOutlet id pluginPreferenceDrawer;
 	
-	bool loadedNib;
+	NSBundle *bundle;
 }
-
-+ (PreferencesController *)sharedPreferencesController;
 
 - (void)toggleActivePreferenceView:(id)sender;
 - (void)setActiveView:(NSView *)view animate:(BOOL)flag;

@@ -27,33 +27,42 @@
 
 @implementation GrowlNotifier
 
--(void)awakeFromNib
+@synthesize registrationDictionaryForGrowl;
+
+/******************************************************************************
+ * init
+ *
+ * Sets up environment variables
+ *****************************************************************************/
+- (id)init
 {
+	if (!(self = [super init])) return nil;
+    
     NSArray *acceptedNotifications = [NSArray arrayWithObjects:
                                       NSLocalizedString(@"Jack Connected", @""),
                                       NSLocalizedString(@"Jack Disconnected", @""),
                                       NSLocalizedString(@"Breakaway Enabled",@""),
                                       NSLocalizedString(@"Breakaway Disabled", @""),
-                                      NSLocalizedString(@"SmartPlay",@""),
-                                      NSLocalizedString(@"SmartPause",@""),
                                       nil];
 	
 	NSArray *defaultNotifications = [NSArray arrayWithObjects:
                                      NSLocalizedString(@"Jack Connected", @""),
                                      NSLocalizedString(@"Jack Disconnected", @""),
                                      NSLocalizedString(@"Breakaway Disabled", @""),
-                                     NSLocalizedString(@"SmartPlay",@""),
-                                     NSLocalizedString(@"SmartPause",@""),
                                      nil];
 	
-	registrationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                              acceptedNotifications, GROWL_NOTIFICATIONS_ALL,
-                              defaultNotifications, GROWL_NOTIFICATIONS_DEFAULT,
-                              @"Breakaway", GROWL_APP_NAME,
-                              [NSNumber numberWithInt:1], GROWL_TICKET_VERSION,
-                              nil];
-    
-    [GrowlApplicationBridge setGrowlDelegate:self];
+	self.registrationDictionaryForGrowl = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           acceptedNotifications, GROWL_NOTIFICATIONS_ALL,
+                                           defaultNotifications, GROWL_NOTIFICATIONS_DEFAULT,
+                                           @"Breakaway", GROWL_APP_NAME,
+                                           [NSNumber numberWithInt:1], GROWL_TICKET_VERSION,
+                                           nil];
+    return self;
+}
+
+- (NSDictionary *) registrationDictionaryForGrowl
+{
+    return registrationDictionaryForGrowl;
 }
 
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
@@ -67,13 +76,9 @@
 							   clickContext:nil];
 }
 
-- (NSDictionary *)registrationDictionaryForGrowl
-{
-	return registrationDictionary;
-}
-
 - (NSString *)applicationNameForGrowl
 {
 	return @"Breakaway";
 }
+
 @end

@@ -21,80 +21,54 @@
  */
 
 #import "AIPluginSelector.h"
-#import "AIPluginProtocol.h"
+
+#import <Growl/Growl.h>
+
+#import "SharedBreakaway.h"
 #import "AppController.h"
+#import "AIPluginProtocol.h"
+#import "GrowlNotifier.h"
+#import "AIPluginController.h"
 
 static AIPluginSelector *pluginController = nil;
 
 @implementation AIPluginSelector
 
--(void)awakeFromNib
+/******************************************************************************
+ * init
+ *
+ * Sets up environment variables
+ *****************************************************************************/
+- (id)init
 {
+	if (!(self = [super init])) return nil;
+
 	pluginController = self;
 
-	// Setting up these for plugin stuff
-	pluginInstances = [[NSMutableArray alloc] init];
-		
+    return self;
+}
+
+/******************************************************************************
+ * awakeFromNib
+ *
+ * Initializes object
+ * Sets up plugins
+ *****************************************************************************/
+- (void)awakeFromNib
+{
 	// load all our bundles, init them, and put them in pluginInstances
-	[self loadAllBundles];
+	//[self loadAllBundles];
 	
-	[pluginSelectorController setContent:pluginInstances];
+	[pluginSelectorController setContent:breakaway.pluginController.pluginInstances];
 	
-	[self setDelegate:self];	
+	//[self setDelegate:self];	
 }
 
-+ (AIPluginSelector*)pluginController
-{
-	return pluginController;
-}
-
-#pragma mark 
-#pragma mark Plugin Loading
-
-- (void)loadAllBundles
-{                                        
-    NSBundle *curBundle;
-    Class curPrincipalClass;
-    id curInstance;
-
-    for (NSString *curPath in [self allBundles])
-    {
-        curBundle = [NSBundle bundleWithPath:curPath];               
-        if (!curBundle) continue;
-        [curBundle load];
-
-        curPrincipalClass = [curBundle principalClass];
-        if (!curPrincipalClass || ![curPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]) continue;
-
-        curInstance = [[curPrincipalClass alloc] initWithController:[AppController sharedAppController]]; 
-        if(!curInstance) continue;
-
-        [pluginInstances addObject:[curInstance autorelease]];
-    }
-}
-
-- (NSMutableArray*)allBundles
-{
-    NSMutableArray *allBundles = [NSMutableArray array];
-    NSString *curPath = [[NSBundle mainBundle] builtInPlugInsPath];
-    
-    for (NSString *curBundlePath in [[NSFileManager defaultManager] enumeratorAtPath:curPath])
-    {
-        if([[curBundlePath pathExtension] isEqualToString:@"plugin"])
-            [allBundles addObject:[curPath stringByAppendingPathComponent:curBundlePath]];
-    }
-    
-    return allBundles;
-}
-
-#pragma mark 
-#pragma mark Plugin Management
-- (void)executeTriggers:(kTriggerMask)triggerMask
-{	
-	for (id<AIPluginProtocol> plugin in pluginInstances)
-        [plugin activate: triggerMask];
-}
-
+/******************************************************************************
+ * openPluginFolder:
+ *
+ * Opens the builtInPlugin directory in Finder
+ *****************************************************************************/
 - (IBAction)openPluginFolder:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] builtInPlugInsPath] inFileViewerRootedAtPath:@""];

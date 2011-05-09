@@ -21,16 +21,17 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
+#import <Growl/GrowlApplicationBridge.h>
 
 @interface GrowlNotifier : NSObject <GrowlApplicationBridgeDelegate>
-{
-    NSDictionary *registrationDictionary;
+{    
+    NSDictionary *registrationDictionaryForGrowl;
     
 	// Other objects
 	IBOutlet id appController;
 }
-- (NSDictionary *)registrationDictionaryForGrowl;
+@property (copy) NSDictionary *registrationDictionaryForGrowl;
+
 - (NSString *)applicationNameForGrowl;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
 @end

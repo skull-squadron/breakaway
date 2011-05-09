@@ -70,6 +70,15 @@
 		0ADE981A136CCC480045CCB5 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AE1AF15136AFFB80085D686 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AE1AF16136AFFB80085D686 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
+		0AF2CF981375D47C00BB5865 /* SharedBreakaway.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF2CF961375D47C00BB5865 /* SharedBreakaway.h */; };
+		0AF2CF991375D47C00BB5865 /* SharedBreakaway.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2CF971375D47C00BB5865 /* SharedBreakaway.m */; };
+		0AF2D0251376443200BB5865 /* AIToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF2D0231376443200BB5865 /* AIToolbarItem.h */; };
+		0AF2D0261376443200BB5865 /* AIToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2D0241376443200BB5865 /* AIToolbarItem.m */; };
+		0AF2D183137667E400BB5865 /* AIPluginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF2D181137667E400BB5865 /* AIPluginController.h */; };
+		0AF2D184137667E400BB5865 /* AIPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2D182137667E400BB5865 /* AIPluginController.m */; };
+		0AF2D341137782E600BB5865 /* iTunes.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF2D340137782E600BB5865 /* iTunes.png */; };
+		0AF2D38C13778A8100BB5865 /* NSTextFieldCell+VertCentering.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AF2D38A13778A8100BB5865 /* NSTextFieldCell+VertCentering.h */; };
+		0AF2D3A313778B1500BB5865 /* NSTextFieldCell+VertCentering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2D38B13778A8100BB5865 /* NSTextFieldCell+VertCentering.m */; };
 		0AF44E380B1229D0007163FE /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* COPYING */; };
 /* End PBXBuildFile section */
 
@@ -185,6 +194,15 @@
 		0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIiTunesPlugin.m; path = Projects/files/breakaway/src/AIiTunesPlugin.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iTunes Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADE95E6136BE34C0045CCB5 /* iTunes Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iTunes Plugin-Info.plist"; path = "Projects/files/breakaway/resources/plugins/iTunes Plugin-Info.plist"; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2CF961375D47C00BB5865 /* SharedBreakaway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedBreakaway.h; path = Projects/files/breakaway/src/SharedBreakaway.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2CF971375D47C00BB5865 /* SharedBreakaway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedBreakaway.m; path = Projects/files/breakaway/src/SharedBreakaway.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D0231376443200BB5865 /* AIToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIToolbarItem.h; path = Projects/files/breakaway/src/AIToolbarItem.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D0241376443200BB5865 /* AIToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIToolbarItem.m; path = Projects/files/breakaway/src/AIToolbarItem.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D181137667E400BB5865 /* AIPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIPluginController.h; path = Projects/files/breakaway/src/AIPluginController.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D182137667E400BB5865 /* AIPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIPluginController.m; path = Projects/files/breakaway/src/AIPluginController.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D340137782E600BB5865 /* iTunes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunes.png; path = Projects/files/breakaway/resources/plugins/iTunes.png; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D38A13778A8100BB5865 /* NSTextFieldCell+VertCentering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextFieldCell+VertCentering.h"; path = "Projects/files/breakaway/src/NSTextFieldCell+VertCentering.h"; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AF2D38B13778A8100BB5865 /* NSTextFieldCell+VertCentering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextFieldCell+VertCentering.m"; path = "Projects/files/breakaway/src/NSTextFieldCell+VertCentering.m"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AF44E370B1229D0007163FE /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -236,12 +254,16 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0A4D7FE310FE728700850E00 /* Private Sparkle Headers */,
+				0AF2D38A13778A8100BB5865 /* NSTextFieldCell+VertCentering.h */,
+				0AF2D38B13778A8100BB5865 /* NSTextFieldCell+VertCentering.m */,
 				0ACA9C320B0D297F00610F2A /* DebugUtils.h */,
 				0A061BCD10F7CCD900E88056 /* iTunesBridge.h */,
 				0A12438412B03D0800A0CC48 /* VLCBridge.h */,
 				0A061D6510F855DC00E88056 /* defines.h */,
 				0A061D7D10F8580B00E88056 /* defines.m */,
+				0AF2CF961375D47C00BB5865 /* SharedBreakaway.h */,
+				0AF2CF971375D47C00BB5865 /* SharedBreakaway.m */,
+				0A4D7FE310FE728700850E00 /* Private Sparkle Headers */,
 				0A061D7810F8580B00E88056 /* AppController.h */,
 				0A061D7910F8580B00E88056 /* AppController.m */,
 				0A061D7410F8580B00E88056 /* AIPluginSelector.h */,
@@ -258,8 +280,12 @@
 			children = (
 				0A061D8210F8580B00E88056 /* PreferenceHandler.h */,
 				0A061D8310F8580B00E88056 /* PreferenceHandler.m */,
+				0AF2D181137667E400BB5865 /* AIPluginController.h */,
+				0AF2D182137667E400BB5865 /* AIPluginController.m */,
 				0A061D8410F8580B00E88056 /* PreferencesController.h */,
 				0A061D8510F8580B00E88056 /* PreferencesController.m */,
+				0AF2D0231376443200BB5865 /* AIToolbarItem.h */,
+				0AF2D0241376443200BB5865 /* AIToolbarItem.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -475,6 +501,7 @@
 		0ADE95D8136BE2D70045CCB5 /* iTunes Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				0AF2D340137782E600BB5865 /* iTunes.png */,
 				0ADE95E6136BE34C0045CCB5 /* iTunes Plugin-Info.plist */,
 				0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */,
 				0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */,
@@ -597,6 +624,10 @@
 				0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */,
 				0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */,
 				0A12438512B03D0800A0CC48 /* VLCBridge.h in Headers */,
+				0AF2CF981375D47C00BB5865 /* SharedBreakaway.h in Headers */,
+				0AF2D0251376443200BB5865 /* AIToolbarItem.h in Headers */,
+				0AF2D183137667E400BB5865 /* AIPluginController.h in Headers */,
+				0AF2D38C13778A8100BB5865 /* NSTextFieldCell+VertCentering.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,6 +792,7 @@
 				0A2B1F5510FBDC6800D28890 /* dsa_pub.pem in Resources */,
 				0A2B1FFB10FC5B8E00D28890 /* update.tiff in Resources */,
 				0AC652EF11432FA20065C46E /* README in Resources */,
+				0AF2D341137782E600BB5865 /* iTunes.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +836,10 @@
 				0A061D9B10F8580B00E88056 /* main.m in Sources */,
 				0A061D9D10F8580B00E88056 /* PreferenceHandler.m in Sources */,
 				0A061D9F10F8580B00E88056 /* PreferencesController.m in Sources */,
+				0AF2CF991375D47C00BB5865 /* SharedBreakaway.m in Sources */,
+				0AF2D0261376443200BB5865 /* AIToolbarItem.m in Sources */,
+				0AF2D184137667E400BB5865 /* AIPluginController.m in Sources */,
+				0AF2D3A313778B1500BB5865 /* NSTextFieldCell+VertCentering.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1079,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ./src/Breakaway_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=0";
@@ -1094,6 +1131,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_PREFIX_HEADER = ./src/Breakaway_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=1";
@@ -1264,6 +1302,8 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = ./src/Breakaway_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_CFLAGS = "-DDEBUG=1";
@@ -1303,6 +1343,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(DEVELOPER_DIR)/Projects/files/breakaway/frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
+				GCC_PREFIX_HEADER = ./src/Breakaway_Prefix.pch;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Breakaway;

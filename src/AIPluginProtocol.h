@@ -31,16 +31,73 @@ typedef enum {
 
 @protocol AIPluginProtocol
 
-// Required: name of unique plugin
+/******************************************************************************
+ * initWithController:
+ *
+ * Required
+ * Initializer for the plugin. Called upon instantiation.
+ * Sets up global variables
+ * The controller is the main Breakaway instance (AppController). You can call
+ * Growl functions, and operate call CA functions
+ *****************************************************************************/
+- (id)initWithController:(id)controller;
+
+/******************************************************************************
+ * name
+ *
+ * Required
+ * The name of the plugin
+ *****************************************************************************/
 - (NSString*)name;
 
-// Required: TRUE allows the plugin to activate. FALSE and the plugin cannot activate
+/******************************************************************************
+ * image
+ *
+ * Required by protocol
+ * The icon of the plugin
+ *****************************************************************************/
+- (NSImage*)image;
+
+/******************************************************************************
+ * enabled
+ *
+ * Required
+ * TRUE allows the plugin to activate. FALSE otherwise
+ *****************************************************************************/
 - (BOOL)enabled;
 
-// Required: Allows the user to enable/disable your plugin
+/******************************************************************************
+ * setEnabled
+ *
+ * Required
+ * Allows the user to enable/disable your plugin
+ *****************************************************************************/
 - (void)setEnabled:(BOOL)var;
 
-// Required: sends the interrupt mask (jack/mute status)
+/******************************************************************************
+ * activate:
+ *
+ * Required by the protocol
+ * Called during a CoreAudio interrupt. triggerMask contains the interrupt mask,
+ * which is the jack status, mute status, and reason for interrupt (either mute
+ * or data source change)
+ *****************************************************************************/
 - (void)activate:(kTriggerMask)triggerMask;
+
+/******************************************************************************
+ * acceptedGrowlNotes
+ *
+ * Not required, unless you want to use Growl notifications
+ * An array which specifies all the messages your plugin can send to Growl
+ *****************************************************************************/
+- (NSArray*)acceptedGrowlNotes;
+
+/******************************************************************************
+ * defaultGrowlNotes
+ *
+ * Not required, unless you want to use Growl notifications
+ * An array which specifies the default Growl messages you want to show the user
+ *****************************************************************************/
+- (NSArray*)defaultGrowlNotes;
 
 @end

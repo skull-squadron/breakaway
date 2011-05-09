@@ -16,7 +16,7 @@
 @class AppController;
 
 
-@interface AIiTunesPlugin : NSObject<AIPluginProtocol> {
+@interface AIiTunesPlugin : NSObject <AIPluginProtocol> {
 
     BOOL enabled;
 
@@ -28,19 +28,22 @@
 
     iTunesApplication *iTunes;
 	AppController *appController;
-
 }
 @property (assign) BOOL enabled;
 
+- (void)dealloc;
+// iTunes Observers
 - (void)loadObservers;
 - (void)removeObservers;
 - (void)songChanged:(NSNotification *)aNotification ;
+- (void)handleAppLaunch:(NSNotification *)notification;
+- (void)handleAppQuit:(NSNotification *)notification;
+// iTunes Control
 - (BOOL)iTunesActive;
 - (BOOL)iTunesPlaying;
 - (void)iTunesPlayPause;
 - (void)fadeInUsingTimer:(NSTimer*)timer;
 - (void)iTunesThreadedFadeIn;
-
 
 @end
 

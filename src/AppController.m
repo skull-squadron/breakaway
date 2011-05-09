@@ -21,31 +21,34 @@
  */
 
 #import "AppController.h"
-
-#import <Sparkle/SUUpdater.h>
-#import <CoreAudio/CoreAudio.h>
-
-#import "PreferencesController.h"
-#import "GrowlNotifier.h"
-#import "DebugUtils.h"
 #import "defines.h"
+
+#import "GrowlNotifier.h"
+#import "PreferencesController.h"
+#import "AIPluginController.h"
+
+#import "DebugUtils.h"
+
 #import "AIPluginSelector.h"
 #import "AIPluginProtocol.h"
 
-static AppController *sharedAppController = nil;
+#import <CoreAudio/CoreAudio.h>
+#import <Sparkle/SUUpdater.h>
+
 
 @implementation AppController
 
-@synthesize userDefaults;
+@synthesize growlNotifier, preferencesController, pluginController, userDefaults;
 
-+ (AppController *)sharedAppController
+- (id)init
 {
-    if (!sharedAppController) sharedAppController = self;
-    return sharedAppController;
+	if (!(self = [super init])) return nil;
+    setSharedBreakaway(self);
+	return self;
 }
 
-// Cool thing about +initialize is that it runs before any other method gets called
-+ (void)initialize
+
+- (void)awakeFromNib
 {
     // Setting up our defaults here
     NSDictionary *defaults;
@@ -62,6 +65,22 @@ static AppController *sharedAppController = nil;
                 nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
+    
+    // Initialize controllers
+    growlNotifier = [[GrowlNotifier alloc] init];
+    pluginController = [[AIPluginController alloc] init];
+    
+    // For convience
+	userDefaults = [NSUserDefaults standardUserDefaults];
+
+	// Start Loading Stuff
+    
+    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
+    [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
+    
+	
+	// calls our controller to load our preference window, including all our plugins
+    DEBUG_OUTPUT(@"finished setting up and loading prefs");
 }
 
 - (void)dealloc
@@ -70,40 +89,8 @@ static AppController *sharedAppController = nil;
     [self setStatusItem:NO];
     [self setEnabled:NO];
     
-    //[VLC release];
     [super dealloc];
 }
-
-- (void)awakeFromNib
-{
-    sharedAppController = self;
-	userDefaults = [NSUserDefaults standardUserDefaults];
-    //VLC = [[SBApplication alloc] initWithBundleIdentifier:@"org.videolan.vlc"];
-    
-    inFadeIn = FALSE;
-
-	// Start Loading Stuff
-	[self loadObservers];
-    
-    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
-    [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
-    
-	
-	// calls our controller to load our preference window, including all our plugins
-	[PreferencesController sharedPreferencesController];
-    DEBUG_OUTPUT(@"finished setting up and loading prefs");
-}
-
-#pragma mark-
-#pragma mark Startup Functions
-- (void)loadObservers
-{
-}
-
-- (void)removeObservers
-{
-}
-
 
 #pragma mark 
 #pragma mark Status item
@@ -205,7 +192,8 @@ static AppController *sharedAppController = nil;
 
 - (IBAction)openPrefs:(id)sender
 {
-	[[PreferencesController sharedPreferencesController] showWindow:nil];
+    if (!preferencesController) preferencesController = [[PreferencesController alloc] init];
+	[preferencesController showWindow:nil];
     [NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -233,19 +221,6 @@ static AppController *sharedAppController = nil;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
 {
     [growlNotifier growlNotify:title andDescription:description];
-}
-
-
-#pragma mark VLC
--(BOOL)VLCActive
-{
-    return [VLC isRunning];
-}
-
-- (void)VLCPlayPause
-{
-    VLCDocument *doc = [[[VLC windows] objectAtIndex:0] document];
-    [doc play];
 }
 
 #pragma mark 
@@ -394,8 +369,8 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 	if (inPropertyID == kAudioDevicePropertyDataSource || inPropertyID == kAudioDevicePropertyDataSources)
 	{
         // Store old mute data
-		if (jConnect) muteOn = ispkMuteStatus;
-		else muteOn = hpMuteStatus;
+		if (jConnect) ispkMuteStatus = muteOn;
+		else hpMuteStatus = muteOn;
 
         // Grab correct mute data
 		muteOn = jConnect ? hpMuteStatus : ispkMuteStatus;
@@ -414,7 +389,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     triggerMask |= muteOn ? kTriggerMute : 0;
     triggerMask |= jConnect ? kTriggerJackStatus : 0;
     triggerMask |= (inPropertyID != kAudioDevicePropertyMute) ? kTriggerInt : 0;
-    [[AIPluginSelector pluginController] executeTriggers:triggerMask];
+    [[self pluginController] executeTriggers:triggerMask];
 
     // TODO: Growl notifications go here
     

@@ -21,11 +21,13 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "AIPluginProtocol.h"
 
 
 @interface AIPluginSelector : NSTableView
 {
 	IBOutlet id pluginSelectorController;
+    IBOutlet id tableTextCell;
 	IBOutlet id pluginContentTable;
 	
 	IBOutlet id drawer;
@@ -42,7 +44,7 @@
 - (void)loadAllBundles;
 - (NSMutableArray *)allBundles;
 
-- (void)executeTriggers:(int)prototype;
+- (void)executeTriggers:(kTriggerMask)prototype;
 - (IBAction)openPluginFolder:(id)sender;
 + (AIPluginSelector *)pluginController;
 

@@ -22,12 +22,11 @@
 #ifndef __APPCONTROLLER_H__
 #define __APPCONTROLLER_H__
 
-#import <Cocoa/Cocoa.h>
 #import <CoreAudio/CoreAudio.h>
 #import "iTunesBridge.h"
 #import "VLCBridge.h"
 
-@class VLCApplication;
+@class AppController,PreferencesController,AIPluginController,GrowlNotifier;
 
 // our proc method; this is the main workhorse of the app
 inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
@@ -48,24 +47,26 @@ typedef enum {
 
 @interface AppController : NSObject
 {
-    VLCApplication *VLC;
-    	
+    GrowlNotifier *growlNotifier;
+    PreferencesController *preferencesController;
+    AIPluginController *pluginController;
+    
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;
     NSArray *images;
 	IBOutlet id statusItemMenu;
 	IBOutlet id disableMI;
-
-    BOOL inFadeIn;
 	
 	// Preferenes (in actual order)
 	IBOutlet id prefsWindow; // the NSWindow in which the preferences reside
 		
 	// Other Objects
-	IBOutlet id growlNotifier;
 	NSUserDefaults* userDefaults;
 }
 @property (assign) NSUserDefaults *userDefaults;
+@property (assign) GrowlNotifier *growlNotifier;
+@property (assign) PreferencesController *preferencesController;
+@property (assign) AIPluginController *pluginController;
 
 - (BOOL)jackConnected;
 - (void)fadeInUsingTimer:(NSTimer*)timer;
