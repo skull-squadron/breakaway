@@ -144,11 +144,6 @@
 	[[SUUpdater sharedUpdater] checkForUpdates:sender];
 }
 
-- (void)setSendsSystemProfile:(BOOL)sendsSystemProfile
-{
-    [[SUUpdater sharedUpdater] setSendsSystemProfile:sendsSystemProfile];
-}
-
 - (void)setAutomaticallyDownloadsUpdates:(BOOL)automaticallyDownloadsUpdates
 {
     [[SUUpdater sharedUpdater] setAutomaticallyDownloadsUpdates:automaticallyDownloadsUpdates];
@@ -157,11 +152,6 @@
 - (void)setAutomaticallyChecksForUpdates:(BOOL)automaticallyChecks
 {
     [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:automaticallyChecks];
-}
-
-- (BOOL)sendsSystemProfile
-{
-    return [[SUUpdater sharedUpdater] sendsSystemProfile];
 }
 
 - (BOOL)automaticallyDownloadsUpdates

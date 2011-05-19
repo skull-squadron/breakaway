@@ -72,6 +72,12 @@ static NSBundle *PluginBundle = nil;
     return [NSImage imageNamed:@"iTunes"];
 }
 
+- (void)setEnabled:(BOOL)val
+{
+    [[NSUserDefaults standardUserDefaults] setBool:val forKey:@"iTunesPluginEnabled"];
+    enabled = val;
+}
+
 #pragma mark -
 #pragma mark Growl
 /******************************************************************************
@@ -116,7 +122,9 @@ static NSBundle *PluginBundle = nil;
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
 	isActive = [self iTunesActive];
     isPlaying = isActive ? [self iTunesPlaying] : FALSE;
+    enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"iTunesPluginEnabled"];
 
+    
     [self loadObservers];
 
     NSLog(@"iTunes plugin successfully loaded");
@@ -356,7 +364,7 @@ static NSBundle *PluginBundle = nil;
 {
     if (inFadeIn) return;
     
-    int fadeInSpeed = [[appController userDefaults] integerForKey:@"fadeInTime"];
+    int fadeInSpeed = [[NSUserDefaults standardUserDefaults] integerForKey:@"fadeInTime"];
     if (fadeInSpeed <= 0) return;
     
     fadeInSpeed <<= 1; // gives multiplier between 1 -- 10

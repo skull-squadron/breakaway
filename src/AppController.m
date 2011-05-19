@@ -61,7 +61,8 @@
                 [NSNumber numberWithInt:2], @"SUUpdate",
                 
                 [NSNumber numberWithFloat:0], @"fadeInTime",
-                [NSNumber numberWithBool:1], @"keepVol",                
+                [NSNumber numberWithBool:1], @"keepVol",
+                [NSNumber numberWithBool:1], @"iTunesPluginEnabled",
                 nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
