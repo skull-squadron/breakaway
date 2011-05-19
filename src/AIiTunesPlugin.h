@@ -28,6 +28,8 @@
 
     iTunesApplication *iTunes;
 	AppController *appController;
+    
+    IBOutlet NSView *prefView;
 }
 @property (assign) BOOL enabled;
 
@@ -44,6 +46,7 @@
 - (void)iTunesPlayPause;
 - (void)fadeInUsingTimer:(NSTimer*)timer;
 - (void)iTunesThreadedFadeIn;
+- (IBAction)testFadeIn:(id)sender;
 
 @end
 

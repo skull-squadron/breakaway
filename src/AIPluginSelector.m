@@ -61,7 +61,9 @@ static AIPluginSelector *pluginController = nil;
 	
 	[pluginSelectorController setContent:breakaway.pluginController.pluginInstances];
 	
-	//[self setDelegate:self];	
+    [self tableViewSelectionDidChange:nil];
+    
+	[self setDelegate:self];
 }
 
 /******************************************************************************
@@ -81,75 +83,24 @@ static AIPluginSelector *pluginController = nil;
 	// make sure we have something selected
 	if ([self selectedRow] != -1)
 	{
-		// figure out which plugin instances to display
-		id plugin = [[pluginSelectorController selectedObjects]objectAtIndex:0];
-		
-		// set the plugin's preferences in the drawer (loading the nib)
-		// note, that once this code is called (the nib is loaded), NSApp delegate gets _changed_ to the plugin instance loading the nib
-		// i have no idea why this happens, but it does. to solve this, we will use a different way to access appcontroller
-		[drawer setContentView:[plugin preferenceView]];
-		
-		// remove our bindings (thus displaying nothing anymore)
-		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] unbind:@"value"];
-		[[pluginContentTable tableColumnWithIdentifier:@"name"] unbind:@"value"];
+        // figure out which plugin instances to display
+        id plugin = [[pluginSelectorController selectedObjects] objectAtIndex:0];
 
-		// hook in the content table to display the plugin's instances
-		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] bind:@"value"
-															   toObject:[plugin arrayController]
-															withKeyPath:@"arrangedObjects.enabled"
-																options:nil];
-		
-		[[pluginContentTable tableColumnWithIdentifier:@"name"] bind:@"value"
-															toObject:[plugin arrayController]
-														 withKeyPath:@"arrangedObjects.name"
-															 options:nil];
-		
-		// hook in our buttons to make/remove instances
-		if ([plugin isInstantiable])
-		{
-			[addButton setTarget:[plugin arrayController]];
-			[addButton setAction:@selector(add:)];
-			
-			[removeButton setTarget:[plugin arrayController]];
-			[removeButton setAction:@selector(remove:)];
-			
-			[addButton setEnabled:TRUE];
-			[removeButton setEnabled:TRUE];
-		}
-		else
-		{
-			[addButton setTarget:nil];
-			[addButton setAction:NULL];
-			
-			[removeButton setTarget:nil];
-			[removeButton setAction:NULL];
-			
-			[addButton setEnabled:FALSE];
-			[removeButton setEnabled:FALSE];
-		}
-		[pluginContentTable reloadData];
-	}
-	else
-	{
-		// remove our bindings (thus displaying nothing anymore)
-		[[pluginContentTable tableColumnWithIdentifier:@"enabled"] unbind:@"value"];
-		[[pluginContentTable tableColumnWithIdentifier:@"name"] unbind:@"value"];
-		
-		// remove button actions
-		[addButton setTarget:nil];
-		[addButton setAction:NULL];
-		
-		[removeButton setTarget:nil];
-		[removeButton setAction:NULL];
-		
-		[addButton setEnabled:FALSE];
-		[removeButton setEnabled:FALSE];
-		
-		// set preferences back to the default (none)
-		[drawer setContentView:optionsDrawerView];
-		[pluginContentTable reloadData];
-	}
+        // set the plugin's preferences in the drawer (loading the nib)
+        // note, that once this code is called (the nib is loaded), NSApp delegate gets _changed_ to the plugin instance loading the nib
+        // i have no idea why this happens, but it does. to solve this, we will use a different way to access appcontroller
+        if ([[pluginView subviews] count] != 0)
+            [[[pluginView subviews] objectAtIndex:0] removeFromSuperview];
+
+        [pluginView addSubview:[plugin prefView]];
+    }
+    else
+    {
+        if ([[pluginView subviews] count] != 0)
+            [[[pluginView subviews] objectAtIndex:0] removeFromSuperview];
+        [pluginView addSubview:defaultPluginView];
+
+    }
 }
-
 
 @end

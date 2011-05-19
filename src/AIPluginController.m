@@ -62,7 +62,9 @@
         [curBundle load];
         
         curPrincipalClass = [curBundle principalClass];
-        if (!curPrincipalClass || ![curPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)]) continue;
+        if (!curPrincipalClass 
+            || ![curPrincipalClass conformsToProtocol:@protocol(AIPluginProtocol)] 
+            || ![curPrincipalClass initializeClass:curBundle]) continue;
         
         curInstance = [[curPrincipalClass alloc] initWithController:breakaway]; 
         if (!curInstance) continue;

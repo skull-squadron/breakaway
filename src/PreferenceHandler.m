@@ -128,11 +128,6 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[mailtoURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
-- (IBAction)testFadeIn:(id)sender
-{
-    [[AppController sharedAppController] iTunesThreadedFadeIn];
-}
-
 - (IBAction)enableBreakaway:(id)sender
 {
     [[AppController sharedAppController] setEnabled:(BOOL)[sender state]];

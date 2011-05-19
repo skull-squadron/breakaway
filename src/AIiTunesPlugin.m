@@ -13,9 +13,42 @@
 #import "AIiTunesPlugin.h"
 
 
+static NSBundle *PluginBundle = nil;
+
 @implementation AIiTunesPlugin
 
 @synthesize enabled;
+
+/******************************************************************************
+ * initializeClass:
+ *
+ * Required
+ * Someone is using the plugin's principle class. It is your responsibility to
+ * hand onto the pluginBundle. Simply retain the bundle, and release it on
+ * terminateClass
+ * Return TRUE on good return, and FALSE on error
+ *****************************************************************************/
++ (BOOL)initializeClass:(NSBundle*)pluginBundle
+{
+    if (!pluginBundle) return FALSE;
+    PluginBundle = [pluginBundle retain];
+    return YES;
+}
+
+/******************************************************************************
+ * terminateClass
+ *
+ * Required
+ * Someone is not using your class anymore. Release the bundle object, as we
+ * don't need it anymore
+ * Return TRUE on good return, and FALSE on error
+ *****************************************************************************/
++ (void)terminateClass
+{
+    if (!PluginBundle) return;
+    [PluginBundle release];
+    PluginBundle = nil;
+}
 
 /******************************************************************************
  * name
@@ -78,6 +111,7 @@
 {
 	if (!(self = [super init])) return nil;
 	
+    [NSBundle loadNibNamed:@"iTunesPlugin" owner:self];
     appController = controller;
     iTunes = [[SBApplication alloc] initWithBundleIdentifier:@"com.apple.iTunes"];
 	isActive = [self iTunesActive];
@@ -89,6 +123,11 @@
 
     
 	return self;
+}
+
+- (NSView*) prefView
+{
+    return prefView;
 }
 
 /******************************************************************************
@@ -315,14 +354,20 @@
  *****************************************************************************/
 - (void)iTunesThreadedFadeIn
 {
-    if (inFadeIn || ![[appController userDefaults] boolForKey:@"fadeInEnable"]) return;
+    if (inFadeIn) return;
     
     int fadeInSpeed = [[appController userDefaults] integerForKey:@"fadeInTime"];
-    fadeInSpeed = (100 - fadeInSpeed); // gives multiplier between 0 -- 100
-    float interval = (float)fadeInSpeed/10 + 1;
+    if (fadeInSpeed <= 0) return;
+    
+    fadeInSpeed <<= 1; // gives multiplier between 1 -- 10
     
     inFadeIn = TRUE;
-    [NSTimer scheduledTimerWithTimeInterval:BASE_FADE_IN_DELAY*interval target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:BASE_FADE_IN_DELAY*fadeInSpeed target:self selector:@selector(fadeInUsingTimer:) userInfo:nil repeats:YES];
+}
+
+- (IBAction)testFadeIn:(id)sender
+{
+    [self iTunesThreadedFadeIn];
 }
 
 @end

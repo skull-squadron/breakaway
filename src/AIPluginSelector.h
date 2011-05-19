@@ -27,6 +27,8 @@
 @interface AIPluginSelector : NSTableView
 {
 	IBOutlet id pluginSelectorController;
+    IBOutlet id pluginView;
+    IBOutlet id defaultPluginView;
     IBOutlet id tableTextCell;
 	IBOutlet id pluginContentTable;
 	

@@ -32,6 +32,27 @@ typedef enum {
 @protocol AIPluginProtocol
 
 /******************************************************************************
+ * initializeClass:
+ *
+ * Required
+ * Someone is using the plugin's principle class. It is your responsibility to
+ * hand onto the pluginBundle. Simply retain the bundle, and release it on
+ * terminateClass
+ * Return TRUE on good return, and FALSE on error
+ *****************************************************************************/
++ (BOOL)initializeClass:(NSBundle*)pluginBundle;
+
+/******************************************************************************
+ * terminateClass
+ *
+ * Required
+ * Someone is not using your class anymore. Release the bundle object, as we
+ * don't need it anymore
+ * Return TRUE on good return, and FALSE on error
+ *****************************************************************************/
++ (void)terminateClass;
+
+/******************************************************************************
  * initWithController:
  *
  * Required
@@ -57,6 +78,15 @@ typedef enum {
  * The icon of the plugin
  *****************************************************************************/
 - (NSImage*)image;
+
+/******************************************************************************
+ * prefView
+ *
+ * Required by protocol
+ * Returns the view to load when the preference is selected
+ * Should be 443px x 336px
+ *****************************************************************************/
+- (NSView*)prefView;
 
 /******************************************************************************
  * enabled
