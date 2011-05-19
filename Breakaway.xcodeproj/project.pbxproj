@@ -46,9 +46,6 @@
 		0AA225E610F98E6100401B7A /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0AA225E710F98E6200401B7A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0AA225E810F98E6300401B7A /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45732E0AFFD766007EBF43 /* CoreAudio.framework */; };
-		0AA2261D10F994B400401B7A /* connected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA225F810F994B300401B7A /* connected.png */; };
-		0AA2261E10F994B400401B7A /* disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA225F910F994B300401B7A /* disabled.png */; };
-		0AA2261F10F994B400401B7A /* disconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA225FA10F994B300401B7A /* disconnected.png */; };
 		0AA2262210F994B400401B7A /* 15BreakawayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AA225FF10F994B400401B7A /* 15BreakawayIcon.icns */; };
 		0AA2262310F994B400401B7A /* Add.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2260010F994B400401B7A /* Add.tiff */; };
 		0AA2262410F994B400401B7A /* General Preferences.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2260110F994B400401B7A /* General Preferences.tiff */; };
@@ -61,6 +58,27 @@
 		0AA2263710F994B400401B7A /* Users.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2261C10F994B400401B7A /* Users.tiff */; };
 		0AC652EF11432FA20065C46E /* README in Resources */ = {isa = PBXBuildFile; fileRef = 0AC652EE11432FA20065C46E /* README */; };
 		0AD644C913848B3C00DC25D5 /* iTunesPlugin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD644C813848B3C00DC25D5 /* iTunesPlugin.xib */; };
+		0AD6476E1384E3E500DC25D5 /* disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647591384E3E500DC25D5 /* disabled.tiff */; };
+		0AD6476F1384E3E500DC25D5 /* pd1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475A1384E3E500DC25D5 /* pd1.tiff */; };
+		0AD647701384E3E500DC25D5 /* pd2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475B1384E3E500DC25D5 /* pd2.tiff */; };
+		0AD647711384E3E500DC25D5 /* pd3.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475C1384E3E500DC25D5 /* pd3.tiff */; };
+		0AD647721384E3E500DC25D5 /* pd4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475D1384E3E500DC25D5 /* pd4.tiff */; };
+		0AD647731384E3E500DC25D5 /* pd5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475E1384E3E500DC25D5 /* pd5.tiff */; };
+		0AD647741384E3E500DC25D5 /* pd6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6475F1384E3E500DC25D5 /* pd6.tiff */; };
+		0AD647751384E3E500DC25D5 /* plugged.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647601384E3E500DC25D5 /* plugged.tiff */; };
+		0AD647761384E3E500DC25D5 /* pu1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647611384E3E500DC25D5 /* pu1.tiff */; };
+		0AD647771384E3E500DC25D5 /* pu2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647621384E3E500DC25D5 /* pu2.tiff */; };
+		0AD647781384E3E500DC25D5 /* pu3.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647631384E3E500DC25D5 /* pu3.tiff */; };
+		0AD647791384E3E500DC25D5 /* pu4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647641384E3E500DC25D5 /* pu4.tiff */; };
+		0AD6477A1384E3E500DC25D5 /* pu5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647651384E3E500DC25D5 /* pu5.tiff */; };
+		0AD6477B1384E3E500DC25D5 /* pu6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647661384E3E500DC25D5 /* pu6.tiff */; };
+		0AD6477C1384E3E500DC25D5 /* ud1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647671384E3E500DC25D5 /* ud1.tiff */; };
+		0AD6477D1384E3E500DC25D5 /* ud2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647681384E3E500DC25D5 /* ud2.tiff */; };
+		0AD6477E1384E3E500DC25D5 /* ud3.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD647691384E3E500DC25D5 /* ud3.tiff */; };
+		0AD6477F1384E3E500DC25D5 /* ud4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476A1384E3E500DC25D5 /* ud4.tiff */; };
+		0AD647801384E3E500DC25D5 /* ud5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476B1384E3E500DC25D5 /* ud5.tiff */; };
+		0AD647811384E3E500DC25D5 /* ud6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476C1384E3E500DC25D5 /* ud6.tiff */; };
+		0AD647821384E3E500DC25D5 /* unplugged.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476D1384E3E500DC25D5 /* unplugged.tiff */; };
 		0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */; };
 		0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */; };
@@ -188,6 +206,27 @@
 		0AC67D870F0F2C7600196632 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		0ACA9C320B0D297F00610F2A /* DebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugUtils.h; path = src/DebugUtils.h; sourceTree = "<group>"; };
 		0AD644C813848B3C00DC25D5 /* iTunesPlugin.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = iTunesPlugin.xib; path = Projects/files/breakaway/resources/plugins/iTunesPlugin.xib; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647591384E3E500DC25D5 /* disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = disabled.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/disabled.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475A1384E3E500DC25D5 /* pd1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd1.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd1.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475B1384E3E500DC25D5 /* pd2.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd2.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd2.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475C1384E3E500DC25D5 /* pd3.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd3.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd3.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475D1384E3E500DC25D5 /* pd4.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd4.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd4.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475E1384E3E500DC25D5 /* pd5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd5.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd5.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6475F1384E3E500DC25D5 /* pd6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pd6.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pd6.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647601384E3E500DC25D5 /* plugged.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = plugged.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/plugged.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647611384E3E500DC25D5 /* pu1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu1.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu1.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647621384E3E500DC25D5 /* pu2.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu2.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu2.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647631384E3E500DC25D5 /* pu3.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu3.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu3.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647641384E3E500DC25D5 /* pu4.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu4.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu4.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647651384E3E500DC25D5 /* pu5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu5.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu5.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647661384E3E500DC25D5 /* pu6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pu6.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/pu6.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647671384E3E500DC25D5 /* ud1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud1.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud1.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647681384E3E500DC25D5 /* ud2.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud2.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud2.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD647691384E3E500DC25D5 /* ud3.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud3.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud3.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6476A1384E3E500DC25D5 /* ud4.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud4.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud4.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6476B1384E3E500DC25D5 /* ud5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud5.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud5.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6476C1384E3E500DC25D5 /* ud6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud6.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud6.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD6476D1384E3E500DC25D5 /* unplugged.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = unplugged.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/unplugged.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIiTunesPlugin.h; path = Projects/files/breakaway/src/AIiTunesPlugin.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIiTunesPlugin.m; path = Projects/files/breakaway/src/AIiTunesPlugin.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iTunes Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,6 +419,7 @@
 		0AA225F710F994B300401B7A /* menuExtra */ = {
 			isa = PBXGroup;
 			children = (
+				0AD647581384E3E500DC25D5 /* statusIconAnimations */,
 				0AA225F810F994B300401B7A /* connected.png */,
 				0AA225F910F994B300401B7A /* disabled.png */,
 				0AA225FA10F994B300401B7A /* disconnected.png */,
@@ -499,6 +539,35 @@
 			);
 			name = doc;
 			sourceTree = "<group>";
+		};
+		0AD647581384E3E500DC25D5 /* statusIconAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				0AD647591384E3E500DC25D5 /* disabled.tiff */,
+				0AD6475A1384E3E500DC25D5 /* pd1.tiff */,
+				0AD6475B1384E3E500DC25D5 /* pd2.tiff */,
+				0AD6475C1384E3E500DC25D5 /* pd3.tiff */,
+				0AD6475D1384E3E500DC25D5 /* pd4.tiff */,
+				0AD6475E1384E3E500DC25D5 /* pd5.tiff */,
+				0AD6475F1384E3E500DC25D5 /* pd6.tiff */,
+				0AD647601384E3E500DC25D5 /* plugged.tiff */,
+				0AD647611384E3E500DC25D5 /* pu1.tiff */,
+				0AD647621384E3E500DC25D5 /* pu2.tiff */,
+				0AD647631384E3E500DC25D5 /* pu3.tiff */,
+				0AD647641384E3E500DC25D5 /* pu4.tiff */,
+				0AD647651384E3E500DC25D5 /* pu5.tiff */,
+				0AD647661384E3E500DC25D5 /* pu6.tiff */,
+				0AD647671384E3E500DC25D5 /* ud1.tiff */,
+				0AD647681384E3E500DC25D5 /* ud2.tiff */,
+				0AD647691384E3E500DC25D5 /* ud3.tiff */,
+				0AD6476A1384E3E500DC25D5 /* ud4.tiff */,
+				0AD6476B1384E3E500DC25D5 /* ud5.tiff */,
+				0AD6476C1384E3E500DC25D5 /* ud6.tiff */,
+				0AD6476D1384E3E500DC25D5 /* unplugged.tiff */,
+			);
+			name = statusIconAnimations;
+			path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
 		};
 		0ADE95D8136BE2D70045CCB5 /* iTunes Plugin */ = {
 			isa = PBXGroup;
@@ -778,9 +847,6 @@
 			files = (
 				0AF44E380B1229D0007163FE /* COPYING in Resources */,
 				0A46114C0DF07425001A579C /* ChangeLog in Resources */,
-				0AA2261D10F994B400401B7A /* connected.png in Resources */,
-				0AA2261E10F994B400401B7A /* disabled.png in Resources */,
-				0AA2261F10F994B400401B7A /* disconnected.png in Resources */,
 				0AA2262210F994B400401B7A /* 15BreakawayIcon.icns in Resources */,
 				0AA2262310F994B400401B7A /* Add.tiff in Resources */,
 				0AA2262410F994B400401B7A /* General Preferences.tiff in Resources */,
@@ -797,6 +863,27 @@
 				0AF2D341137782E600BB5865 /* iTunes.png in Resources */,
 				0AF2D3B4137795BC00BB5865 /* MainMenu.xib in Resources */,
 				0AF2D3B8137795C800BB5865 /* Preferences.xib in Resources */,
+				0AD6476E1384E3E500DC25D5 /* disabled.tiff in Resources */,
+				0AD6476F1384E3E500DC25D5 /* pd1.tiff in Resources */,
+				0AD647701384E3E500DC25D5 /* pd2.tiff in Resources */,
+				0AD647711384E3E500DC25D5 /* pd3.tiff in Resources */,
+				0AD647721384E3E500DC25D5 /* pd4.tiff in Resources */,
+				0AD647731384E3E500DC25D5 /* pd5.tiff in Resources */,
+				0AD647741384E3E500DC25D5 /* pd6.tiff in Resources */,
+				0AD647751384E3E500DC25D5 /* plugged.tiff in Resources */,
+				0AD647761384E3E500DC25D5 /* pu1.tiff in Resources */,
+				0AD647771384E3E500DC25D5 /* pu2.tiff in Resources */,
+				0AD647781384E3E500DC25D5 /* pu3.tiff in Resources */,
+				0AD647791384E3E500DC25D5 /* pu4.tiff in Resources */,
+				0AD6477A1384E3E500DC25D5 /* pu5.tiff in Resources */,
+				0AD6477B1384E3E500DC25D5 /* pu6.tiff in Resources */,
+				0AD6477C1384E3E500DC25D5 /* ud1.tiff in Resources */,
+				0AD6477D1384E3E500DC25D5 /* ud2.tiff in Resources */,
+				0AD6477E1384E3E500DC25D5 /* ud3.tiff in Resources */,
+				0AD6477F1384E3E500DC25D5 /* ud4.tiff in Resources */,
+				0AD647801384E3E500DC25D5 /* ud5.tiff in Resources */,
+				0AD647811384E3E500DC25D5 /* ud6.tiff in Resources */,
+				0AD647821384E3E500DC25D5 /* unplugged.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

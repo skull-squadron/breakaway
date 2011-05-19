@@ -39,10 +39,35 @@ bool multichanMute;
 
 NSThread *fadeInThread;
 
+// From->To
 typedef enum {
-    kConnectedImg,
-    kDisconnectedImg,
-    kDisabledImg
+    kPluggedUnplugged,
+    kPluggedDisabled,
+    kUnpluggedDisabled
+} tImageAnimation;
+
+typedef enum {
+    kPlugged,
+    kPU1,
+    kPU2,
+    kPU3,
+    kPU4,
+    kPU5,
+    kPU6,
+    kUnplugged,
+    kUD1,
+    kUD2,
+    kUD3,
+    kUD4,
+    kUD5,
+    kUD6,
+    kDisabled,
+    kPD1,
+    kPD2,
+    kPD3,
+    kPD4,
+    kPD5,
+    kPD6
 } tImageType;
 
 @interface AppController : NSObject
@@ -50,6 +75,9 @@ typedef enum {
     GrowlNotifier *growlNotifier;
     PreferencesController *preferencesController;
     AIPluginController *pluginController;
+    
+    NSEnumerator *curAnimationEnumerator;
+    BOOL inAnimation;
     
 	// NSStatusItem stuff
 	NSStatusItem *statusItem;

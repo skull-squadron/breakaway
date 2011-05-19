@@ -35,8 +35,12 @@
 #import <CoreAudio/CoreAudio.h>
 #import <Sparkle/SUUpdater.h>
 
+//#define ANIMATION_SPEED 0.01666666 /* 60 Hz */
+#define ANIMATION_SPEED 0.03333333 /* 30 Hz */
 
 @implementation AppController
+
+static NSArray *Animations = nil;
 
 @synthesize growlNotifier, preferencesController, pluginController, userDefaults;
 
@@ -50,6 +54,16 @@
 
 - (void)awakeFromNib
 {
+    // Our animations. It looks like a bit of a mess, but it makes sense.
+    // It looked better without the NSNumbers, but it turns out you need them
+    Animations = [[NSArray arrayWithObjects:
+        [NSArray arrayWithObjects:[NSNumber numberWithInt:kPlugged],[NSNumber numberWithInt:kPU1],[NSNumber numberWithInt:kPU2],[NSNumber numberWithInt:kPU3],[NSNumber numberWithInt:kPU4],[NSNumber numberWithInt:kPU5],[NSNumber numberWithInt:kPU6],[NSNumber numberWithInt:kUnplugged],nil],
+        [NSArray arrayWithObjects:[NSNumber numberWithInt:kPlugged],[NSNumber numberWithInt:kPD1],[NSNumber numberWithInt:kPD2],[NSNumber numberWithInt:kPD3],[NSNumber numberWithInt:kPD4],[NSNumber numberWithInt:kPD5],[NSNumber numberWithInt:kPD6],[NSNumber numberWithInt:kDisabled],nil],
+        [NSArray arrayWithObjects:[NSNumber numberWithInt:kUnplugged],[NSNumber numberWithInt:kUD1],[NSNumber numberWithInt:kUD2],[NSNumber numberWithInt:kUD3],[NSNumber numberWithInt:kUD4],[NSNumber numberWithInt:kUD5],[NSNumber numberWithInt:kUD6],[NSNumber numberWithInt:kDisabled],nil],
+        nil] retain];
+    
+    inAnimation = FALSE;
+    
     // Setting up our defaults here
     NSDictionary *defaults;
     defaults = [NSDictionary dictionaryWithObjectsAndKeys: 
@@ -62,7 +76,6 @@
                 
                 [NSNumber numberWithFloat:0], @"fadeInTime",
                 [NSNumber numberWithBool:1], @"keepVol",
-                [NSNumber numberWithBool:1], @"iTunesPluginEnabled",
                 nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
@@ -89,6 +102,7 @@
     [self removeObservers];
     [self setStatusItem:NO];
     [self setEnabled:NO];
+    [Animations release];
     
     [super dealloc];
 }
@@ -100,19 +114,38 @@
     if (enable)
     {
         // Access these images using the enums
+        // Therefore, order is important. Do not change
         if (images) [images release];
         images = [[NSArray arrayWithObjects: 
-            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"connected" ofType:@"png"]] autorelease],
-            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"png"]] autorelease],
-            [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disconnected" ofType:@"png"]] autorelease],
-             nil] retain];
-
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"plugged" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu1" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu2" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu3" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu4" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu5" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu6" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"unplugged" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud1" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud2" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud3" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud4" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud5" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud6" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd1" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd2" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd3" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd4" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd5" ofType:@"tiff"]] autorelease],
+                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd6" ofType:@"tiff"]] autorelease],
+                   nil] retain];
+        
         // get the images for the status item set up
         for (NSImage *img in images)
         {
             if (!img) continue; // if we don't have an image to work with, don't fret
-            [img setScalesWhenResized:TRUE];
-            [img setSize:NSMakeSize(10,10)];
+            [img setScalesWhenResized:FALSE]; // FYI built-in scaling sucks. Never use it unless you are scaling to a 3x3 thumbnail
+            [img setSize:NSMakeSize(15,15)]; 
         }
         
         // Status bar stuff
@@ -140,24 +173,86 @@
     }
 }
 
+/******************************************************************************
+ * fadeInUsingTimer:
+ *
+ * Change the status icon. Very cool
+ * To make it faster/slower, change the #define ANIMATION_SPEED
+ * With the current implementation, it's kind of a pain to make more frames
+ * All state transitions are 8 frames long
+ *****************************************************************************/
+- (void)animateUsingTimer:(NSTimer*)timer
+{
+    NSNumber *nextFrame = nil;
+    nextFrame = [curAnimationEnumerator nextObject];
+    
+    if (nextFrame == nil)
+    {
+        [timer invalidate]; // base case
+        inAnimation = FALSE;
+        [curAnimationEnumerator release];
+        return;
+    }
+    
+    [statusItem setImage:[images objectAtIndex:[nextFrame intValue]]];
+}
+
+/******************************************************************************
+ * updateStatusItem
+ *
+ * Creates a thread which runs animateUsingTimer:
+ * This function is essentially mutex'd, so you don't need to worry about
+ * calling it too often, as successive calls will be thrown away
+ *****************************************************************************/
 - (void)updateStatusItem
 {
+    // -1 is an illegal number. Serves us well for startup purposes (when you don't want/need an animation)
+    static tImageType prevImage = -1;
+    
+    if (inAnimation) return;
     if (!statusItem) return;
-
+    
+    tImageAnimation animation = -1;
+    BOOL reverse = FALSE;
+        
     // Disabled
     if (![userDefaults boolForKey:@"enableBreakaway"])
     {
+        reverse = FALSE;
+        if (prevImage == kPlugged) animation = kPluggedDisabled; // plugged->disabled
+        else if (prevImage == kUnplugged) animation = kUnpluggedDisabled; // unplugged->disabled
+        prevImage = kDisabled;
+        
         [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
-        [statusItem setImage:[images objectAtIndex:kDisabledImg]];
     }
     // Enabled
     else
-    {
+    {        
+        if (jackConnected()) // plugged
+        {
+            reverse = TRUE;
+            if (prevImage == kUnplugged) animation = kPluggedUnplugged; // unplugged->plugged
+            else if (prevImage == kDisabled) animation = kPluggedDisabled; // disabled->plugged
+            prevImage = kPlugged;
+        }
+        else // unplugged
+        {
+            if (prevImage == kPlugged) animation = kPluggedUnplugged; // plugged->unplugged
+            else if (prevImage == kDisabled){ animation = kUnpluggedDisabled; reverse = TRUE; } // disabled->unplugged
+            prevImage = kUnplugged;
+        }
         [disableMI setTitle:NSLocalizedString(@"Disable",nil)];
-
-        // Status image
-        if (jackConnected()) [statusItem setImage:[images objectAtIndex:kConnectedImg]];
-        else [statusItem setImage:[images objectAtIndex:kDisconnectedImg]];
+    }
+    
+    if (animation == -1) [statusItem setImage:[images objectAtIndex:prevImage]];
+    else
+    {
+        curAnimationEnumerator = (!reverse) ? [[Animations objectAtIndex:animation] objectEnumerator] : [[Animations objectAtIndex:animation] reverseObjectEnumerator];
+        
+        [curAnimationEnumerator retain];
+        
+        inAnimation = TRUE;
+        [NSTimer scheduledTimerWithTimeInterval:ANIMATION_SPEED target:self selector:@selector(animateUsingTimer:) userInfo:nil repeats:YES];
     }
 }
 
@@ -392,6 +487,7 @@ inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
     triggerMask |= (inPropertyID != kAudioDevicePropertyMute) ? kTriggerInt : 0;
     [[self pluginController] executeTriggers:triggerMask];
 
+    [self updateStatusItem];
     // TODO: Growl notifications go here
     
     [pool release];
