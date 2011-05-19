@@ -86,5 +86,6 @@ AppController.m - Placed in the main proc function to execute triggers (-trigger
 {
 	return preferenceHandler;
 }
+
 @end
 

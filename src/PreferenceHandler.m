@@ -107,12 +107,7 @@
 #pragma mark Misc Actions
 - (IBAction)showInMenuBar:(id)sender
 {
-	[[AppController sharedAppController] showInMenuBarAct:nil];
-}
-
-- (IBAction)donate:(id)sender
-{
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:donateAddress]];
+	[breakaway showInMenuBarAct:nil];
 }
 
 - (IBAction)viewReadme:(id)sender
@@ -130,7 +125,7 @@
 
 - (IBAction)enableBreakaway:(id)sender
 {
-    [[AppController sharedAppController] setEnabled:(BOOL)[sender state]];
+    [breakaway setEnabled:(BOOL)[sender state]];
 }
 
 #pragma mark Sparkle
@@ -241,6 +236,7 @@ return [NSString stringWithFormat:@"%c%c%c%c", (unsigned char)(inType >> 24), (u
     SUHost *host = [[SUHost alloc] initWithBundle:nil];
     NSMutableArray *systemProfile = [[SUSystemProfiler sharedSystemProfiler] systemProfileArrayForHost:host];
 
+    // TODO: ??? what is this?
     int i;
     for (i = 0; i < [systemProfile count]; i++)
     {

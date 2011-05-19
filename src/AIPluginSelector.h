@@ -21,8 +21,6 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "AIPluginProtocol.h"
-
 
 @interface AIPluginSelector : NSTableView
 {
@@ -42,12 +40,6 @@
 	NSMutableArray* pluginInstances;		//	an array of all plug-in instances
 }
 
-// Plugin
-- (void)loadAllBundles;
-- (NSMutableArray *)allBundles;
-
-- (void)executeTriggers:(kTriggerMask)prototype;
 - (IBAction)openPluginFolder:(id)sender;
-+ (AIPluginSelector *)pluginController;
 
 @end

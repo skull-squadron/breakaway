@@ -79,6 +79,7 @@
 		0AD647801384E3E500DC25D5 /* ud5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476B1384E3E500DC25D5 /* ud5.tiff */; };
 		0AD647811384E3E500DC25D5 /* ud6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476C1384E3E500DC25D5 /* ud6.tiff */; };
 		0AD647821384E3E500DC25D5 /* unplugged.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476D1384E3E500DC25D5 /* unplugged.tiff */; };
+		0AD648441385001500DC25D5 /* AITriggerMasks.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD648431385001500DC25D5 /* AITriggerMasks.h */; };
 		0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */; };
 		0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */; };
@@ -227,6 +228,7 @@
 		0AD6476B1384E3E500DC25D5 /* ud5.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud5.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud5.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AD6476C1384E3E500DC25D5 /* ud6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud6.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud6.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AD6476D1384E3E500DC25D5 /* unplugged.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = unplugged.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/unplugged.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD648431385001500DC25D5 /* AITriggerMasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AITriggerMasks.h; path = Projects/files/breakaway/src/AITriggerMasks.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIiTunesPlugin.h; path = Projects/files/breakaway/src/AIiTunesPlugin.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIiTunesPlugin.m; path = Projects/files/breakaway/src/AIiTunesPlugin.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iTunes Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -365,6 +367,7 @@
 		0A55C48F0E36D7FF00347DB7 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				0AD648431385001500DC25D5 /* AITriggerMasks.h */,
 				0A061D7210F8580B00E88056 /* AIPluginControllerProtocol.h */,
 				0A061D7310F8580B00E88056 /* AIPluginProtocol.h */,
 				0ADE95D8136BE2D70045CCB5 /* iTunes Plugin */,
@@ -700,6 +703,7 @@
 				0AF2D0251376443200BB5865 /* AIToolbarItem.h in Headers */,
 				0AF2D183137667E400BB5865 /* AIPluginController.h in Headers */,
 				0AF2D38C13778A8100BB5865 /* NSTextFieldCell+VertCentering.h in Headers */,
+				0AD648441385001500DC25D5 /* AITriggerMasks.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

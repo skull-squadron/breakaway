@@ -36,5 +36,5 @@
 - (void)toggleActivePreferenceView:(id)sender;
 - (void)setActiveView:(NSView *)view animate:(BOOL)flag;
 - (id)preferenceHandler;
-- (BOOL)loadedNib;
+
 @end

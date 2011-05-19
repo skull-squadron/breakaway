@@ -19,14 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#import "AIPluginProtocol.h"
 #import "AIPluginSelector.h"
 
 #import <Growl/Growl.h>
 
 #import "SharedBreakaway.h"
 #import "AppController.h"
-#import "AIPluginProtocol.h"
+
 #import "GrowlNotifier.h"
 #import "AIPluginController.h"
 

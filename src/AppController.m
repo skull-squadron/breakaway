@@ -99,7 +99,6 @@ static NSArray *Animations = nil;
 
 - (void)dealloc
 {
-    [self removeObservers];
     [self setStatusItem:NO];
     [self setEnabled:NO];
     [Animations release];
@@ -396,7 +395,7 @@ static NSArray *Animations = nil;
 #pragma mark AD Prop Fetches
 - (BOOL)jackConnected
 {
-    jackConnected();
+    return jackConnected();
 }
 
 // returns true if jack is connected. false otherwise

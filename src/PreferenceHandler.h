@@ -36,34 +36,22 @@ NSString* osTypeToFourCharCode(OSType inType);
     IBOutlet id userConcernRadioButton;
 }
 
-- (void)awakeFromNib;
-// Login item
 - (IBAction)addAsLoginItem:(id)sender;
 - (BOOL)isLoginItem;
-// UI Element
 - (IBAction)showInDock:(id)sender;
 - (BOOL)isUIElement;
-// Misc Actions
 - (IBAction)showInMenuBar:(id)sender;
-- (IBAction)donate:(id)sender;
 - (IBAction)viewReadme:(id)sender;
-- (IBAction)testFadeIn:(id)sender;
-- (IBAction)enableBreakaway:(id)sender;
 - (IBAction)sendEmail:(id)sender;
-// Sparkle
+- (IBAction)enableBreakaway:(id)sender;
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast;
 - (IBAction)checkForUpdates:(id)sender;
-- (void)setSendsSystemProfile:(BOOL)sendsSystemProfile;
 - (void)setAutomaticallyDownloadsUpdates:(BOOL)automaticallyDownloadsUpdates;
 - (void)setAutomaticallyChecksForUpdates:(BOOL)automaticallyChecks;
-- (BOOL)sendsSystemProfile;
 - (BOOL)automaticallyDownloadsUpdates;
 - (BOOL)automaticallyChecksForUpdates;
-// Test
 - (void)logTestResultForProperty:(NSString *)property withReturn:(OSStatus)returnStatus andData:(UInt32)dataSource;
 - (IBAction)startTest:(id)sender;
 - (IBAction)sendResults:(id)sender;
-// Delegates
-- (BOOL)windowShouldClose:(id)sender;
 
 @end

@@ -96,41 +96,20 @@ typedef enum {
 @property (assign) PreferencesController *preferencesController;
 @property (assign) AIPluginController *pluginController;
 
-- (BOOL)jackConnected;
-- (void)fadeInUsingTimer:(NSTimer*)timer;
-+ (AppController *)sharedAppController;
-+ (void)initialize;
-- (void)dealloc;
-- (void)awakeFromNib;
-// Startup Functions
-- (void)loadObservers;
-- (void)removeObservers;
-// Status item
 - (void)setStatusItem:(BOOL)enable;
+- (void)animateUsingTimer:(NSTimer*)timer;
+- (void)updateStatusItem;
 - (void)setEnabled:(BOOL)enable;
-// IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;
 - (IBAction)openInfo:(id)sender;
 - (IBAction)openUpdater:(id)sender;
-// Accessor Functions
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
-// iTunes
-- (BOOL)iTunesActive;
-- (BOOL)iTunesPlaying;
-- (void)iTunesPlayPause;
-- (void)iTunesThreadedFadeIn;
-// iTunes launch/quit
-- (void)handleAppLaunch:(NSNotification *)notification;
-- (void) handleAppQuit:(NSNotification *)notification;
-// CoreAudio Queries
 - (void)attachListener:(AudioDevicePropertyID)adProp;
 - (void)removeListener:(AudioDevicePropertyID)adProp;
-// Delegate Fns
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-- (void)songChanged:(NSNotification *)aNotification;
+- (BOOL)jackConnected;
+
 @end
 
 #endif /* __APPCONTROLLER_H__ */
