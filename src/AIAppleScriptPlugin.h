@@ -23,27 +23,24 @@
 #import <Cocoa/Cocoa.h>
 #import "AIPluginProtocol.h"
 
-@interface AIAppleScriptPlugin : NSObject<AIPluginProtocol>
+@class AppController;
+
+@interface AIAppleScriptPlugin : NSObject <AIPluginProtocol>
 {
-	int isCompiled;
-    NSAppleScript* applescript;
-	NSImage* notFoundImage;
-	
-    NSString* name;
-    BOOL nmode;
-	BOOL hpmode;
-	BOOL mute;
-	BOOL unmute;
-	BOOL hin;
-	BOOL hout;
-    int lod;
-	int familyCode;
-    NSString* script;
-	BOOL enabled;
-	BOOL valid;
-	BOOL modeSelected;
-	
+	BOOL enabled;	
+    AppController *appController;
+    IBOutlet NSView *prefView;   
+    
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;
 }
+@property (assign) BOOL enabled;
+@property (assign,readonly) NSView *prefView;
+
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
 - (id)initFromDictionary:(NSDictionary*)attributes;
 - (NSDictionary*)export;
@@ -52,6 +49,7 @@
 - (BOOL)modeSelected;
 - (NSColor*)scriptTextColor;
 - (NSImage*)image;
+- (IBAction) saveAction:(id)sender;
 
 // KVC stuff
 - (BOOL)enabled;

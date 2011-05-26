@@ -19,6 +19,6 @@
 	<key>NSMainNibFile</key>
 	<string>AppleScriptPlugin</string>
 	<key>NSPrincipalClass</key>
-	<string>AIAppleScriptPluginController</string>
+	<string>AIAppleScriptPlugin</string>
 </dict>
 </plist>

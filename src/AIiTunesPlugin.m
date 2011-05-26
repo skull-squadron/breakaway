@@ -123,6 +123,7 @@ static NSBundle *PluginBundle = nil;
 	isActive = [self iTunesActive];
     isPlaying = isActive ? [self iTunesPlaying] : FALSE;
     enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"iTunesPluginEnabled"];
+    hpMode = isPlaying && [appController jackConnected];
 
     
     [self loadObservers];

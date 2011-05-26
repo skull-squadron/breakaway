@@ -124,8 +124,8 @@
  *****************************************************************************/
 - (void)executeTriggers:(kTriggerMask)triggerMask
 {	
-	for (id<AIPluginProtocol> plugin in pluginInstances)
-        [plugin activate: triggerMask];
+    // FIXME: Potentially dangerous passing the second param like that? But it works though...
+    [pluginInstances makeObjectsPerformSelector:@selector(activate:) withObject:(id)triggerMask];
 }
 
 @end

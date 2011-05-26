@@ -31,16 +31,16 @@
 		0A46114C0DF07425001A579C /* ChangeLog in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* ChangeLog */; };
 		0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE410FE735E00850E00 /* SUHost.h */; };
 		0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */; };
+		0A9C7ADC138EE71E00FA0DEF /* AIAppleScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C7AD9138EE71E00FA0DEF /* AIAppleScript.h */; };
+		0A9C7ADD138EE71E00FA0DEF /* AIAppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C7ADA138EE71E00FA0DEF /* AIAppleScript.m */; };
+		0A9C7ADE138EE71E00FA0DEF /* AIAppleScript.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C7ADB138EE71E00FA0DEF /* AIAppleScript.xcdatamodel */; };
 		0A9C81C80E21CAAD001B29F6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		0AA225BE10F98CFE00401B7A /* AIAppleScriptPluginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */; };
 		0AA225BF10F98D0100401B7A /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7310F8580B00E88056 /* AIPluginProtocol.h */; };
 		0AA225C010F98D0E00401B7A /* AIVLCPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7710F8580B00E88056 /* AIVLCPlugin.m */; };
 		0AA225C110F98D1000401B7A /* AIVLCPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7610F8580B00E88056 /* AIVLCPlugin.h */; };
 		0AA225C510F98D2D00401B7A /* AIAppleScriptPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D6D10F8580B00E88056 /* AIAppleScriptPlugin.m */; };
 		0AA225C610F98D3000401B7A /* AIAppleScriptPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6C10F8580B00E88056 /* AIAppleScriptPlugin.h */; };
 		0AA225C710F98D3000401B7A /* AIDropWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7110F8580B00E88056 /* AIDropWell.m */; };
-		0AA225C810F98D3100401B7A /* AIAppleScriptPluginController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */; };
-		0AA225C910F98D3100401B7A /* AIAppleScriptPluginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D6F10F8580B00E88056 /* AIAppleScriptPluginController.m */; };
 		0AA225CA10F98D3100401B7A /* AIDropWell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7010F8580B00E88056 /* AIDropWell.h */; };
 		0AA225CC10F98D8D00401B7A /* DebugUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ACA9C320B0D297F00610F2A /* DebugUtils.h */; };
 		0AA225E610F98E6100401B7A /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
@@ -80,6 +80,8 @@
 		0AD647811384E3E500DC25D5 /* ud6.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476C1384E3E500DC25D5 /* ud6.tiff */; };
 		0AD647821384E3E500DC25D5 /* unplugged.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0AD6476D1384E3E500DC25D5 /* unplugged.tiff */; };
 		0AD648441385001500DC25D5 /* AITriggerMasks.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD648431385001500DC25D5 /* AITriggerMasks.h */; };
+		0AD648831385B8F900DC25D5 /* AppleScript.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AD648821385B8F900DC25D5 /* AppleScript.png */; };
+		0AD649211385C6A300DC25D5 /* AppleScript Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */; };
 		0ADE9612136BE6950045CCB5 /* AIiTunesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */; };
 		0ADE9636136BE7B70045CCB5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A061AFB10F7C8C200E88056 /* ScriptingBridge.framework */; };
 		0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */; };
@@ -103,6 +105,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0AD649151385C64100DC25D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A9C81BF0E21CA62001B29F6;
+			remoteInfo = "AppleScript Plugin";
+		};
 		0ADE96D9136BEE9F0045CCB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -130,6 +139,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				0AD649211385C6A300DC25D5 /* AppleScript Plugin.plugin in CopyFiles */,
 				0ADE979C136BF5EC0045CCB5 /* iTunes Plugin.plugin in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,8 +152,6 @@
 		0A061D6510F855DC00E88056 /* defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defines.h; path = src/defines.h; sourceTree = "<group>"; };
 		0A061D6C10F8580B00E88056 /* AIAppleScriptPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIAppleScriptPlugin.h; path = src/AIAppleScriptPlugin.h; sourceTree = "<group>"; };
 		0A061D6D10F8580B00E88056 /* AIAppleScriptPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIAppleScriptPlugin.m; path = src/AIAppleScriptPlugin.m; sourceTree = "<group>"; };
-		0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIAppleScriptPluginController.h; path = src/AIAppleScriptPluginController.h; sourceTree = "<group>"; };
-		0A061D6F10F8580B00E88056 /* AIAppleScriptPluginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIAppleScriptPluginController.m; path = src/AIAppleScriptPluginController.m; sourceTree = "<group>"; };
 		0A061D7010F8580B00E88056 /* AIDropWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIDropWell.h; path = src/AIDropWell.h; sourceTree = "<group>"; };
 		0A061D7110F8580B00E88056 /* AIDropWell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIDropWell.m; path = src/AIDropWell.m; sourceTree = "<group>"; };
 		0A061D7210F8580B00E88056 /* AIPluginControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIPluginControllerProtocol.h; path = src/AIPluginControllerProtocol.h; sourceTree = "<group>"; };
@@ -173,6 +181,9 @@
 		0A4D7FE410FE735E00850E00 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUHost.h; path = src/SUHost.h; sourceTree = "<group>"; };
 		0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUSystemProfiler.h; path = src/SUSystemProfiler.h; sourceTree = "<group>"; };
 		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A9C7AD9138EE71E00FA0DEF /* AIAppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIAppleScript.h; path = Projects/files/breakaway/src/AIAppleScript.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A9C7ADA138EE71E00FA0DEF /* AIAppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIAppleScript.m; path = Projects/files/breakaway/src/AIAppleScript.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A9C7ADB138EE71E00FA0DEF /* AIAppleScript.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; name = AIAppleScript.xcdatamodel; path = Projects/files/breakaway/src/AIAppleScript.xcdatamodel; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A9C81C00E21CA62001B29F6 /* AppleScript Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AppleScript Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AppleScript Plugin-Info.plist"; path = "resources/plugins/AppleScript Plugin-Info.plist"; sourceTree = "<group>"; };
 		0AA225F810F994B300401B7A /* connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connected.png; sourceTree = "<group>"; };
@@ -229,6 +240,7 @@
 		0AD6476C1384E3E500DC25D5 /* ud6.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ud6.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/ud6.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AD6476D1384E3E500DC25D5 /* unplugged.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = unplugged.tiff; path = Projects/files/breakaway/resources/images/menuExtra/statusIconAnimations/unplugged.tiff; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0AD648431385001500DC25D5 /* AITriggerMasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AITriggerMasks.h; path = Projects/files/breakaway/src/AITriggerMasks.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0AD648821385B8F900DC25D5 /* AppleScript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppleScript.png; path = Projects/files/breakaway/resources/plugins/AppleScript.png; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95D9136BE3020045CCB5 /* AIiTunesPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIiTunesPlugin.h; path = Projects/files/breakaway/src/AIiTunesPlugin.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95DA136BE3020045CCB5 /* AIiTunesPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIiTunesPlugin.m; path = Projects/files/breakaway/src/AIiTunesPlugin.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0ADE95E5136BE34C0045CCB5 /* iTunes Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iTunes Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,6 +392,7 @@
 		0A83B35C0E55AC6A00B2227C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0AD648821385B8F900DC25D5 /* AppleScript.png */,
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
 				0AF2D3AF137795AB00BB5865 /* AppleScriptPlugin.xib */,
 			);
@@ -389,10 +402,11 @@
 		0A83B35D0E55AC7D00B2227C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				0A061D6E10F8580B00E88056 /* AIAppleScriptPluginController.h */,
-				0A061D6F10F8580B00E88056 /* AIAppleScriptPluginController.m */,
+				0A9C7ADB138EE71E00FA0DEF /* AIAppleScript.xcdatamodel */,
 				0A061D6C10F8580B00E88056 /* AIAppleScriptPlugin.h */,
 				0A061D6D10F8580B00E88056 /* AIAppleScriptPlugin.m */,
+				0A9C7AD9138EE71E00FA0DEF /* AIAppleScript.h */,
+				0A9C7ADA138EE71E00FA0DEF /* AIAppleScript.m */,
 				0A061D7010F8580B00E88056 /* AIDropWell.h */,
 				0A061D7110F8580B00E88056 /* AIDropWell.m */,
 			);
@@ -666,7 +680,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AA225BE10F98CFE00401B7A /* AIAppleScriptPluginController.h in Headers */,
 				0AA225BF10F98D0100401B7A /* AIPluginProtocol.h in Headers */,
 				0AA225C110F98D1000401B7A /* AIVLCPlugin.h in Headers */,
 			);
@@ -677,8 +690,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AA225C610F98D3000401B7A /* AIAppleScriptPlugin.h in Headers */,
-				0AA225C810F98D3100401B7A /* AIAppleScriptPluginController.h in Headers */,
 				0AA225CA10F98D3100401B7A /* AIDropWell.h in Headers */,
+				0A9C7ADC138EE71E00FA0DEF /* AIAppleScript.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +791,7 @@
 			);
 			dependencies = (
 				0ADE96DA136BEE9F0045CCB5 /* PBXTargetDependency */,
+				0AD649161385C64100DC25D5 /* PBXTargetDependency */,
 			);
 			name = Breakaway;
 			productInstallPath = "$(HOME)/Applications";
@@ -888,6 +902,7 @@
 				0AD647801384E3E500DC25D5 /* ud5.tiff in Resources */,
 				0AD647811384E3E500DC25D5 /* ud6.tiff in Resources */,
 				0AD647821384E3E500DC25D5 /* unplugged.tiff in Resources */,
+				0AD648831385B8F900DC25D5 /* AppleScript.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,7 +923,8 @@
 			files = (
 				0AA225C510F98D2D00401B7A /* AIAppleScriptPlugin.m in Sources */,
 				0AA225C710F98D3000401B7A /* AIDropWell.m in Sources */,
-				0AA225C910F98D3100401B7A /* AIAppleScriptPluginController.m in Sources */,
+				0A9C7ADD138EE71E00FA0DEF /* AIAppleScript.m in Sources */,
+				0A9C7ADE138EE71E00FA0DEF /* AIAppleScript.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +957,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0AD649161385C64100DC25D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A9C81BF0E21CA62001B29F6 /* AppleScript Plugin */;
+			targetProxy = 0AD649151385C64100DC25D5 /* PBXContainerItemProxy */;
+		};
 		0ADE96DA136BEE9F0045CCB5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0ADE95E4136BE34C0045CCB5 /* iTunes Plugin */;

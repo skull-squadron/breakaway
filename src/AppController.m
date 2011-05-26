@@ -51,7 +51,6 @@ static NSArray *Animations = nil;
 	return self;
 }
 
-
 - (void)awakeFromNib
 {
     // Our animations. It looks like a bit of a mess, but it makes sense.
@@ -143,7 +142,6 @@ static NSArray *Animations = nil;
         for (NSImage *img in images)
         {
             if (!img) continue; // if we don't have an image to work with, don't fret
-            [img setScalesWhenResized:FALSE]; // FYI built-in scaling sucks. Never use it unless you are scaling to a 3x3 thumbnail
             [img setSize:NSMakeSize(15,15)]; 
         }
         
