@@ -42,40 +42,8 @@
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
-- (id)initFromDictionary:(NSDictionary*)attributes;
-- (NSDictionary*)export;
-- (void)compile;
-
-- (BOOL)modeSelected;
-- (NSColor*)scriptTextColor;
 - (NSImage*)image;
-- (IBAction) saveAction:(id)sender;
-
-// KVC stuff
-- (BOOL)enabled;
-- (BOOL)hin;
-- (BOOL)hout;
-- (BOOL)hpmode;
-- (BOOL)mute;
-- (BOOL)nmode;
-- (BOOL)unmute;
-- (BOOL)valid;
-- (NSString*)name;
-- (NSString*)script;
-- (int)familyCode;
-- (int)lod;
-
-- (void)setEnabled:(BOOL)var;
-- (void)setFamilyCode;
-- (void)setHin:(BOOL)var;
-- (void)setHout:(BOOL)var;
-- (void)setLod:(int)var;
-- (void)setMute:(BOOL)var;
-- (void)setName:(NSString*)var;
-- (void)setScript:(NSString*)var;
-- (void)setUnmute:(BOOL)var;
-- (void)setValid:(BOOL)var;
-- (void)sethpMode:(BOOL)var;
-- (void)setnMode:(BOOL)var;
+- (IBAction)saveAction:(id)sender;
+- (IBAction)openScripts:(id)sender;
 
 @end

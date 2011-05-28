@@ -31,6 +31,18 @@
 		0A46114C0DF07425001A579C /* ChangeLog in Resources */ = {isa = PBXBuildFile; fileRef = 0A46114A0DF07425001A579C /* ChangeLog */; };
 		0A4D7FE610FE735E00850E00 /* SUHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE410FE735E00850E00 /* SUHost.h */; };
 		0A4D7FE710FE735E00850E00 /* SUSystemProfiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */; };
+		0A618EF7138F6BA6005EA5ED /* avaiableiChat.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EE8138F6B66005EA5ED /* avaiableiChat.scpt */; };
+		0A618EF8138F6BA6005EA5ED /* availableAdium.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EE9138F6B66005EA5ED /* availableAdium.scpt */; };
+		0A618EF9138F6BA6005EA5ED /* availableSkype.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EEA138F6B66005EA5ED /* availableSkype.scpt */; };
+		0A618EFA138F6BA6005EA5ED /* awayAdium.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EEB138F6B66005EA5ED /* awayAdium.scpt */; };
+		0A618EFB138F6BA6005EA5ED /* awayiChat.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EEC138F6B66005EA5ED /* awayiChat.scpt */; };
+		0A618EFC138F6BA6005EA5ED /* awaySkype.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EED138F6B66005EA5ED /* awaySkype.scpt */; };
+		0A618EFD138F6BA6005EA5ED /* displaysleep.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EEE138F6B66005EA5ED /* displaysleep.scpt */; };
+		0A618EFE138F6BA6005EA5ED /* fastLogout.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EEF138F6B66005EA5ED /* fastLogout.scpt */; };
+		0A618EFF138F6BA6005EA5ED /* muteVolume.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EF0138F6B66005EA5ED /* muteVolume.scpt */; };
+		0A618F00138F6BA6005EA5ED /* sleepdisplay in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EF1138F6B66005EA5ED /* sleepdisplay */; };
+		0A618F01138F6BA6005EA5ED /* startScreensaver.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EF2138F6B66005EA5ED /* startScreensaver.scpt */; };
+		0A618F02138F6BA6005EA5ED /* vlcPlayPause.scpt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A618EF3138F6B66005EA5ED /* vlcPlayPause.scpt */; };
 		0A9C7ADC138EE71E00FA0DEF /* AIAppleScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A9C7AD9138EE71E00FA0DEF /* AIAppleScript.h */; };
 		0A9C7ADD138EE71E00FA0DEF /* AIAppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C7ADA138EE71E00FA0DEF /* AIAppleScript.m */; };
 		0A9C7ADE138EE71E00FA0DEF /* AIAppleScript.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C7ADB138EE71E00FA0DEF /* AIAppleScript.xcdatamodel */; };
@@ -133,6 +145,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0A618EC6138F6977005EA5ED /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = SampleAppleScripts;
+			dstSubfolderSpec = 7;
+			files = (
+				0A618EF7138F6BA6005EA5ED /* avaiableiChat.scpt in CopyFiles */,
+				0A618EF8138F6BA6005EA5ED /* availableAdium.scpt in CopyFiles */,
+				0A618EF9138F6BA6005EA5ED /* availableSkype.scpt in CopyFiles */,
+				0A618EFA138F6BA6005EA5ED /* awayAdium.scpt in CopyFiles */,
+				0A618EFB138F6BA6005EA5ED /* awayiChat.scpt in CopyFiles */,
+				0A618EFC138F6BA6005EA5ED /* awaySkype.scpt in CopyFiles */,
+				0A618EFD138F6BA6005EA5ED /* displaysleep.scpt in CopyFiles */,
+				0A618EFE138F6BA6005EA5ED /* fastLogout.scpt in CopyFiles */,
+				0A618EFF138F6BA6005EA5ED /* muteVolume.scpt in CopyFiles */,
+				0A618F00138F6BA6005EA5ED /* sleepdisplay in CopyFiles */,
+				0A618F01138F6BA6005EA5ED /* startScreensaver.scpt in CopyFiles */,
+				0A618F02138F6BA6005EA5ED /* vlcPlayPause.scpt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AC65349114331DD0065C46E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,6 +214,18 @@
 		0A4D7FE410FE735E00850E00 /* SUHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUHost.h; path = src/SUHost.h; sourceTree = "<group>"; };
 		0A4D7FE510FE735E00850E00 /* SUSystemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUSystemProfiler.h; path = src/SUSystemProfiler.h; sourceTree = "<group>"; };
 		0A55C4880E36D7C200347DB7 /* VLC Plugin.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "VLC Plugin.plugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A618EE8138F6B66005EA5ED /* avaiableiChat.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = avaiableiChat.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/avaiableiChat.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EE9138F6B66005EA5ED /* availableAdium.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = availableAdium.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/availableAdium.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EEA138F6B66005EA5ED /* availableSkype.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = availableSkype.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/availableSkype.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EEB138F6B66005EA5ED /* awayAdium.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = awayAdium.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/awayAdium.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EEC138F6B66005EA5ED /* awayiChat.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = awayiChat.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/awayiChat.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EED138F6B66005EA5ED /* awaySkype.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = awaySkype.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/awaySkype.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EEE138F6B66005EA5ED /* displaysleep.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = displaysleep.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/displaysleep.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EEF138F6B66005EA5ED /* fastLogout.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = fastLogout.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/fastLogout.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EF0138F6B66005EA5ED /* muteVolume.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = muteVolume.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/muteVolume.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EF1138F6B66005EA5ED /* sleepdisplay */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = sleepdisplay; path = Projects/files/breakaway/resources/plugins/applescripts/sleepdisplay; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EF2138F6B66005EA5ED /* startScreensaver.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = startScreensaver.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/startScreensaver.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		0A618EF3138F6B66005EA5ED /* vlcPlayPause.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; name = vlcPlayPause.scpt; path = Projects/files/breakaway/resources/plugins/applescripts/vlcPlayPause.scpt; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A9C7AD9138EE71E00FA0DEF /* AIAppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIAppleScript.h; path = Projects/files/breakaway/src/AIAppleScript.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A9C7ADA138EE71E00FA0DEF /* AIAppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIAppleScript.m; path = Projects/files/breakaway/src/AIAppleScript.m; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		0A9C7ADB138EE71E00FA0DEF /* AIAppleScript.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; name = AIAppleScript.xcdatamodel; path = Projects/files/breakaway/src/AIAppleScript.xcdatamodel; sourceTree = SYSTEM_DEVELOPER_DIR; };
@@ -389,9 +434,29 @@
 			name = Plugins;
 			sourceTree = "<group>";
 		};
+		0A618EE6138F6B56005EA5ED /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				0A618EE8138F6B66005EA5ED /* avaiableiChat.scpt */,
+				0A618EE9138F6B66005EA5ED /* availableAdium.scpt */,
+				0A618EEA138F6B66005EA5ED /* availableSkype.scpt */,
+				0A618EEB138F6B66005EA5ED /* awayAdium.scpt */,
+				0A618EEC138F6B66005EA5ED /* awayiChat.scpt */,
+				0A618EED138F6B66005EA5ED /* awaySkype.scpt */,
+				0A618EEE138F6B66005EA5ED /* displaysleep.scpt */,
+				0A618EEF138F6B66005EA5ED /* fastLogout.scpt */,
+				0A618EF0138F6B66005EA5ED /* muteVolume.scpt */,
+				0A618EF1138F6B66005EA5ED /* sleepdisplay */,
+				0A618EF2138F6B66005EA5ED /* startScreensaver.scpt */,
+				0A618EF3138F6B66005EA5ED /* vlcPlayPause.scpt */,
+			);
+			name = Scripts;
+			sourceTree = "<group>";
+		};
 		0A83B35C0E55AC6A00B2227C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A618EE6138F6B56005EA5ED /* Scripts */,
 				0AD648821385B8F900DC25D5 /* AppleScript.png */,
 				0A9C81C10E21CA62001B29F6 /* AppleScript Plugin-Info.plist */,
 				0AF2D3AF137795AB00BB5865 /* AppleScriptPlugin.xib */,
@@ -749,6 +814,7 @@
 				0A9C81BC0E21CA62001B29F6 /* Resources */,
 				0A9C81BD0E21CA62001B29F6 /* Sources */,
 				0A9C81BE0E21CA62001B29F6 /* Frameworks */,
+				0A618EC6138F6977005EA5ED /* CopyFiles */,
 			);
 			buildRules = (
 			);
