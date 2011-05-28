@@ -102,6 +102,7 @@ static NSBundle *PluginBundle = nil;
 	if (!(self = [super init])) return nil;
 	
     [NSBundle loadNibNamed:@"AppleScriptPlugin" owner:self];
+        
     appController = controller;
     enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AppleScriptPluginEnabled"];
     [[NSNotificationCenter defaultCenter] addObserver:self

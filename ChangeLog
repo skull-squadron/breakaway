@@ -128,4 +128,11 @@ Kevin Nygaard | March 2010
      [CHANGE] Breakaway respects iTunes volume now during fade-in
      [CHANGE] Fade-in preferences redesigned
 
+2.0: [NEW] Menubar icon is now animated
+	 [NEW] New, simpler interface
+	 [NEW] Operates entirely on plugin-based architecture
+	 [NEW] Applescript plugins are based in CoreData
+	 [FIX] Applescript plugins work with iTunes not running
+	 [FIX] Lots of optimizations
+	 
 ===========================================================================

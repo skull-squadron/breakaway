@@ -73,7 +73,10 @@ static NSArray *Animations = nil;
                 [NSNumber numberWithBool:0], @"showIcon",                
                 [NSNumber numberWithInt:2], @"SUUpdate",
                 
-                [NSNumber numberWithFloat:0], @"fadeInTime",
+                [NSNumber numberWithFloat:2], @"fadeInTime",
+                
+                [NSNumber numberWithBool:1], @"iTunesPluginEnabled", // FIXME: this shouldn't be hardcoded
+                
                 [NSNumber numberWithBool:1], @"keepVol",
                 nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
