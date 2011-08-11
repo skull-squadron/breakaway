@@ -31,6 +31,7 @@
 
 #import "AIPluginSelector.h"
 #import "AIPluginProtocol.h"
+#import "PreferenceHandler.h"
 
 #import <CoreAudio/CoreAudio.h>
 #import <Sparkle/SUUpdater.h>
