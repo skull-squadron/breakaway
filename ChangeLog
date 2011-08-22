@@ -134,5 +134,7 @@ Kevin Nygaard | March 2010
 	 [NEW] Applescript plugins are based in CoreData
 	 [FIX] Applescript plugins work with iTunes not running
 	 [FIX] Lots of optimizations
+
+2.0.1: [FIX] Preferences accessable through icon double-click
 	 
 ===========================================================================
