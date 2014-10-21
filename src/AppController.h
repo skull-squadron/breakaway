@@ -29,7 +29,7 @@
 @class AppController,PreferencesController,AIPluginController,GrowlNotifier;
 
 // our proc method; this is the main workhorse of the app
-inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
+static OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
 									   UInt32                  inChannel,
 									   Boolean                 isInput,
 									   AudioDevicePropertyID   inPropertyID,

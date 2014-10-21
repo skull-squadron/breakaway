@@ -41,6 +41,10 @@
 
 @implementation AppController
 
+static BOOL newAPIJackConnected = NO;
+static BOOL newAPIRegistered = NO;
+static BOOL newAPIEnabled = NO;
+
 static NSArray *Animations = nil;
 
 @synthesize growlNotifier, preferencesController, pluginController, userDefaults;
@@ -50,6 +54,55 @@ static NSArray *Animations = nil;
 	if (!(self = [super init])) return nil;
     setSharedBreakaway(self);
 	return self;
+}
+
+- (BOOL)shouldRegisterNewAPI
+{
+    return NSAppKitVersionNumber >= NSAppKitVersionNumber10_9;
+}
+
+- (void)registerNewAPI
+{
+    if (newAPIRegistered) {
+        return;
+    }
+    newAPIRegistered = YES;
+    newAPIEnabled = YES;
+    AudioDeviceID defaultDevice = 0;
+    UInt32 defaultSize = sizeof(AudioDeviceID);
+
+    const AudioObjectPropertyAddress defaultAddr = {
+        kAudioHardwarePropertyDefaultOutputDevice,
+        kAudioObjectPropertyScopeGlobal,
+        kAudioObjectPropertyElementMaster
+    };
+
+    AudioObjectGetPropertyData(kAudioObjectSystemObject, &defaultAddr, 0, NULL, &defaultSize, &defaultDevice);
+
+    AudioObjectPropertyAddress sourceAddr;
+    sourceAddr.mSelector = kAudioDevicePropertyDataSource;
+    sourceAddr.mScope = kAudioDevicePropertyScopeOutput;
+    sourceAddr.mElement = kAudioObjectPropertyElementMaster;
+
+    AudioObjectAddPropertyListenerBlock(defaultDevice, &sourceAddr, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(UInt32 inNumberAddresses, const AudioObjectPropertyAddress *inAddresses) {
+        UInt32 bDataSourceId = 0;
+        UInt32 bDataSourceIdSize = sizeof(UInt32);
+        AudioObjectGetPropertyData(defaultDevice, inAddresses, 0, NULL, &bDataSourceIdSize, &bDataSourceId);
+        if (newAPIEnabled) {
+            if (bDataSourceId == 'ispk') {
+                // Headphones removed
+                newAPIJackConnected = NO;
+                DEBUG_OUTPUT1(@"New API: Headphones removed",nil);
+                [self updateStatusItem];
+                
+            } else if (bDataSourceId == 'hdpn') {
+                // Headphones inserted
+                newAPIJackConnected = YES;
+                DEBUG_OUTPUT1(@"New API: Headphones connected",nil);
+                [self updateStatusItem];
+            }
+        }
+    });
 }
 
 - (void)awakeFromNib
@@ -229,7 +282,7 @@ static NSArray *Animations = nil;
     // Enabled
     else
     {        
-        if (jackConnected()) // plugged
+        if (self.jackConnected) // plugged
         {
             reverse = TRUE;
             if (prevImage == kUnplugged) animation = kPluggedUnplugged; // unplugged->plugged
@@ -263,18 +316,26 @@ static NSArray *Animations = nil;
     if (!enable)
     {
 		DEBUG_OUTPUT(@"Disabling...");
-		
-        [self removeListener:kAudioDevicePropertyDataSource];
-        [self removeListener:kAudioDevicePropertyMute];
-        //[self removeListener:kAudioDevicePropertyVolumeScalar];
+        if (!self.shouldRegisterNewAPI) {
+            [self removeListener:kAudioDevicePropertyDataSource];
+            [self removeListener:kAudioDevicePropertyMute];
+            //[self removeListener:kAudioDevicePropertyVolumeScalar];
+        } else {
+            newAPIEnabled = NO;
+        }
+        
     }
     else
     {
 		DEBUG_OUTPUT(@"Enabling...");
-        
-        [self attachListener:kAudioDevicePropertyDataSource];
-        [self attachListener:kAudioDevicePropertyMute];
-        //[self attachListener:kAudioDevicePropertyVolumeScalar];
+        if (!self.shouldRegisterNewAPI) {
+            [self attachListener:kAudioDevicePropertyDataSource];
+            [self attachListener:kAudioDevicePropertyMute];
+            //[self attachListener:kAudioDevicePropertyVolumeScalar];
+        } else {
+            [self registerNewAPI];
+            newAPIEnabled = YES;
+        }
     }
 
     [self updateStatusItem];
@@ -397,7 +458,7 @@ static NSArray *Animations = nil;
 #pragma mark AD Prop Fetches
 - (BOOL)jackConnected
 {
-    return jackConnected();
+    return (self.shouldRegisterNewAPI) ? newAPIJackConnected : jackConnected();
 }
 
 // returns true if jack is connected. false otherwise
@@ -441,7 +502,7 @@ bool muteStatus(AudioDeviceID inDevice)
 
 #pragma mark-
 // Fn run when proc'ed by the listener
-inline OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
+static OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
                                        UInt32                  inChannel,
                                        Boolean                 isInput,
                                        AudioDevicePropertyID   inPropertyID,
