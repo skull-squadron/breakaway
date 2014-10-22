@@ -10,6 +10,8 @@
 
 #import "SharedBreakaway.h"
 
+#import "DebugUtils.h"
+
 AppController *breakaway = nil;
 
 void setSharedBreakaway(AppController *shared)
@@ -17,4 +19,5 @@ void setSharedBreakaway(AppController *shared)
     NSCAssert(breakaway == nil, @"Shared `breakaway' instance already set");
     NSCParameterAssert(shared != nil);
     breakaway = [shared retain];
+    DEBUG_OUTPUT1(@"set shared breakway: %@", breakaway);
 }

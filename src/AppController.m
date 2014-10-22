@@ -21,6 +21,9 @@
  */
 
 #import "AppController.h"
+#import "LegacyAppController.h"
+#import "NewAppController.h"
+
 #import "defines.h"
 
 #import "GrowlNotifier.h"
@@ -41,189 +44,200 @@
 
 @implementation AppController
 
-static BOOL newAPIJackConnected = NO;
-static BOOL newAPIRegistered = NO;
-static BOOL newAPIEnabled = NO;
+@synthesize growlNotifier = _growlNotifier;
+@synthesize preferencesController = _preferencesController;
+@synthesize pluginController = _pluginController;
+@synthesize userDefaults = _userDefaults;
+@synthesize inAnimation = _inAnimation;
+@synthesize statusItem = _statusItem;
+@synthesize images = _images;
 
-static NSArray *Animations = nil;
-
-@synthesize growlNotifier, preferencesController, pluginController, userDefaults;
-
-- (id)init
-{
-	if (!(self = [super init])) return nil;
-    setSharedBreakaway(self);
-	return self;
-}
-
-- (BOOL)shouldRegisterNewAPI
++ (BOOL)shouldRegisterNewAPI
 {
     return NSAppKitVersionNumber >= NSAppKitVersionNumber10_9;
 }
 
-- (void)registerNewAPI
+- (void)setInAnimation:(BOOL)inAnimation
 {
-    if (newAPIRegistered) {
-        return;
+    NSLog(@"inAnimation %d -> %d", _inAnimation, inAnimation);
+    _inAnimation = inAnimation;
+}
+
+- (id)init
+{
+    if (!(self = [super init])) {
+        return nil;
     }
-    newAPIRegistered = YES;
-    newAPIEnabled = YES;
-    AudioDeviceID defaultDevice = 0;
-    UInt32 defaultSize = sizeof(AudioDeviceID);
-
-    const AudioObjectPropertyAddress defaultAddr = {
-        kAudioHardwarePropertyDefaultOutputDevice,
-        kAudioObjectPropertyScopeGlobal,
-        kAudioObjectPropertyElementMaster
-    };
-
-    AudioObjectGetPropertyData(kAudioObjectSystemObject, &defaultAddr, 0, NULL, &defaultSize, &defaultDevice);
-
-    AudioObjectPropertyAddress sourceAddr;
-    sourceAddr.mSelector = kAudioDevicePropertyDataSource;
-    sourceAddr.mScope = kAudioDevicePropertyScopeOutput;
-    sourceAddr.mElement = kAudioObjectPropertyElementMaster;
-
-    AudioObjectAddPropertyListenerBlock(defaultDevice, &sourceAddr, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(UInt32 inNumberAddresses, const AudioObjectPropertyAddress *inAddresses) {
-        UInt32 bDataSourceId = 0;
-        UInt32 bDataSourceIdSize = sizeof(UInt32);
-        AudioObjectGetPropertyData(defaultDevice, inAddresses, 0, NULL, &bDataSourceIdSize, &bDataSourceId);
-        if (newAPIEnabled) {
-            if (bDataSourceId == 'ispk') {
-                // Headphones removed
-                newAPIJackConnected = NO;
-                DEBUG_OUTPUT1(@"New API: Headphones removed",nil);
-                [self updateStatusItem];
-                
-            } else if (bDataSourceId == 'hdpn') {
-                // Headphones inserted
-                newAPIJackConnected = YES;
-                DEBUG_OUTPUT1(@"New API: Headphones connected",nil);
-                [self updateStatusItem];
-            }
-        }
-    });
+    
+    // replace myself with the correct subclass
+    if ([self.className isEqualToString:@"AppController"]) {
+        id newSelf = (self.class.shouldRegisterNewAPI)
+                ? [[NewAppController alloc] init]
+                : [[LegacyAppController alloc] init];
+        [self release];
+        self = newSelf;
+        NSLog(@"app ctrlr: %@", self);
+        setSharedBreakaway(self);
+    }
+    
+    return self;
 }
 
 - (void)awakeFromNib
 {
-    // Our animations. It looks like a bit of a mess, but it makes sense.
-    // It looked better without the NSNumbers, but it turns out you need them
-    Animations = [[NSArray arrayWithObjects:
-        [NSArray arrayWithObjects:[NSNumber numberWithInt:kPlugged],[NSNumber numberWithInt:kPU1],[NSNumber numberWithInt:kPU2],[NSNumber numberWithInt:kPU3],[NSNumber numberWithInt:kPU4],[NSNumber numberWithInt:kPU5],[NSNumber numberWithInt:kPU6],[NSNumber numberWithInt:kUnplugged],nil],
-        [NSArray arrayWithObjects:[NSNumber numberWithInt:kPlugged],[NSNumber numberWithInt:kPD1],[NSNumber numberWithInt:kPD2],[NSNumber numberWithInt:kPD3],[NSNumber numberWithInt:kPD4],[NSNumber numberWithInt:kPD5],[NSNumber numberWithInt:kPD6],[NSNumber numberWithInt:kDisabled],nil],
-        [NSArray arrayWithObjects:[NSNumber numberWithInt:kUnplugged],[NSNumber numberWithInt:kUD1],[NSNumber numberWithInt:kUD2],[NSNumber numberWithInt:kUD3],[NSNumber numberWithInt:kUD4],[NSNumber numberWithInt:kUD5],[NSNumber numberWithInt:kUD6],[NSNumber numberWithInt:kDisabled],nil],
-        nil] retain];
+    // Sync UI from preferences
+    [self setStatusItemVisible:self.statusItemVisible];
+    [self setEnabled:self.enabled];
     
-    inAnimation = FALSE;
-    
-    // Setting up our defaults here
-    NSDictionary *defaults;
-    defaults = [NSDictionary dictionaryWithObjectsAndKeys: 
-                // General
-                [NSNumber numberWithBool:1], @"showInMenuBar",
-                [NSNumber numberWithBool:1], @"enableBreakaway",
-                
-                [NSNumber numberWithBool:0], @"showIcon",                
-                [NSNumber numberWithInt:2], @"SUUpdate",
-                
-                [NSNumber numberWithFloat:2], @"fadeInTime",
-                
-                [NSNumber numberWithBool:1], @"iTunesPluginEnabled", // FIXME: this shouldn't be hardcoded
-                
-                [NSNumber numberWithBool:1], @"keepVol",
-                nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-    DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
-    
-    // Initialize controllers
-    growlNotifier = [[GrowlNotifier alloc] init];
-    pluginController = [[AIPluginController alloc] init];
-    
-    // For convience
-	userDefaults = [NSUserDefaults standardUserDefaults];
-
-	// Start Loading Stuff
-    
-    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
-    [self setEnabled:[userDefaults boolForKey:@"enableBreakaway"]];
-    
-	
-	// calls our controller to load our preference window, including all our plugins
+    // calls our controller to load our preference window, including all our plugins
     DEBUG_OUTPUT(@"finished setting up and loading prefs");
 }
 
 - (void)dealloc
 {
-    [self setStatusItem:NO];
-    [self setEnabled:NO];
-    [Animations release];
-    
+    self.statusItemVisible = NO;
+    self.enabled = NO;
     [super dealloc];
 }
 
++ (NSArray *)animations
+{
+    static NSArray *animations = nil;
+    if (!animations) {
+        animations = [
+                      @[
+                        @[@(kPlugged), @(kPU1), @(kPU2), @(kPU3), @(kPU4), @(kPU5), @(kPU6), @(kUnplugged)],
+                        @[@(kPlugged), @(kPD1), @(kPD2), @(kPD3), @(kPD4), @(kPD5), @(kPD6), @(kDisabled)],
+                        @[@(kUnplugged), @(kUD1), @(kUD2), @(kUD3), @(kUD4), @(kUD5), @(kUD6), @(kDisabled)]
+                        ] retain];
+    }
+    return animations;
+}
+
+- (NSUserDefaults *)userDefaults
+{
+    if (!_userDefaults) {
+        _userDefaults = [NSUserDefaults standardUserDefaults];
+        // Setting up our defaults here
+        NSDictionary *defaults = @{
+                                   // General
+                                   @"showInMenuBar": @YES,
+                                   @"enableBreakaway": @YES,
+                                   
+                                   @"showIcon": @NO,
+                                   @"SUUpdate": @2,
+                                   
+                                   @"fadeInTime": @2.0,
+                                   
+                                   @"iTunesPluginEnabled": @YES, // FIXME: this shouldn't be hardcoded
+                                   
+                                   @"keepVol": @YES,
+                                   };
+        [_userDefaults registerDefaults:defaults];
+        DEBUG_OUTPUT1(@"Registered Defaults: %@",defaults);
+    }
+    return _userDefaults;
+}
+
+- (GrowlNotifier *)growlNotifier
+{
+    if (!_growlNotifier) {
+        _growlNotifier = [[GrowlNotifier alloc] init];
+    }
+    return _growlNotifier;
+}
+
+- (AIPluginController *)pluginController
+{
+    if (!_pluginController) {
+        _pluginController = [[AIPluginController alloc] init];
+    }
+    return _pluginController;
+}
+
+
+
 #pragma mark 
 #pragma mark Status item
-- (void)setStatusItem:(BOOL)enable
-{	
-    if (enable)
-    {
+
+/*- (BOOL)statusItem
+{
+    return [self.userDefaults boolForKey:@"showInMenuBar"];
+}
+ */
+
+- (NSArray *)images
+{
+    if (!_images) {
         // Access these images using the enums
         // Therefore, order is important. Do not change
-        if (images) [images release];
-        images = [[NSArray arrayWithObjects: 
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"plugged" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu1" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu2" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu3" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu4" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu5" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu6" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"unplugged" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud1" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud2" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud3" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud4" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud5" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud6" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd1" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd2" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd3" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd4" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd5" ofType:@"tiff"]] autorelease],
-                   [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd6" ofType:@"tiff"]] autorelease],
-                   nil] retain];
+        _images = [[NSArray arrayWithObjects:
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"plugged" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu1" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu2" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu3" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu4" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu5" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu6" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"unplugged" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud1" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud2" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud3" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud4" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud5" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ud6" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"disabled" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd1" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd2" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd3" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd4" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd5" ofType:@"tiff"]] autorelease],
+                    [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd6" ofType:@"tiff"]] autorelease],
+                    nil] retain];
         
         // get the images for the status item set up
-        for (NSImage *img in images)
-        {
+        for (NSImage *img in _images) {
             if (!img) continue; // if we don't have an image to work with, don't fret
-            [img setSize:NSMakeSize(15,15)]; 
+            [img setSize:NSMakeSize(15,15)];
         }
+    }
+    return _images;
+}
+
+- (BOOL)statusItemVisible
+{
+    BOOL result = [self.userDefaults boolForKey:@"showInMenuBar"];
+    NSLog(@"statusItemVisible: %d", result);
+    return result;
+}
+
+- (void)setStatusItemVisible:(BOOL)visible
+{
+    NSLog(@"setStatusItem:%d", visible);
+    if (visible) {
         
         // Status bar stuff
-        if (statusItem) [statusItem release];
-        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-        [statusItem retain];
+        if (_statusItem) {
+            [_statusItem release];
+        }
+        _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+        [_statusItem retain];
         
-        [statusItem setMenu:statusItemMenu];
-        [statusItem setEnabled:YES];
-        [statusItem setHighlightMode:YES];
+        [_statusItem setMenu:statusItemMenu];
+        [_statusItem setEnabled:YES];
+        [_statusItem setHighlightMode:YES];
         
         // run this so we can get a correct state on our menu extra
         [self updateStatusItem];
-    }
-    else
-    {
+    } else {
         // Release our status item
-        if (statusItem)
+        if (_statusItem)
         {
-            [[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-            [statusItem release];
+            [[NSStatusBar systemStatusBar] removeStatusItem:_statusItem];
+            [_statusItem release];
         }
 
-        if (images) [images release];
+        if (_images) [_images release];
     }
 }
 
@@ -237,18 +251,18 @@ static NSArray *Animations = nil;
  *****************************************************************************/
 - (void)animateUsingTimer:(NSTimer*)timer
 {
-    NSNumber *nextFrame = nil;
-    nextFrame = [curAnimationEnumerator nextObject];
+    NSNumber *nextFrame = [_curAnimationEnumerator nextObject];
     
-    if (nextFrame == nil)
-    {
+    if (nextFrame) {
+        NSLog(@"animateUsingTimer: next");
+        self.statusItem.image = self.images[nextFrame.intValue];
+    } else { // no next frame
+        NSLog(@"animateUsingTimer: done");
         [timer invalidate]; // base case
-        inAnimation = FALSE;
-        [curAnimationEnumerator release];
-        return;
+        self.inAnimation = FALSE;
+        [_curAnimationEnumerator release];
     }
     
-    [statusItem setImage:[images objectAtIndex:[nextFrame intValue]]];
 }
 
 /******************************************************************************
@@ -260,98 +274,107 @@ static NSArray *Animations = nil;
  *****************************************************************************/
 - (void)updateStatusItem
 {
-    // -1 is an illegal number. Serves us well for startup purposes (when you don't want/need an animation)
-    static tImageType prevImage = -1;
+    DEBUG_OUTPUT(@"updateStatusItem");
+    static tImageType prevImage = kUnknownImage;
     
-    if (inAnimation) return;
-    if (!statusItem) return;
+    if (self.inAnimation) {
+        DEBUG_OUTPUT(@"updateStatusItem stop: in animation");
+        return;
+    }
+    if (!self.statusItem) {
+        DEBUG_OUTPUT(@"updateStatusItem stop: no status item");
+        return;
+    }
     
-    tImageAnimation animation = -1;
+    tImageAnimation animation = kPluggedUnknown;
     BOOL reverse = FALSE;
         
-    // Disabled
-    if (![userDefaults boolForKey:@"enableBreakaway"])
+    
+    if (!self.enabled) // Disabled
     {
         reverse = FALSE;
-        if (prevImage == kPlugged) animation = kPluggedDisabled; // plugged->disabled
-        else if (prevImage == kUnplugged) animation = kUnpluggedDisabled; // unplugged->disabled
+        if (prevImage == kPlugged) {
+            NSLog(@"plugged -> disabled");
+            animation = kPluggedDisabled;
+        } else if (prevImage == kUnplugged) {
+            NSLog(@"unplugged -> disabled");
+            animation = kUnpluggedDisabled;
+        } else {
+            DEBUG_OUTPUT1(@"disabled but not from plugged or unplugged: %d", prevImage);
+        }
         prevImage = kDisabled;
         
         [disableMI setTitle:NSLocalizedString(@"Enable",nil)];
-    }
-    // Enabled
-    else
-    {        
-        if (self.jackConnected) // plugged
-        {
+    } else { // Enabled
+        if (self.jackConnected) { // plugged
             reverse = TRUE;
-            if (prevImage == kUnplugged) animation = kPluggedUnplugged; // unplugged->plugged
-            else if (prevImage == kDisabled) animation = kPluggedDisabled; // disabled->plugged
+            if (prevImage == kUnplugged) {
+                NSLog(@"unplugged -> plugged");
+                animation = kPluggedUnplugged;
+            } else if (prevImage == kDisabled) {
+                NSLog(@"disabled -> plugged");
+                animation = kPluggedDisabled;
+            } else {
+                DEBUG_OUTPUT1(@"plugged but not from unplugged or disabled: %i", prevImage);
+            }
             prevImage = kPlugged;
-        }
-        else // unplugged
-        {
-            if (prevImage == kPlugged) animation = kPluggedUnplugged; // plugged->unplugged
-            else if (prevImage == kDisabled){ animation = kUnpluggedDisabled; reverse = TRUE; } // disabled->unplugged
+        } else { // unplugged
+            if (prevImage == kPlugged) {
+                NSLog(@"plugged -> unplugged");
+                animation = kPluggedUnplugged;
+            } else if (prevImage == kDisabled) {
+                NSLog(@"disabled -> unplugged");
+                animation = kUnpluggedDisabled;
+                reverse = TRUE;
+            }  else {
+                DEBUG_OUTPUT1(@"unplugged but not from plugged or disabled: %i", prevImage);
+            }
             prevImage = kUnplugged;
         }
         [disableMI setTitle:NSLocalizedString(@"Disable",nil)];
     }
     
-    if (animation == -1) [statusItem setImage:[images objectAtIndex:prevImage]];
-    else
-    {
-        curAnimationEnumerator = (!reverse) ? [[Animations objectAtIndex:animation] objectEnumerator] : [[Animations objectAtIndex:animation] reverseObjectEnumerator];
+    if (animation == kPluggedUnknown) {
+        DEBUG_OUTPUT(@"updateStatusItem: set image due to unknown plugged status");
+        self.statusItem.image = self.images[prevImage];
+    } else {
+        _curAnimationEnumerator = (!reverse) ? [self.class.animations[animation] objectEnumerator]
+                                            : [self.class.animations[animation] reverseObjectEnumerator];
         
-        [curAnimationEnumerator retain];
+        [_curAnimationEnumerator retain];
         
-        inAnimation = TRUE;
-        [NSTimer scheduledTimerWithTimeInterval:ANIMATION_SPEED target:self selector:@selector(animateUsingTimer:) userInfo:nil repeats:YES];
+        self.inAnimation = TRUE;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DEBUG_OUTPUT(@"updateStatusItem: scheduling animateUsingTimer:");
+            [NSTimer scheduledTimerWithTimeInterval:ANIMATION_SPEED
+                                             target:self
+                                           selector:@selector(animateUsingTimer:)
+                                           userInfo:nil
+                                            repeats:YES];
+        });
     }
 }
 
-- (void)setEnabled:(BOOL)enable
-{	
-    [userDefaults setBool:enable forKey:@"enableBreakaway"];
-    if (!enable)
-    {
-		DEBUG_OUTPUT(@"Disabling...");
-        if (!self.shouldRegisterNewAPI) {
-            [self removeListener:kAudioDevicePropertyDataSource];
-            [self removeListener:kAudioDevicePropertyMute];
-            //[self removeListener:kAudioDevicePropertyVolumeScalar];
-        } else {
-            newAPIEnabled = NO;
-        }
-        
-    }
-    else
-    {
-		DEBUG_OUTPUT(@"Enabling...");
-        if (!self.shouldRegisterNewAPI) {
-            [self attachListener:kAudioDevicePropertyDataSource];
-            [self attachListener:kAudioDevicePropertyMute];
-            //[self attachListener:kAudioDevicePropertyVolumeScalar];
-        } else {
-            [self registerNewAPI];
-            newAPIEnabled = YES;
-        }
-    }
-
-    [self updateStatusItem];
-}
 
 #pragma mark 
 #pragma mark IB Button Actions
 - (IBAction)showInMenuBarAct:(id)sender
 {
-    [self setStatusItem:[userDefaults boolForKey:@"showInMenuBar"]];
+    self.statusItemVisible = self.statusItemVisible;
+}
+
+- (PreferencesController *)preferencesController
+{
+    if (!_preferencesController) {
+        _preferencesController = [[PreferencesController alloc] init];
+    }
+    return _preferencesController;
 }
 
 - (IBAction)openPrefs:(id)sender
 {
-    if (!preferencesController) preferencesController = [[PreferencesController alloc] init];
-	[preferencesController showWindow:nil];
+	[self.preferencesController showWindow:nil];
     [NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -371,78 +394,16 @@ static NSArray *Animations = nil;
 #pragma mark Accessor Functions
 - (IBAction)disable:(id)sender
 {
-    BOOL disable = NO;
-    if ([[disableMI title] isEqual: NSLocalizedString(@"Disable",nil)]) disable = YES;
+    BOOL disable = [[disableMI title] isEqual: NSLocalizedString(@"Disable",nil)];
     [self setEnabled:!disable];
 }
 
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description
 {
-    [growlNotifier growlNotify:title andDescription:description];
+    [self.growlNotifier growlNotify:title andDescription:description];
 }
 
-#pragma mark 
-#pragma mark CoreAudio Queries
-- (void)attachListener:(AudioDevicePropertyID)adProp
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc]init];
-    
-    AudioDeviceID defaultDevice;
-    UInt32 audioDeviceSize = sizeof defaultDevice;
-    OSStatus err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
-    
-    int channel = 0;
-    
-    if (adProp == kAudioDevicePropertyVolumeScalar) channel = 1;
-	else if (adProp == kAudioDevicePropertyMute)
-    {
-        UInt32 muteOn;
-        OSStatus err2 = AudioDeviceGetProperty(defaultDevice,1,0,kAudioDevicePropertyMute,&audioDeviceSize,&muteOn);
-        
-        // If we get a return on channel 1 for mute status, it has channels. If we get an error, we will use channel 0
-        if (err2 == noErr)
-        {
-            DEBUG_OUTPUT(@"Mute is multichanneled");
-            multichanMute = TRUE;
-            channel = 1;
-        }
-        else 
-        {
-            DEBUG_OUTPUT(@"Mute is not multichanneled");
-            multichanMute = FALSE;
-            channel = 0;
-        }
-    }
-    
-    // add a listener for changes in jack connectivity
-    OSStatus err3 = AudioDeviceAddPropertyListener(defaultDevice,channel,0,adProp,(AudioDevicePropertyListenerProc)AHPropertyListenerProc,self);
-    
-    if (err != noErr || err3 != noErr) NSLog(@"ERROR: Trying to attach listener '%@'",osTypeToFourCharCode(adProp));
-    else NSLog(@"Listener Attached '%@'",osTypeToFourCharCode(adProp));
-    
-    [pool release];
-}
-
-- (void)removeListener:(AudioDevicePropertyID)adProp
-{
-    AudioDeviceID defaultDevice;
-    UInt32 audioDeviceSize = sizeof defaultDevice;
-    OSStatus err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
-    
-    int channel = 0;
-    
-    // If we have a multichannel mute and we are trying to take it off, make sure we take it off the right channel
-    if(adProp == kAudioDevicePropertyMute && multichanMute) channel = 1;
-	else if (adProp == kAudioDevicePropertyVolumeScalar) channel = 1;
-	
-    OSStatus err2 = AudioDeviceRemovePropertyListener(defaultDevice,channel,0,adProp,(AudioDevicePropertyListenerProc)AHPropertyListenerProc);
-	
-    if (err != noErr || err2 != noErr) NSLog(@"ERROR: Trying to remove listener '%@'",osTypeToFourCharCode(adProp));
-    else NSLog(@"Listener Removed '%@'",osTypeToFourCharCode(adProp));
-}
-
-#pragma mark 
-#pragma mark Delegate Fns
+#pragma mark - Delegate Fns
 
 // pretty much when the app is open and someone double clicks the icon in the finder
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
@@ -455,105 +416,36 @@ static NSArray *Animations = nil;
 {
 }
 
-#pragma mark AD Prop Fetches
+- (BOOL)enabled
+{
+    BOOL result = [self.userDefaults boolForKey:@"enableBreakaway"];
+    DEBUG_OUTPUT1(@"breakaway is %@", (result) ? @"enabled" : @"disabled");
+    return result;
+}
+
+#pragma mark - Virtual methods (to be implemented by subclasses)
+
 - (BOOL)jackConnected
 {
-    return (self.shouldRegisterNewAPI) ? newAPIJackConnected : jackConnected();
+    NSLog(@"jackConnected virtual method called");
+    return NO;
 }
 
-// returns true if jack is connected. false otherwise
-bool jackConnected(void)
+- (void)attachListener:(AudioDevicePropertyID)adProp
 {
-    AudioDeviceID defaultDevice;
-    OSStatus err;
-    UInt32 audioDeviceSize = sizeof defaultDevice;
-    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice,&audioDeviceSize,&defaultDevice);
-    if (err != noErr) return false;
-	
-	UInt32 dataSource;
-	UInt32 dataSourceSize = sizeof dataSource;
-	err = AudioDeviceGetProperty(defaultDevice,0,0,kAudioDevicePropertyDataSource,&dataSourceSize,&dataSource);
-    if (err != noErr) return false;
-
-    return (dataSource == 'hdpn');
+    NSLog(@"attachListener: virtual method called");
 }
 
-Float32 systemVolumeLevel(AudioDeviceID inDevice)
+- (void)setEnabled:(BOOL)enable
 {
-    // Getting the volume | this solves the problem coming out of mute, or when the user does some freaky stuff with the mute button
-    Float32 volLevel = 0;
-    UInt32 volLevelSize = sizeof volLevel;
-    OSStatus err = AudioDeviceGetProperty(inDevice,1,0,kAudioDevicePropertyVolumeScalar,&volLevelSize,&volLevel);
-    if (err != noErr) DEBUG_OUTPUT(@"ERROR: Volume property fetch bad");
-	DEBUG_OUTPUT1(@"Volume Level: %f",volLevel);
-    return volLevel;
+    NSLog(@"setEnabled: virtual method called");
 }
 
-bool muteStatus(AudioDeviceID inDevice)
+- (void)removeListener:(AudioDevicePropertyID)adProp
 {
-    // Getting the mute button status 
-    UInt32 muteOn = 0;
-    UInt32 muteOnSize = sizeof muteOn;
-    OSStatus err = AudioDeviceGetProperty(inDevice, (int)multichanMute, 0, kAudioDevicePropertyMute, &muteOnSize, &muteOn);
-    if (err != noErr) DEBUG_OUTPUT(@"ERROR: Mute property fetch bad");
-    DEBUG_OUTPUT1(@"Mute On: %i",muteOn);
-    return muteOn;
-}
-
-#pragma mark-
-// Fn run when proc'ed by the listener
-static OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
-                                       UInt32                  inChannel,
-                                       Boolean                 isInput,
-                                       AudioDevicePropertyID   inPropertyID,
-                                       void*                   inClientData)
-{
-    // see large comment below
-    static bool hpMuteStatus = false;
-    static bool ispkMuteStatus = false;
-
-    id self = (id)inClientData; // for obj-c calls
-
-    // Create a pool for our Cocoa objects to dump into. Otherwise we get lots of leaks. this thread is running off the main thread, therefore it has no automatic autorelease pool
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-
-    DEBUG_OUTPUT1(@"'%@' Trigger",osTypeToFourCharCode(inPropertyID));
-    
-    bool muteOn = muteStatus(inDevice); // true if mute is on
-    bool jConnect = jackConnected(); // true if headphones in jack
-    
-    // save mute data
-    // we are changing audio sources. Mute data is old (we get the previous audio source's mute status)
-	if (inPropertyID == kAudioDevicePropertyDataSource || inPropertyID == kAudioDevicePropertyDataSources)
-	{
-        // Store old mute data
-		if (jConnect) ispkMuteStatus = muteOn;
-		else hpMuteStatus = muteOn;
-
-        // Grab correct mute data
-		muteOn = jConnect ? hpMuteStatus : ispkMuteStatus;
-	}
-    // mute triggers are always correct
-	else
-	{
-        // update our status
-		if (jConnect) hpMuteStatus = muteOn;
-		else ispkMuteStatus = muteOn;
-	}
-
-    // send data to plugins
-    kTriggerMask triggerMask = 0;
-    
-    triggerMask |= muteOn ? kTriggerMute : 0;
-    triggerMask |= jConnect ? kTriggerJackStatus : 0;
-    triggerMask |= (inPropertyID != kAudioDevicePropertyMute) ? kTriggerInt : 0;
-    [[self pluginController] executeTriggers:triggerMask];
-
-    [self updateStatusItem];
-    // TODO: Growl notifications go here
-    
-    [pool release];
-    return noErr;
+    NSLog(@"removeListener: virtual method called");
 }
 
 @end
+
+

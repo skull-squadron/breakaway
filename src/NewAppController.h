@@ -1,7 +1,7 @@
 /*
- * DebugUtils.h
+ * NewAppController.h
  * Breakaway
- * Created by Kevin Nygaard on 11/16/06.
+ * Created by Kevin Nygaard on 6/14/06.
  * Copyright 2008 Kevin Nygaard.
  *
  * This file is part of Breakaway.
@@ -19,13 +19,19 @@
  * You should have received a copy of the GNU General Public License
  * along with Breakaway.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef __NEWAPPCONTROLLER_H__
+#define __NEWAPPCONTROLLER_H__
 
-#if DEBUG
-#warning "debugging enabled"
-#define DEBUG_OUTPUT( a )         NSLog( a )
-#define DEBUG_OUTPUT1( a, b )     NSLog( a, b )
-#else
-#define DEBUG_OUTPUT( a )         // (a)
-#define DEBUG_OUTPUT1( a, b )     // (a,b)
-#endif
+#import "AppController.h"
 
+@interface NewAppController : AppController
+
+// implemented by subclasses of AppController
+- (void)setEnabled:(BOOL)enable;
+- (void)attachListener:(AudioDevicePropertyID)adProp;
+- (void)removeListener:(AudioDevicePropertyID)adProp;
+- (BOOL)jackConnected;
+
+@end
+
+#endif /* __APPCONTROLLER_H__ */

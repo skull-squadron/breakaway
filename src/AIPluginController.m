@@ -123,7 +123,8 @@
  * sending the activate message to all instantiated plugins
  *****************************************************************************/
 - (void)executeTriggers:(kTriggerMask)triggerMask
-{	
+{
+    NSLog(@"executeTriggers: %d", triggerMask);
     // FIXME: Potentially dangerous passing the second param like that? But it works though...
     [pluginInstances makeObjectsPerformSelector:@selector(activate:) withObject:(id)triggerMask];
 }

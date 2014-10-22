@@ -28,25 +28,20 @@
 
 @class AppController,PreferencesController,AIPluginController,GrowlNotifier;
 
-// our proc method; this is the main workhorse of the app
-static OSStatus AHPropertyListenerProc(AudioDeviceID           inDevice,
-									   UInt32                  inChannel,
-									   Boolean                 isInput,
-									   AudioDevicePropertyID   inPropertyID,
-									   void*                   inClientData);
-bool jackConnected(void);
 bool multichanMute;
 
 NSThread *fadeInThread;
 
 // From->To
 typedef enum {
+    kPluggedUnknown = -1,
     kPluggedUnplugged,
     kPluggedDisabled,
     kUnpluggedDisabled
 } tImageAnimation;
 
 typedef enum {
+    kUnknownImage = -1,
     kPlugged,
     kPU1,
     kPU2,
@@ -72,40 +67,48 @@ typedef enum {
 
 @interface AppController : NSObject
 {
-    GrowlNotifier *growlNotifier;
-    PreferencesController *preferencesController;
-    AIPluginController *pluginController;
+    GrowlNotifier *_growlNotifier;
+    PreferencesController *_preferencesController;
+    AIPluginController *_pluginController;
+    NSUserDefaults* _userDefaults;
+    BOOL _inAnimation;
     
-    NSEnumerator *curAnimationEnumerator;
-    BOOL inAnimation;
+    NSEnumerator *_curAnimationEnumerator;
     
-	// NSStatusItem stuff
-	NSStatusItem *statusItem;
-    NSArray *images;
+    // NSStatusItem stuff
+    NSStatusItem *_statusItem;
+    NSArray *_images;
+    
+    
 	IBOutlet id statusItemMenu;
 	IBOutlet id disableMI;
 	
 	// Preferenes (in actual order)
 	IBOutlet id prefsWindow; // the NSWindow in which the preferences reside
-		
-	// Other Objects
-	NSUserDefaults* userDefaults;
 }
-@property (assign) NSUserDefaults *userDefaults;
-@property (assign) GrowlNotifier *growlNotifier;
-@property (assign) PreferencesController *preferencesController;
-@property (assign) AIPluginController *pluginController;
 
-- (void)setStatusItem:(BOOL)enable;
+@property (nonatomic, readonly) NSArray *images;
+@property (nonatomic) BOOL statusItemVisible;
+@property (nonatomic, retain, readonly) NSStatusItem *statusItem; // modified by statusItemVisible
+@property (nonatomic) BOOL enabled;
+@property (nonatomic) BOOL inAnimation;
+@property (assign, readonly) NSUserDefaults *userDefaults;
+@property (assign, readonly) GrowlNotifier *growlNotifier;
+@property (assign, readonly) PreferencesController *preferencesController;
+@property (assign, readonly) AIPluginController *pluginController;
+
 - (void)animateUsingTimer:(NSTimer*)timer;
 - (void)updateStatusItem;
-- (void)setEnabled:(BOOL)enable;
 - (IBAction)showInMenuBarAct:(id)sender;
 - (IBAction)openPrefs:(id)sender;
 - (IBAction)openInfo:(id)sender;
 - (IBAction)openUpdater:(id)sender;
 - (IBAction)disable:(id)sender;
 - (void)growlNotify:(NSString *)title andDescription:(NSString *)description;
+- (BOOL)enabled;
+
+// implemented by subclasses
+- (void)setEnabled:(BOOL)enable;
 - (void)attachListener:(AudioDevicePropertyID)adProp;
 - (void)removeListener:(AudioDevicePropertyID)adProp;
 - (BOOL)jackConnected;

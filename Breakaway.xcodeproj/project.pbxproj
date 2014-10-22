@@ -12,8 +12,8 @@
 		0A061D8D10F8580B00E88056 /* AIPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7310F8580B00E88056 /* AIPluginProtocol.h */; };
 		0A061D8E10F8580B00E88056 /* AIPluginSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7410F8580B00E88056 /* AIPluginSelector.h */; };
 		0A061D8F10F8580B00E88056 /* AIPluginSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7510F8580B00E88056 /* AIPluginSelector.m */; };
-		0A061D9210F8580B00E88056 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7810F8580B00E88056 /* AppController.h */; };
-		0A061D9310F8580B00E88056 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7910F8580B00E88056 /* AppController.m */; };
+		0A061D9210F8580B00E88056 /* LegacyAppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7810F8580B00E88056 /* LegacyAppController.h */; };
+		0A061D9310F8580B00E88056 /* LegacyAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7910F8580B00E88056 /* LegacyAppController.m */; };
 		0A061D9410F8580B00E88056 /* Breakaway_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7A10F8580B00E88056 /* Breakaway_Prefix.pch */; };
 		0A061D9710F8580B00E88056 /* defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A061D7D10F8580B00E88056 /* defines.m */; };
 		0A061D9810F8580B00E88056 /* GrowlNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7E10F8580B00E88056 /* GrowlNotifier.h */; };
@@ -40,7 +40,7 @@
 		0A3513EA13EB8B9100BBB162 /* DebugUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ACA9C320B0D297F00610F2A /* DebugUtils.h */; };
 		0A3513EB13EB8B9100BBB162 /* iTunesBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061BCD10F7CCD900E88056 /* iTunesBridge.h */; };
 		0A3513EC13EB8B9100BBB162 /* defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D6510F855DC00E88056 /* defines.h */; };
-		0A3513ED13EB8B9100BBB162 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7810F8580B00E88056 /* AppController.h */; };
+		0A3513ED13EB8B9100BBB162 /* LegacyAppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A061D7810F8580B00E88056 /* LegacyAppController.h */; };
 		0A35140613EB8C5C00BBB162 /* disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A3513F113EB8C5C00BBB162 /* disabled.tiff */; };
 		0A35140713EB8C5C00BBB162 /* pd1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A3513F213EB8C5C00BBB162 /* pd1.tiff */; };
 		0A35140813EB8C5C00BBB162 /* pd2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A3513F313EB8C5C00BBB162 /* pd2.tiff */; };
@@ -140,6 +140,10 @@
 		0AE1AF15136AFFB80085D686 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D860F0F2C7500196632 /* Growl.framework */; };
 		0AE1AF16136AFFB80085D686 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC67D870F0F2C7600196632 /* Sparkle.framework */; };
 		0AF44E380B1229D0007163FE /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 0AF44E370B1229D0007163FE /* COPYING */; };
+		945D335219F7728B00333D06 /* NewAppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 945D335019F7728B00333D06 /* NewAppController.h */; };
+		945D335319F7728B00333D06 /* NewAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D335119F7728B00333D06 /* NewAppController.m */; };
+		945D33B119F7742300333D06 /* AppController.h in Headers */ = {isa = PBXBuildFile; fileRef = 945D33AF19F7742300333D06 /* AppController.h */; };
+		945D33B219F7742300333D06 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D33B019F7742300333D06 /* AppController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,8 +211,8 @@
 		0A061D7510F8580B00E88056 /* AIPluginSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIPluginSelector.m; path = src/AIPluginSelector.m; sourceTree = "<group>"; };
 		0A061D7610F8580B00E88056 /* AIVLCPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIVLCPlugin.h; path = src/AIVLCPlugin.h; sourceTree = "<group>"; };
 		0A061D7710F8580B00E88056 /* AIVLCPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIVLCPlugin.m; path = src/AIVLCPlugin.m; sourceTree = "<group>"; };
-		0A061D7810F8580B00E88056 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = src/AppController.h; sourceTree = "<group>"; };
-		0A061D7910F8580B00E88056 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = src/AppController.m; sourceTree = "<group>"; };
+		0A061D7810F8580B00E88056 /* LegacyAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LegacyAppController.h; path = src/LegacyAppController.h; sourceTree = "<group>"; };
+		0A061D7910F8580B00E88056 /* LegacyAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LegacyAppController.m; path = src/LegacyAppController.m; sourceTree = "<group>"; };
 		0A061D7A10F8580B00E88056 /* Breakaway_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Breakaway_Prefix.pch; path = src/Breakaway_Prefix.pch; sourceTree = "<group>"; };
 		0A061D7D10F8580B00E88056 /* defines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = defines.m; path = src/defines.m; sourceTree = "<group>"; };
 		0A061D7E10F8580B00E88056 /* GrowlNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrowlNotifier.h; path = src/GrowlNotifier.h; sourceTree = "<group>"; };
@@ -323,6 +327,10 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Breakaway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakaway.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		945D335019F7728B00333D06 /* NewAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewAppController.h; path = src/NewAppController.h; sourceTree = "<group>"; };
+		945D335119F7728B00333D06 /* NewAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewAppController.m; path = src/NewAppController.m; sourceTree = "<group>"; };
+		945D33AF19F7742300333D06 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = src/AppController.h; sourceTree = "<group>"; };
+		945D33B019F7742300333D06 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = src/AppController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,8 +388,12 @@
 				0A656A8C13EB83C7003922CC /* SharedBreakaway.h */,
 				0A656A8D13EB83C7003922CC /* SharedBreakaway.m */,
 				0A4D7FE310FE728700850E00 /* Private Sparkle Headers */,
-				0A061D7810F8580B00E88056 /* AppController.h */,
-				0A061D7910F8580B00E88056 /* AppController.m */,
+				945D33AF19F7742300333D06 /* AppController.h */,
+				945D33B019F7742300333D06 /* AppController.m */,
+				0A061D7810F8580B00E88056 /* LegacyAppController.h */,
+				0A061D7910F8580B00E88056 /* LegacyAppController.m */,
+				945D335019F7728B00333D06 /* NewAppController.h */,
+				945D335119F7728B00333D06 /* NewAppController.m */,
 				0A061D7410F8580B00E88056 /* AIPluginSelector.h */,
 				0A061D7510F8580B00E88056 /* AIPluginSelector.m */,
 				0A061D7E10F8580B00E88056 /* GrowlNotifier.h */,
@@ -764,7 +776,7 @@
 				0A3513EA13EB8B9100BBB162 /* DebugUtils.h in Headers */,
 				0A3513EB13EB8B9100BBB162 /* iTunesBridge.h in Headers */,
 				0A3513EC13EB8B9100BBB162 /* defines.h in Headers */,
-				0A3513ED13EB8B9100BBB162 /* AppController.h in Headers */,
+				0A3513ED13EB8B9100BBB162 /* LegacyAppController.h in Headers */,
 				0A3513DF13EB89BB00BBB162 /* AIDropWell.h in Headers */,
 				0A3513D913EB88A300BBB162 /* AITriggerMasks.h in Headers */,
 				0A3513DE13EB88D900BBB162 /* SharedBreakaway.h in Headers */,
@@ -807,11 +819,13 @@
 			files = (
 				0A061BCE10F7CCD900E88056 /* iTunesBridge.h in Headers */,
 				0A061D6610F855DC00E88056 /* defines.h in Headers */,
+				945D33B119F7742300333D06 /* AppController.h in Headers */,
 				0A061D8D10F8580B00E88056 /* AIPluginProtocol.h in Headers */,
 				0A061D8E10F8580B00E88056 /* AIPluginSelector.h in Headers */,
-				0A061D9210F8580B00E88056 /* AppController.h in Headers */,
+				0A061D9210F8580B00E88056 /* LegacyAppController.h in Headers */,
 				0A35142313EB8D8B00BBB162 /* SharedBreakaway.h in Headers */,
 				0A061D9410F8580B00E88056 /* Breakaway_Prefix.pch in Headers */,
+				945D335219F7728B00333D06 /* NewAppController.h in Headers */,
 				0A061D9810F8580B00E88056 /* GrowlNotifier.h in Headers */,
 				0A061D9C10F8580B00E88056 /* PreferenceHandler.h in Headers */,
 				0A35142713EB8DCE00BBB162 /* AIPluginController.h in Headers */,
@@ -1069,11 +1083,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A061D8F10F8580B00E88056 /* AIPluginSelector.m in Sources */,
-				0A061D9310F8580B00E88056 /* AppController.m in Sources */,
+				0A061D9310F8580B00E88056 /* LegacyAppController.m in Sources */,
 				0A061D9710F8580B00E88056 /* defines.m in Sources */,
 				0A061D9D10F8580B00E88056 /* PreferenceHandler.m in Sources */,
 				0A35142913EB8DE000BBB162 /* AIPluginController.m in Sources */,
+				945D335319F7728B00333D06 /* NewAppController.m in Sources */,
 				0A061D9910F8580B00E88056 /* GrowlNotifier.m in Sources */,
+				945D33B219F7742300333D06 /* AppController.m in Sources */,
 				0A35142813EB8DDE00BBB162 /* AIToolbarItem.m in Sources */,
 				0A061D9B10F8580B00E88056 /* main.m in Sources */,
 				0A35142413EB8D9C00BBB162 /* SharedBreakaway.m in Sources */,

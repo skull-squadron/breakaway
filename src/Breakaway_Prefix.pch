@@ -23,5 +23,6 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
     #import "AppController.h"
+    #import "NewAppController.h"
     #import "SharedBreakaway.h"
 #endif
