@@ -136,5 +136,8 @@ Kevin Nygaard | March 2010
 	 [FIX] Lots of optimizations
 
 2.0.1: [FIX] Preferences accessible through icon double-click
+
+2.1.0: [NEW] Update for Yosemite
+       [BUG] Enable isn't currently respected
 	 
 ===========================================================================
