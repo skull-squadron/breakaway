@@ -209,6 +209,7 @@
         for (NSImage *img in _images) {
             if (!img) continue; // if we don't have an image to work with, don't fret
             [img setSize:NSMakeSize(15,15)];
+            [img setTemplate:YES];
         }
     }
     return _images;
