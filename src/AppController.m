@@ -74,25 +74,15 @@
         id newSelf = (self.class.shouldRegisterNewAPI)
                 ? [[NewAppController alloc] init]
                 : [[LegacyAppController alloc] init];
-        [self release];
-        self = newSelf;
-        NSLog(@"app ctrlr: %@", self);
+        [self release]; // release myself (instead of abstract AppController)
+        self = newSelf; // replace myself with a concrete subclass
+        DEBUG_OUTPUT1(@"app ctrlr: %@", self);
         setSharedBreakaway(self);
     }
     
     return self;
 }
-/*
-+(BOOL)darkMenuStyle
-{
-    Class nsAppearanceClass = NSClassFromString(@"NSAppearance");
-    if ([nsAppearanceClass respondsToSelector:@selector(appearanceNamed:)])
-    {
-        [nsAppearanceClass appearanceNamed:NSAppearanceNameVibrantDark];
-        return [[self effectiveAppearance] isEqual:darkAppearance];
-    }
-}
-*/
+
 - (void)awakeFromNib
 {
     // Sync UI from preferences
@@ -181,7 +171,7 @@
     if (!_images) {
         // Access these images using the enums
         // Therefore, order is important. Do not change
-        _images = [[NSArray arrayWithObjects:
+        _images = [@[
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"plugged" ofType:@"tiff"]] autorelease],
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu1" ofType:@"tiff"]] autorelease],
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pu2" ofType:@"tiff"]] autorelease],
@@ -203,7 +193,7 @@
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd4" ofType:@"tiff"]] autorelease],
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd5" ofType:@"tiff"]] autorelease],
                     [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"pd6" ofType:@"tiff"]] autorelease],
-                    nil] retain];
+                    ] retain];
         
         // get the images for the status item set up
         for (NSImage *img in _images) {
@@ -243,8 +233,7 @@
         [self updateStatusItem];
     } else {
         // Release our status item
-        if (_statusItem)
-        {
+        if (_statusItem) {
             [[NSStatusBar systemStatusBar] removeStatusItem:_statusItem];
             [_statusItem release];
             _statusItem = nil;

@@ -1,7 +1,7 @@
-                      Breakaway 1.8 -- General Information
-March 2010
+                      Breakaway 2.1 -- General Information
+October 2014
 
-Breakaway 1.8 is an application that allows you to automatically play/pause
+Breakaway 2.1 is an application that allows you to automatically play/pause
 iTunes by using the headphone jack and/or the mute button. It is similar to the
 built-in functionality offered by an iPod.
 
@@ -130,11 +130,17 @@ Can I help with programming or localizing?
     Sure, I would love the extra help. Just send me an email and we can discuss
     it.
 
-Do you accept donations?
+Do you (Kevin) accept donations?
     Graciously.
                              - - - - - - - - - - -
 
-                                    Contact
+                               Support Contact
+
+               https://github.com/steakknife/breakaway/issues
+
+                             - - - - - - - - - - -
+
+                   Original Author (don't contact for support)
 
 Name: Kevin Nygaard
 Email: admin@mutablecode.com
