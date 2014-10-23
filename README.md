@@ -131,9 +131,12 @@ This information is more useful for debugging and seeing if Breakaway is correct
 
 [https://github.com/steakknife/breakaway/issues](https://github.com/steakknife/breakaway/issues)
 
-### Author of this fork
+### Authors of this fork
 
-#### Original Author (don't contact for support)
+- [Barry Allard](mailto:"Barry Allard" <barry.allard@gmail.com>)
+- Your name here
+
+### Original Author (don't contact for support)
 
 [Kevin Nygaard](mailto:"Kevin Nygaard" <admin@mutablecode.com>)
 
