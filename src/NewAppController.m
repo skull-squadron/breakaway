@@ -49,6 +49,9 @@ static BOOL newAPIJackConnected = NO;
         return;
     }
     DEBUG_OUTPUT(@"registerNewAPI: registering...");
+    
+    
+    // Get the built-in output device
     AudioDeviceID defaultDevice = 0;
     UInt32 defaultSize = sizeof(AudioDeviceID);
 
@@ -60,11 +63,13 @@ static BOOL newAPIJackConnected = NO;
 
     AudioObjectGetPropertyData(kAudioObjectSystemObject, &defaultAddr, 0, NULL, &defaultSize, &defaultDevice);
 
+    // Read its current data source
     AudioObjectPropertyAddress sourceAddr;
     sourceAddr.mSelector = kAudioDevicePropertyDataSource;
     sourceAddr.mScope = kAudioDevicePropertyScopeOutput;
     sourceAddr.mElement = kAudioObjectPropertyElementMaster;
 
+    // Observe for changes to the data source
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     AudioObjectAddPropertyListenerBlock(defaultDevice,
                                         &sourceAddr,
@@ -81,7 +86,7 @@ static BOOL newAPIJackConnected = NO;
             muteStatusNew(defaultDevice, &muteOn);
             kTriggerMask triggerMask = 0;
         
-            if (bDataSourceId == 'ispk') {
+            if (bDataSourceId == 'ispk') { // headphones removed
                 DEBUG_OUTPUT1(@"New API: Headphones removed",nil);
                 newAPIJackConnected = NO;
                 
@@ -91,7 +96,7 @@ static BOOL newAPIJackConnected = NO;
                 triggerMask |= (muteOn) ? kTriggerMute : 0;
                 triggerMask |= kTriggerJackStatus;
                 [[self pluginController] executeTriggers:triggerMask];
-            } else if (bDataSourceId == 'hdpn') {
+            } else if (bDataSourceId == 'hdpn') { // headphones connected
                 DEBUG_OUTPUT1(@"New API: Headphones connected",nil);
                 newAPIJackConnected = YES;
                 
@@ -251,31 +256,34 @@ bool jackConnectedNew(void)
     DEBUG_OUTPUT1(@"Legacy jackConnected = %d", result);
     return result;
 }
+
 /*
-Float32
-systemVolumeLevel(AudioDeviceID inDevice)
-{
-    // Getting the volume | this solves the problem coming out of mute, or when the user does some freaky stuff with the mute button
-    Float32 volLevel = 0.0;
-    UInt32 volLevelSize = sizeof(volLevel);
-    OSStatus err = AudioDeviceGetProperty(inDevice,
-                                          1,
-                                          0,
-                                          kAudioDevicePropertyVolumeScalar,
-                                          &volLevelSize,
-                                          &volLevel);
-    if (err != noErr) {
-        DEBUG_OUTPUT(@"ERROR: Volume property fetch bad");
-        return volLevel;
+Float32 systemVolumeLevelNew(AudioDeviceID inDevice, bool inIsInput, UInt32 inChannel) {
+    Float32 theAnswer = 0;
+    UInt32 theSize = sizeof(Float32);
+    AudioObjectPropertyScope theScope = inIsInput ? kAudioDevicePropertyScopeInput :
+    kAudioDevicePropertyScopeOutput;
+    AudioObjectPropertyAddress theAddress = { kAudioDevicePropertyVolumeScalar,
+        theScope,
+        inChannel };
+    
+    OSStatus theError = AudioObjectGetPropertyData(inDevice,
+                                                   &theAddress,
+                                                   0,
+                                                   NULL,
+                                                   &theSize,
+                                                   &theAnswer);
+    if (theError) {
+        // handle error
     }
-	DEBUG_OUTPUT1(@"Volume Level: %f", volLevel);
-    return volLevel;
+    
+    return theAnswer;
 }
 */
 
 bool muteStatusNew(AudioDeviceID inDevice, UInt32 *muteOn)
 {
-    // Getting the mute button status 
+    // Getting the mute button status
     UInt32 muteOnSize = sizeof(*muteOn);
     OSStatus err = AudioDeviceGetProperty(inDevice,
                                           (int)multichanMute,

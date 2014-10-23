@@ -82,7 +82,17 @@
     
     return self;
 }
-
+/*
++(BOOL)darkMenuStyle
+{
+    Class nsAppearanceClass = NSClassFromString(@"NSAppearance");
+    if ([nsAppearanceClass respondsToSelector:@selector(appearanceNamed:)])
+    {
+        [nsAppearanceClass appearanceNamed:NSAppearanceNameVibrantDark];
+        return [[self effectiveAppearance] isEqual:darkAppearance];
+    }
+}
+*/
 - (void)awakeFromNib
 {
     // Sync UI from preferences
@@ -219,6 +229,7 @@
         // Status bar stuff
         if (_statusItem) {
             [_statusItem release];
+            _statusItem = nil;
         }
         _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
         [_statusItem retain];
@@ -235,9 +246,13 @@
         {
             [[NSStatusBar systemStatusBar] removeStatusItem:_statusItem];
             [_statusItem release];
+            _statusItem = nil;
         }
 
-        if (_images) [_images release];
+        if (_images) {
+            [_images release];
+            _images  = nil;
+        }
     }
 }
 
