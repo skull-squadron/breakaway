@@ -31,7 +31,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<false/>
 	<key>SUFeedURL</key>
-	<string>http://mutablecode.com/sparkleData/profileInfo.php</string>
+	<string>https://mutablecode.com/sparkleData/profileInfo.php</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 </dict>
